@@ -1,0 +1,14 @@
+openai
+fastapi
+uvicorn
+python-dotenv
+pydantic
+sqlalchemy 
+pyodbc 
+alembic 
+chromadb 
+langchain 
+langchain-community 
+langchain-openai 
+tiktoken
+
