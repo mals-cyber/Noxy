@@ -23,7 +23,7 @@ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Strong_Password123!" -p 1433:1433 
 python -m venv venv
 
 # Activate environment (Windows)
-./venv/Scripts/activate
+.\venv\Scripts\activate
 ```
 ### 2. Install Dependencies
 ```bash
@@ -93,6 +93,21 @@ python -m uvicorn Services.main:app --reload
 |--------|-----|-------------|
 | POST | /chat | Send a message to Noxy (conversation is saved) |
 | GET | /history/{username} | Retrieve full conversation history |
+
+
+## Technologies Used
+- **Python 3.10+** – Main language for backend logic  
+- **FastAPI** – API framework for handling chat requests and routing  
+- **Uvicorn** – ASGI server running the FastAPI application  
+- **SQL Server** – Stores users, chats, and history  
+- **SQLAlchemy** – ORM used for database models and queries  
+- **Alembic** – Handles database schema migrations  
+- **Docker** – Runs SQL Server and keeps environments consistent  
+- **Azure OpenAI** – Generates chat responses using deployed models  
+- **python-dotenv** – Loads `.env` credentials securely
+- **LangChain** – Framework used to connect LLMs, tools, and retrieval pipelines
+- **ChromaDB (Vector Database)** – Used for semantic search and document embeddings (in progress)
+- **LangGraph** – Enables structured AI workflows and controlled multi-step reasoning (in progress)
 
 
 
