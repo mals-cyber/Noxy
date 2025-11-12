@@ -94,6 +94,8 @@ python -m uvicorn Services.main:app --reload
 | POST | /chat | Send a message to Noxy (conversation is saved) |
 | GET | /history/{username} | Retrieve full conversation history |
 
+**For detailed endpoint documentation, see [API_ENDPOINTS.md](./Documentation/API_ENDPOINTS.md)**
+
 
 ## Technologies Used
 - **Python 3.10+** – Main language for backend logic  
