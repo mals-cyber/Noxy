@@ -8,7 +8,6 @@ pyodbc
 alembic 
 chromadb 
 langchain 
-langchain-community 
-langchain-openai 
-tiktoken
+langchain-huggingface
+pymupdf
 

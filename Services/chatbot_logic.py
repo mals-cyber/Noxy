@@ -1,5 +1,7 @@
+from Services.vector_store import search_vectors
 from openai import AzureOpenAI
 from .config import AZURE_API_KEY, AZURE_ENDPOINT, AZURE_DEPLOYMENT_NAME
+import os
 
 client = AzureOpenAI(
     api_key=AZURE_API_KEY,
@@ -7,36 +9,36 @@ client = AzureOpenAI(
     azure_endpoint=AZURE_ENDPOINT
 )
 
-def find_relevant_entries(user_input: str, kb_items: list):
-    relevant_texts = []
-    for item in kb_items:
-        title = item.get("title", "")
-        content = item.get("content", "")
-        text_to_search = f"{title} {content}"
+PDF_FOLDER = "MockData"
 
-        if any(word.lower() in text_to_search.lower() for word in user_input.split()):
-            relevant_texts.append(text_to_search)
-    return relevant_texts
+def chat_with_azure(user_input: str, conversation: list):
+    vector_hits = search_vectors(user_input)
 
+    matched_file = None
+    for file in os.listdir(PDF_FOLDER):
+        if file.lower().endswith(".pdf") and any(word in file.lower() for word in user_input.lower().split()):
+            matched_file = file
+            break
 
-def chat_with_azure(user_input: str, conversation: list, kb_items: list):
-    greetings = ["hi", "hello", "hey", "good morning", "good afternoon", "good evening"]
-    if user_input.strip().lower() in greetings:
-        reply = "Hello! I'm Noxy, your onboarding assistant. How can I help you today?"
-        conversation.append({"role": "assistant", "content": reply})
-        return reply
+    if matched_file:
+        download_link = f"http://127.0.0.1:8000/download-pdf?filename={matched_file}"
 
-    for item in kb_items:
-        for faq in item.get("faqs", []):
-            if user_input.lower() in faq["question"].lower():
-                answer = faq["answer"]
-                conversation.append({"role": "assistant", "content": answer})
-                return answer
+        conversation.append({
+            "role": "system",
+            "content": (
+                f"The user is requesting a document or form.\n"
+                f"You found a matching PDF: {matched_file}.\n"
+                f"Provide a natural response and include this download link: {download_link}.\n"
+                f"Do NOT list file paths or code. Speak like a helpful HR assistant."
+            )
+        })
 
-    relevant_info = find_relevant_entries(user_input, kb_items)
-    if relevant_info:
-        kb_text = "\n".join(relevant_info)
-        conversation.append({"role": "system", "content": f"Use this knowledge to answer: {kb_text}"})
+    if vector_hits:
+        joined_hits = "\n".join(vector_hits)
+        conversation.append({
+            "role": "system",
+            "content": f"Use this knowledge to answer:\n{joined_hits}"
+        })
 
     conversation.append({"role": "user", "content": user_input})
 
@@ -45,6 +47,6 @@ def chat_with_azure(user_input: str, conversation: list, kb_items: list):
         messages=conversation
     )
 
-    bot_reply = response.choices[0].message.content
-    conversation.append({"role": "assistant", "content": bot_reply})
-    return bot_reply
+    reply = response.choices[0].message.content
+    conversation.append({"role": "assistant", "content": reply})
+    return reply
