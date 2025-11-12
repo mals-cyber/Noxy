@@ -3,11 +3,12 @@ fastapi
 uvicorn
 python-dotenv
 pydantic
-sqlalchemy 
-pyodbc 
-alembic 
-chromadb 
-langchain 
+sqlalchemy
+pyodbc
+alembic
+chromadb
+langchain
 langchain-huggingface
 pymupdf
+python-multipart
 
