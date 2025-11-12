@@ -11,25 +11,29 @@ client = AzureOpenAI(
 
 PDF_FOLDER = "MockData"
 
+PDF_TRIGGER_WORDS = ["pdf", "form", "file", "download", "template"]
+
 def chat_with_azure(user_input: str, conversation: list):
     vector_hits = search_vectors(user_input)
 
+    user_asked_for_pdf = any(word in user_input.lower() for word in PDF_TRIGGER_WORDS)
+
     matched_file = None
-    for file in os.listdir(PDF_FOLDER):
-        if file.lower().endswith(".pdf") and any(word in file.lower() for word in user_input.lower().split()):
-            matched_file = file
-            break
+    if user_asked_for_pdf:
+        for file in os.listdir(PDF_FOLDER):
+            if file.lower().endswith(".pdf") and any(word in file.lower() for word in user_input.lower().split()):
+                matched_file = file
+                break
 
     if matched_file:
         download_link = f"http://127.0.0.1:8000/download-pdf?filename={matched_file}"
-
         conversation.append({
             "role": "system",
             "content": (
-                f"The user is requesting a document or form.\n"
-                f"You found a matching PDF: {matched_file}.\n"
-                f"Provide a natural response and include this download link: {download_link}.\n"
-                f"Do NOT list file paths or code. Speak like a helpful HR assistant."
+                f"The user is specifically requesting a PDF or form.\n"
+                f"You found {matched_file}. Give a natural response and include this link:\n"
+                f"{download_link}\n"
+                f"Do NOT mention file paths or programming; speak like HR."
             )
         })
 

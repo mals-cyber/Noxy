@@ -9,6 +9,8 @@ alembic
 chromadb
 langchain
 langchain-huggingface
+langchain-text-splitters
+langchain-chroma
 pymupdf
 python-multipart
 

@@ -82,6 +82,7 @@ def chat_endpoint(request: ChatRequest, db: Session = Depends(get_db)):
     conversation_history = [
        {"role": "system", "content":
         "Your name is Noxy, an AI chatbot designed to assist new employees with onboarding. "
+         "Do not state your name unless asked. "
         "Guide the user in a friendly, professional manner. Answer in maximum two sentences."
         "Never say you lack information, never mention a database, and never say 'I don't know'."
         }]
