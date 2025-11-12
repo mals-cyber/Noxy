@@ -1,0 +1,400 @@
+{
+  "knowledgeBase": {
+    "metadata": {
+      "company": "N-PAX",
+      "version": "1.0",
+      "lastUpdated": "2025-11-11",
+      "purpose": "NOX Onboarding Chatbot Knowledge Base"
+    },
+    "categories": [
+      {
+        "categoryId": "company_overview",
+        "categoryName": "Company Overview & History",
+        "entries": [
+          {
+            "id": "CO001",
+            "question": "What is N-PAX?",
+            "answer": "N-PAX is a leading provider of software development services and IT solutions for businesses of all sizes. Founded in 2002, the company started its operations in Cebu, Philippines, and has grown to serve both local and international clients. N-PAX specializes in providing end-to-end business IT solutions that help organizations reach their next milestones.",
+            "keywords": ["company", "about", "N-PAX", "overview", "introduction"],
+            "department": "General"
+          },
+          {
+            "id": "CO002",
+            "question": "When was N-PAX founded?",
+            "answer": "N-PAX was established in 2002 and started its very first software development center in Cebu, Philippines. The company began by serving local companies and eventually expanded to partner with international companies to provide outsourced software development services.",
+            "keywords": ["founded", "established", "history", "year", "2002"],
+            "department": "General"
+          },
+          {
+            "id": "CO003",
+            "question": "Where are N-PAX offices located?",
+            "answer": "N-PAX has two main office locations in the Philippines: (1) Cebu Office: Hernan Cortes, Mandaue City, Cebu; (2) Manila Office: 17th Floor, Unit 1702, One Global Place, 5th Avenue corner 25th Street, Bonifacio Global City, Taguig City. The company also has N-PAX Systems and Consulting, Inc., which focuses on IT services for the North American market.",
+            "keywords": ["office", "location", "address", "Cebu", "Manila", "BGC", "Taguig", "Mandaue"],
+            "department": "General"
+          },
+          {
+            "id": "CO004",
+            "question": "How many employees does N-PAX have?",
+            "answer": "N-PAX boasts a talented team of over 310 IT professionals across its two main locations in Bonifacio Global City, Taguig City and Mandaue, Cebu City. The Ng Khai group of companies, which N-PAX is part of, employs over 700 associates across all ventures.",
+            "keywords": ["employees", "team size", "workforce", "staff", "headcount"],
+            "department": "HR"
+          },
+          {
+            "id": "CO005",
+            "question": "What is N-PAX's mission and vision?",
+            "answer": "N-PAX's mission is to provide Amazing Solutions through Great People. The company is committed to building long-term trust, accelerating business growth, and delivering tangible results. Through cutting-edge IT solutions, a customer-first mindset, and superior service quality, N-PAX empowers businesses to achieve long-term success in the digital age.",
+            "keywords": ["mission", "vision", "values", "goals", "purpose"],
+            "department": "General"
+          },
+          {
+            "id": "CO006",
+            "question": "Who are the founders and key leaders of N-PAX?",
+            "answer": "N-PAX was co-founded by Wilson Ng and Takahiro Toda. Wilson Ng, who graduated Cum Laude from the University of the Philippines with a Bachelor of Business Management in 1986, is an Ernst and Young Entrepreneur of the Year awardee (2004) and was a Microsoft Most Valuable Professional from 2003 to 2009. Takahiro Toda, who started his IT business at age 18 in Japan, established N-PAX in the Philippines at age 25 and currently leads Research and Development. Jimmy Flores serves as Executive Vice President and heads the ERP Division, having joined in 2006.",
+            "keywords": ["founders", "leaders", "management", "executives", "CEO", "Wilson Ng", "Takahiro Toda"],
+            "department": "General"
+          }
+        ]
+      },
+      {
+        "categoryId": "products_services",
+        "categoryName": "Products & Services",
+        "entries": [
+          {
+            "id": "PS001",
+            "question": "What products and services does N-PAX offer?",
+            "answer": "N-PAX offers a comprehensive range of IT solutions including: (1) Proprietary Software Products: Human Resource Companion (HRC) HRIS and Payroll System, and N-XPERT Enterprise Resource Planning (ERP) Software; (2) IT Services: Software Development Services, Software Quality Assurance, Advanced Analytics, Managed IT Services, Business Intelligence, Data Dashboarding, System Integration, and IT Maintenance; (3) Specialized Solutions: Finance and Accounting Systems (including mcframe GA), Onboarding Systems, Benefits Administration, and Compliance Tracking.",
+            "keywords": ["products", "services", "offerings", "solutions", "what we do"],
+            "department": "Sales"
+          },
+          {
+            "id": "PS002",
+            "question": "What is Human Resource Companion (HRC)?",
+            "answer": "Human Resource Companion (HRC) is N-PAX's flagship HRIS and Payroll System, launched in 2005. It's an advanced solution designed specifically for large corporations in the Philippines. The system streamlines HR and payroll processes, integrates with any accounting system (including N-PAX's own mcframe GA), and includes additional modules for onboarding, benefits administration, and compliance tracking to ensure adherence to Philippine Labor Laws. It offers unlimited users, supports up to 50 job titles, 20 shifts, 50 holidays, 10 workgroups, and can track from 100 locations at a competitive price of P75 (with timekeeping device also available).",
+            "keywords": ["HRC", "HRIS", "payroll", "human resource companion", "HR system"],
+            "department": "Products"
+          },
+          {
+            "id": "PS003",
+            "question": "What is N-XPERT ERP?",
+            "answer": "N-XPERT is N-PAX's Enterprise Resource Planning (ERP) Software, also launched in 2005. It's designed to help businesses streamline their operations across various departments. The system has undergone continuous enhancements and remains one of N-PAX's flagship solutions, widely adopted across industries. The ERP Division is currently headed by Executive Vice President Jimmy Flores, who leads product engineering, design, sales, and marketing initiatives.",
+            "keywords": ["N-XPERT", "ERP", "enterprise resource planning", "business management"],
+            "department": "Products"
+          },
+          {
+            "id": "PS004",
+            "question": "What industries does N-PAX serve?",
+            "answer": "N-PAX serves a diverse range of sectors including: Manufacturing, Logistics, Government agencies, Retail and Service industries, Corporate and public sector companies, and both local and international businesses. The company's solutions are designed to support businesses of all sizes, from small enterprises to large corporations.",
+            "keywords": ["industries", "sectors", "clients", "customers", "market"],
+            "department": "Sales"
+          },
+          {
+            "id": "PS005",
+            "question": "What technologies does N-PAX use?",
+            "answer": "N-PAX primarily uses Microsoft Technologies for its software development. The company has modernized and upgraded its HR/Payroll and Financial Systems to Microsoft Technology. For specific projects, N-PAX leverages various cutting-edge technologies and maintains a strong focus on innovation through its Research and Development initiatives.",
+            "keywords": ["technology", "tech stack", "Microsoft", "technologies", "development"],
+            "department": "IT"
+          }
+        ]
+      },
+      {
+        "categoryId": "hr_policies",
+        "categoryName": "HR Policies & Employee Information",
+        "entries": [
+          {
+            "id": "HR001",
+            "question": "What are N-PAX's working hours?",
+            "answer": "N-PAX offers flexible working arrangements depending on the department and role. The company provides fixed weekends off, and all holidays are observed as off days (but paid). During the pandemic, N-PAX successfully transitioned to work-from-home arrangements and continues to support remote work options. Specific shift schedules may vary by department and project requirements.",
+            "keywords": ["working hours", "schedule", "shifts", "work time", "office hours"],
+            "department": "HR"
+          },
+          {
+            "id": "HR002",
+            "question": "What benefits does N-PAX offer?",
+            "answer": "N-PAX provides a comprehensive benefits package including: (1) Health Maintenance Organization (HMO) coverage from day one of employment; (2) Fixed weekends off; (3) All holidays off (but paid); (4) Competitive salary packages; (5) Work-from-home options; (6) Training and development opportunities; (7) Travel opportunities (both local and international) for certain roles to visit company clients and conduct training; (8) Work-life balance initiatives. The company maintains a high percentage of employee satisfaction through its attractive benefits scheme.",
+            "keywords": ["benefits", "compensation", "perks", "HMO", "health insurance", "salary"],
+            "department": "HR"
+          },
+          {
+            "id": "HR003",
+            "question": "Does N-PAX provide training for new employees?",
+            "answer": "Yes, N-PAX provides training for new employees. The company is particularly recognized as a good training ground for fresh graduates as they utilize new and modern technologies. N-PAX values continuous learning and development, though employees have noted that training programs could be enhanced further. The company also provides opportunities for employees to attend client sites for training delivery.",
+            "keywords": ["training", "onboarding", "learning", "development", "new hire"],
+            "department": "HR"
+          },
+          {
+            "id": "HR004",
+            "question": "What is N-PAX's company culture like?",
+            "answer": "N-PAX's company culture emphasizes 'One Team, with many Talents.' The company values the contribution of each individual regardless of their role, believing that everyone provides value to the company's success and growth. N-PAX embraces communication and emphasizes employee work-life balance. The company culture has resulted in low levels of attrition. Employees describe the work environment as generally positive, with opportunities for professional growth, though like any organization, there are areas for continuous improvement.",
+            "keywords": ["culture", "work environment", "values", "workplace", "atmosphere"],
+            "department": "HR"
+          },
+          {
+            "id": "HR005",
+            "question": "What career opportunities are available at N-PAX?",
+            "answer": "N-PAX regularly hires for various positions including: (1) Software Development roles: Web Front-End Developers, Software Developers, Software Engineers; (2) Quality Assurance roles: QA Engineers, Testers; (3) Business roles: Accounting System Consultants, Business Analysts; (4) Specialized roles: Data Scientists, DevOps Engineers, IT Support. The company welcomes fresh graduates for many positions, particularly those with degrees in Information Technology, Computer Science, Accountancy, Management Accounting, or related courses. N-PAX values both experienced professionals and entry-level talent.",
+            "keywords": ["careers", "jobs", "hiring", "positions", "opportunities", "openings"],
+            "department": "HR"
+          },
+          {
+            "id": "HR006",
+            "question": "How do I apply for a position at N-PAX?",
+            "answer": "To apply for a position at N-PAX, you can: (1) Send your CV via email to the hiring managers (emails are typically provided in job postings, such as grponce@n-pax.com or gspena@n-pax.com); (2) Use the email subject format: 'Position - Last Name, First Name'; (3) Check N-PAX's LinkedIn pages (N-PAX Solutions, N-PAX Group, N-PAX Cebu Corporation) for current job openings; (4) Visit the N-PAX website at www.n-pax.com for more information; (5) Connect through job portals like JobStreet where N-PAX posts openings.",
+            "keywords": ["apply", "application", "job application", "hiring process", "recruitment"],
+            "department": "HR"
+          },
+          {
+            "id": "HR007",
+            "question": "What is N-PAX's leave policy?",
+            "answer": "N-PAX provides competitive leave benefits in compliance with Philippine Labor Laws. All regular holidays are observed as off days and are paid. The company respects work-life balance and provides weekends off consistently. Specific details about vacation leave, sick leave, and other leave types are provided during the onboarding process and are outlined in the employee handbook.",
+            "keywords": ["leave", "vacation", "time off", "sick leave", "holidays", "PTO"],
+            "department": "HR"
+          },
+          {
+            "id": "HR008",
+            "question": "How does N-PAX handle salary increases and performance reviews?",
+            "answer": "N-PAX conducts performance evaluations periodically. While yearly increases are considered based on performance and company performance, employees should note that increases are not automatically guaranteed and depend on various factors including individual performance, market conditions, and company results. The company strives to provide competitive compensation packages to retain talent. Specific performance review cycles and increment policies are discussed during onboarding.",
+            "keywords": ["salary increase", "performance review", "appraisal", "evaluation", "raise", "promotion"],
+            "department": "HR"
+          }
+        ]
+      },
+      {
+        "categoryId": "it_department",
+        "categoryName": "IT Department FAQs",
+        "entries": [
+          {
+            "id": "IT001",
+            "question": "What does the IT Department do at N-PAX?",
+            "answer": "The IT Department at N-PAX is responsible for: (1) Software development and engineering for client projects and internal products; (2) System maintenance and IT infrastructure management; (3) Quality assurance and testing; (4) Research and development of new technologies; (5) Technical support for N-PAX products (HRC and N-XPERT); (6) System implementation and client training; (7) Managing development tools, environments, and version control systems.",
+            "keywords": ["IT department", "IT team", "technology", "development"],
+            "department": "IT"
+          },
+          {
+            "id": "IT002",
+            "question": "What tools and technologies should I be familiar with as a new IT employee?",
+            "answer": "New IT employees at N-PAX should be familiar with or prepared to learn: (1) Microsoft Technologies (primary tech stack); (2) .NET Framework and ASP.NET; (3) Web development technologies (HTML, CSS, JavaScript); (4) Database systems (SQL Server); (5) Version control systems (Git); (6) Project management and collaboration tools; (7) Cloud platforms (particularly Azure for some projects); (8) Agile development methodologies. Training will be provided for company-specific tools and processes.",
+            "keywords": ["tools", "technologies", "software", "IT tools", "tech stack"],
+            "department": "IT"
+          },
+          {
+            "id": "IT003",
+            "question": "What is the software development process at N-PAX?",
+            "answer": "N-PAX follows an established software development lifecycle that includes: (1) Planning and requirements gathering; (2) Design and architecture; (3) Development and coding; (4) Quality assurance and testing; (5) Implementation and deployment; (6) Maintenance and support. The company has established an integrated service framework covering all these phases to deliver consistent value to clients. Specific methodologies may vary by project but generally follow industry best practices.",
+            "keywords": ["SDLC", "development process", "software development", "methodology", "workflow"],
+            "department": "IT"
+          },
+          {
+            "id": "IT004",
+            "question": "How do I report IT issues or get technical support?",
+            "answer": "For IT issues or technical support: (1) Contact your immediate supervisor or team lead for project-related issues; (2) Reach out to the IT support team for infrastructure, network, or equipment issues; (3) Use internal ticketing systems if available; (4) For urgent issues, escalate through proper channels as outlined during onboarding; (5) Document issues clearly with steps to reproduce for faster resolution.",
+            "keywords": ["IT support", "technical support", "help desk", "IT issues", "troubleshooting"],
+            "department": "IT"
+          },
+          {
+            "id": "IT005",
+            "question": "What are the cybersecurity policies I need to follow?",
+            "answer": "All N-PAX employees must adhere to cybersecurity best practices: (1) Use strong, unique passwords and change them regularly; (2) Never share login credentials; (3) Enable two-factor authentication where available; (4) Keep software and systems updated; (5) Be vigilant about phishing attempts and suspicious emails; (6) Protect client data and proprietary information; (7) Use company-approved tools and software only; (8) Report security incidents immediately; (9) Follow data privacy regulations and company policies regarding client and employee data.",
+            "keywords": ["security", "cybersecurity", "data protection", "passwords", "IT security"],
+            "department": "IT"
+          }
+        ]
+      },
+      {
+        "categoryId": "finance_accounting",
+        "categoryName": "Finance & Accounting Department FAQs",
+        "entries": [
+          {
+            "id": "FA001",
+            "question": "How do I submit expense reports?",
+            "answer": "For expense reimbursement: (1) Keep all receipts for business-related expenses; (2) Submit expense reports through the designated system or form (details provided during onboarding); (3) Ensure proper documentation and approvals are obtained; (4) Follow company policies on eligible expenses; (5) Submit reports within the specified timeframe; (6) Contact the Finance Department for clarification on expense policies.",
+            "keywords": ["expenses", "reimbursement", "expense report", "receipts", "claims"],
+            "department": "Finance"
+          },
+          {
+            "id": "FA002",
+            "question": "When is payday and how do I receive my salary?",
+            "answer": "Specific payday schedules and payment methods are provided during onboarding and outlined in your employment contract. N-PAX uses its own Human Resource Companion (HRC) system for payroll processing. Salaries are typically deposited directly to employee bank accounts. For questions about your payroll, tax deductions, or payment issues, contact the HR or Finance Department.",
+            "keywords": ["payday", "salary", "payroll", "payment", "compensation"],
+            "department": "Finance"
+          },
+          {
+            "id": "FA003",
+            "question": "How do I update my tax information and banking details?",
+            "answer": "To update tax or banking information: (1) Submit updated information to the HR Department; (2) Provide necessary documentation (e.g., new bank account details, TIN information); (3) Ensure changes are submitted before the payroll cutoff; (4) Verify changes have been processed in the system; (5) Contact HR or Finance if you have questions about tax withholding or bank account updates.",
+            "keywords": ["tax", "TIN", "banking", "bank account", "tax information", "BIR"],
+            "department": "Finance"
+          },
+          {
+            "id": "FA004",
+            "question": "What accounting systems does N-PAX use?",
+            "answer": "N-PAX uses its own proprietary accounting system called mcframe GA for internal financial management. The company's N-XPERT ERP system also includes comprehensive finance and accounting modules. These systems handle general ledger, accounts payable, accounts receivable, financial reporting, and integration with the HRC payroll system. Accounting staff receive training on these systems during onboarding.",
+            "keywords": ["accounting system", "mcframe", "ERP", "financial system", "accounting software"],
+            "department": "Finance"
+          }
+        ]
+      },
+      {
+        "categoryId": "facilities_admin",
+        "categoryName": "Facilities & Administrative FAQs",
+        "entries": [
+          {
+            "id": "FAC001",
+            "question": "What are the office facilities and amenities?",
+            "answer": "N-PAX offices provide: (1) Modern workstations and equipment; (2) Meeting rooms and collaboration spaces; (3) Reliable internet connectivity; (4) Common areas for breaks; (5) Security and access control systems. Specific amenities may vary between the Cebu and Manila offices. For facility requests or issues, contact the Administrative team.",
+            "keywords": ["facilities", "office", "amenities", "workspace", "equipment"],
+            "department": "Admin"
+          },
+          {
+            "id": "FAC002",
+            "question": "What is the dress code at N-PAX?",
+            "answer": "N-PAX maintains a professional yet comfortable dress code. Specific requirements are provided during onboarding and may vary by department. Generally, business casual attire is appropriate. For client-facing roles or important meetings, more formal business attire may be required. Fridays may have more relaxed dress code policies. Always maintain a neat and professional appearance.",
+            "keywords": ["dress code", "attire", "clothing", "what to wear", "uniform"],
+            "department": "Admin"
+          },
+          {
+            "id": "FAC003",
+            "question": "How do I request office supplies or equipment?",
+            "answer": "To request office supplies or equipment: (1) Submit requests through your supervisor or department head; (2) For IT equipment, coordinate with the IT Department; (3) For general office supplies, contact the Administrative team; (4) Ensure requests are justified and aligned with company policies; (5) Follow the procurement process outlined during onboarding.",
+            "keywords": ["office supplies", "equipment", "procurement", "requisition", "supplies"],
+            "department": "Admin"
+          },
+          {
+            "id": "FAC004",
+            "question": "What are the building access and security procedures?",
+            "answer": "Security procedures include: (1) Use of employee ID cards for building access; (2) Sign in/out procedures where applicable; (3) Visitor management protocols; (4) Restricted access to certain areas based on role; (5) Emergency evacuation procedures; (6) Reporting lost ID cards immediately. Specific procedures for each office location are covered during onboarding.",
+            "keywords": ["security", "access", "ID card", "building access", "safety"],
+            "department": "Admin"
+          }
+        ]
+      },
+      {
+        "categoryId": "partnerships_clients",
+        "categoryName": "Partnerships & Client Information",
+        "entries": [
+          {
+            "id": "PC001",
+            "question": "Who are N-PAX's strategic partners?",
+            "answer": "N-PAX has established strategic partnerships with major industry players: (1) Nomura Research Institute Asia Pacific (capital partnership established in 2014); (2) Business Engineering Corporation (strategic alliance formed in 2019). These partnerships have reinforced N-PAX's financial foundation and accelerated business growth. The company also maintains partnerships with various local and international clients across multiple industries.",
+            "keywords": ["partners", "partnerships", "alliances", "collaboration", "clients"],
+            "department": "Sales"
+          },
+          {
+            "id": "PC002",
+            "question": "What types of clients does N-PAX serve?",
+            "answer": "N-PAX serves a diverse client base including: (1) Large corporations requiring HRIS and ERP solutions; (2) Government agencies needing compliance and reporting systems; (3) Manufacturing companies requiring operational management systems; (4) Logistics companies needing supply chain solutions; (5) Retail and service sector businesses; (6) International companies requiring outsourced software development. The company has implementations nationwide and serves both local and international markets.",
+            "keywords": ["clients", "customers", "industries served", "market segments"],
+            "department": "Sales"
+          },
+          {
+            "id": "PC003",
+            "question": "How does N-PAX ensure client satisfaction?",
+            "answer": "N-PAX ensures client satisfaction through: (1) End-to-end service framework covering planning, development, sales, implementation, and maintenance; (2) Dedicated account management and support teams; (3) Regular system updates and enhancements; (4) Compliance with industry standards and regulations; (5) Training and documentation for client users; (6) Responsive technical support; (7) Continuous improvement based on client feedback. The company's low attrition rates and long-term client relationships demonstrate high satisfaction levels.",
+            "keywords": ["client satisfaction", "customer service", "support", "quality"],
+            "department": "Sales"
+          }
+        ]
+      },
+      {
+        "categoryId": "compliance_legal",
+        "categoryName": "Compliance & Legal Information",
+        "entries": [
+          {
+            "id": "CL001",
+            "question": "What Philippine labor laws and regulations does N-PAX comply with?",
+            "answer": "N-PAX fully complies with Philippine Labor Laws including: (1) Labor Code of the Philippines; (2) Department of Labor and Employment (DOLE) regulations; (3) Social Security System (SSS) requirements; (4) PhilHealth regulations; (5) Pag-IBIG Fund requirements; (6) Bureau of Internal Revenue (BIR) tax regulations; (7) Data Privacy Act of 2012. The company's HRC system is specifically designed to ensure compliance with these regulations.",
+            "keywords": ["labor law", "compliance", "regulations", "legal", "DOLE", "SSS", "PhilHealth"],
+            "department": "Legal"
+          },
+          {
+            "id": "CL002",
+            "question": "What government requirements do I need to submit as a new employee?",
+            "answer": "New employees must provide: (1) Valid government-issued IDs; (2) Social Security System (SSS) number and documentation; (3) PhilHealth number and documentation; (4) Pag-IBIG (HDMF) number and documentation; (5) Tax Identification Number (TIN); (6) NBI clearance or police clearance; (7) Birth certificate (certified true copy); (8) Educational documents (diploma, transcripts); (9) Previous employment records (if applicable). Specific requirements will be outlined in your onboarding checklist.",
+            "keywords": ["government requirements", "documents", "SSS", "PhilHealth", "Pag-IBIG", "TIN", "NBI"],
+            "department": "HR"
+          },
+          {
+            "id": "CL003",
+            "question": "What is N-PAX's data privacy policy?",
+            "answer": "N-PAX adheres to the Data Privacy Act of 2012 and maintains strict data protection protocols: (1) Employee personal data is collected only for legitimate purposes; (2) Data is encrypted and stored securely; (3) Access to personal information is restricted to authorized personnel; (4) Employees have the right to view, modify, or request deletion of their personal data; (5) Data breach protocols are in place; (6) Regular security audits are conducted; (7) Client data is protected with the same rigor. Any data privacy concerns should be reported immediately to HR or the Data Protection Officer.",
+            "keywords": ["data privacy", "privacy policy", "personal data", "data protection", "confidentiality"],
+            "department": "Legal"
+          }
+        ]
+      },
+      {
+        "categoryId": "emergency_procedures",
+        "categoryName": "Emergency Procedures & Safety",
+        "entries": [
+          {
+            "id": "EM001",
+            "question": "What should I do in case of an emergency at the office?",
+            "answer": "In case of emergency: (1) Remain calm and follow instructions from emergency personnel or floor wardens; (2) Know the location of emergency exits and evacuation routes; (3) For fire: activate fire alarm, evacuate using stairs (not elevators), proceed to designated assembly areas; (4) For medical emergencies: contact first aid responders or call emergency services (911 or local emergency number); (5) For security threats: follow lockdown procedures if announced; (6) Do not re-enter the building until cleared by authorities; (7) Account for team members at assembly points. Emergency procedures are covered in detail during onboarding.",
+            "keywords": ["emergency", "evacuation", "fire", "safety", "emergency procedures"],
+            "department": "Admin"
+          },
+          {
+            "id": "EM002",
+            "question": "Who should I contact if I can't come to work due to illness or emergency?",
+            "answer": "If you cannot come to work: (1) Notify your immediate supervisor as soon as possible; (2) Send an email or message explaining your situation; (3) For medical reasons, provide a medical certificate if required; (4) For emergencies, inform HR when possible; (5) Follow company absence reporting procedures; (6) Keep your team informed if you're working on critical projects; (7) Coordinate coverage for your responsibilities if possible.",
+            "keywords": ["absence", "sick", "illness", "emergency leave", "cannot come to work"],
+            "department": "HR"
+          }
+        ]
+      },
+      {
+        "categoryId": "contact_information",
+        "categoryName": "Contact Information",
+        "entries": [
+          {
+            "id": "CI001",
+            "question": "How do I contact HR?",
+            "answer": "You can contact HR through: (1) Direct email to HR department (specific email provided during onboarding); (2) In-person visits to the HR office during business hours; (3) Through the NOX system's HR consultation feature; (4) Through your immediate supervisor who can coordinate with HR; (5) Sample HR contact emails mentioned in job postings: grponce@n-pax.com, gspena@n-pax.com (note: verify current HR contact during onboarding).",
+            "keywords": ["contact HR", "HR email", "HR contact", "human resources contact"],
+            "department": "HR"
+          },
+          {
+            "id": "CI002",
+            "question": "What is N-PAX's main contact information?",
+            "answer": "N-PAX main contact information: (1) Website: www.n-pax.com; (2) Cebu Office: Hernan Cortes, Mandaue City, Cebu; (3) Manila Office: 17th Floor, Unit 1702, One Global Place, 5th Avenue corner 25th Street, Bonifacio Global City, Taguig City; (4) LinkedIn: N-PAX Solutions, N-PAX Group, N-PAX Cebu Corporation; (5) Facebook: N-PAX Solutions. For specific department contacts, refer to your onboarding materials or ask your supervisor.",
+            "keywords": ["contact", "phone", "email", "address", "contact information"],
+            "department": "General"
+          },
+          {
+            "id": "CI003",
+            "question": "How do I contact IT support?",
+            "answer": "For IT support: (1) Contact the IT helpdesk through the designated channel (provided during onboarding); (2) Email the IT support team with detailed issue description; (3) For urgent issues, contact your immediate supervisor or IT team lead; (4) Use internal ticketing system if available; (5) For equipment issues, coordinate with your department head and IT.",
+            "keywords": ["IT support contact", "IT helpdesk", "technical support contact"],
+            "department": "IT"
+          }
+        ]
+      },
+      {
+        "categoryId": "professional_development",
+        "categoryName": "Professional Development & Growth",
+        "entries": [
+          {
+            "id": "PD001",
+            "question": "What professional development opportunities are available?",
+            "answer": "N-PAX supports employee growth through: (1) Training on new technologies and tools; (2) Opportunities to work on diverse projects; (3) Exposure to international clients and projects; (4) Travel opportunities for client training and implementation; (5) Knowledge sharing sessions within teams; (6) Mentorship from experienced team members; (7) Participation in industry events and conferences (when applicable). The company values continuous learning and career advancement.",
+            "keywords": ["training", "professional development", "career growth", "learning", "advancement"],
+            "department": "HR"
+          },
+          {
+            "id": "PD002",
+            "question": "How does N-PAX support career advancement?",
+            "answer": "N-PAX supports career growth by: (1) Providing opportunities to take on larger responsibilities; (2) Recognizing and rewarding high performers; (3) Offering exposure to different technologies and industries; (4) Supporting internal mobility between departments; (5) Valuing individual contributions regardless of role; (6) Maintaining a culture that embraces communication and feedback. Career progression is based on performance, skills development, and business needs.",
+            "keywords": ["career advancement", "promotion", "career path", "growth opportunities"],
+            "department": "HR"
+          },
+          {
+            "id": "PD003",
+            "question": "Can I work on international projects at N-PAX?",
+            "answer": "Yes, N-PAX has an international presence and works with global clients. The company established N-PAX Systems and Consulting, Inc. in 2011 specifically for IT services to the North American market. Employees may have opportunities to: (1) Work on international client projects; (2) Collaborate with global teams; (3) Travel internationally for client training or implementation; (4) Gain exposure to international business practices. Opportunities depend on project needs, skills, and seniority.",
+            "keywords": ["international", "global projects", "overseas", "international clients"],
+            "department": "HR"
+          }
+        ]
+      }
+    ]
+  }
+}

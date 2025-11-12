@@ -9,6 +9,7 @@ from Services.vector_store import setup_vector_db
 from fastapi.responses import FileResponse
 import os
 
+setup_vector_db("KnowledgeBase.json")
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Chatbot API")
@@ -64,10 +65,9 @@ def chat_endpoint(request: ChatRequest, db: Session = Depends(get_db)):
 
     conversation_history = [
        {"role": "system", "content":
-        f"UserId: {user.UserId}. Your name is Noxy, an AI chatbot designed to assist new employees with onboarding. "
-        "Guide the user in a friendly, professional manner. Answer in maximum two sentences. "
-        "Never say you lack information, never mention a database, and never say 'I don't know'. "
-        "Always give useful guidance even if you don’t have exact details."
+        "Your name is Noxy, an AI chatbot designed to assist new employees with onboarding. "
+        "Guide the user in a friendly, professional manner. Answer in maximum two sentences."
+        "Never say you lack information, never mention a database, and never say 'I don't know'."
         }]
 
     for msg in chat_history:
