@@ -10,7 +10,6 @@ from fastapi.responses import FileResponse
 import os
 
 setup_vector_db("KnowledgeBaseFiles")
-Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Chatbot API")
 

@@ -53,3 +53,5 @@ ChromaDB/vectore_store.db
 # OS
 .DS_Store
 Thumbs.db
+
+CLAUDE.md
