@@ -3,7 +3,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from Services.chatbot_logic import chat_with_azure
-from Services.kb_loader import load_knowledge_base
 from Data.chatbot_db import SessionLocal, engine
 from Models.dataModels import Base, User, Conversation, ChatMessage
 from Services.vector_store import setup_vector_db
@@ -28,8 +27,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-kb_items = load_knowledge_base("KnowledgeBase.json")
 
 class ChatRequest(BaseModel):
     username: str

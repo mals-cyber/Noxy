@@ -35,27 +35,36 @@ PDF_KEYWORDS = {
 
 def chat_with_azure(user_input: str, conversation: list):
     vector_hits = search_vectors(user_input)
+    text = user_input.lower()
 
-    user_asked_for_pdf = any(word in user_input.lower() for word in PDF_TRIGGER_WORDS)
+    user_asked_for_pdf = any(trigger in text for trigger in PDF_TRIGGER_WORDS)
 
     matched_file = None
-    lower_input = user_input.lower()
-
     for keyword, filename in PDF_KEYWORDS.items():
-        if keyword in lower_input:
+        if keyword in text:
             matched_file = filename
             break
 
-    if matched_file:
+    if user_asked_for_pdf and matched_file is None:
+        conversation.append({
+            "role": "system",
+            "content": (
+                "The user is generally asking for a PDF, but did not specify which one. "
+                "Respond politely asking which specific form they need. "
+                "Do NOT send a link yet."
+            )
+        })
+        
+    if user_asked_for_pdf and matched_file:
         download_link = f"http://127.0.0.1:8000/download-pdf?filename={matched_file}"
         conversation.append({
             "role": "system",
             "content": (
-                f"The user is requesting a specific document.\n"
-                f"The correct file is: {matched_file}.\n"
-                f"Provide a natural HR-style answer with this link:\n"
-                f"{download_link}"
-            )})
+                f"The user requested a specific PDF.\n"
+                f"Correct file: {matched_file}\n"
+                f"Include this download link naturally:\n{download_link}"
+            )
+        })
 
     if vector_hits:
         joined_hits = "\n".join(vector_hits)
