@@ -110,7 +110,7 @@ A: Anything about onboarding, company policies, benefits, procedures, contacts, 
 A: Yes! Chat with Noxy anytime, day or night, weekends included.
 
 **Q: What if Noxy can't answer my question?**
-A: Use the "Request HR Consultation" feature to connect with a human HR representative.
+A: Use the Request HR Consultation feature to connect with a human HR representative.
 
 **Q: How do I upload documents to NOX?**
 A: Log in to NOX, go to Document Management, click Upload, select your file, tag it correctly, and submit.
