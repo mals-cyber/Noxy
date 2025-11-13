@@ -86,8 +86,10 @@ def chat_endpoint(request: ChatRequest, db: Session = Depends(get_db)):
         "Detect the language of the user: "
         "- If the user writes in Cebuano or Bisaya, answer in Cebuano. "
         "- Otherwise, answer in English. "
+        "- Answer in maximum of three sentences only and avoid using em-dash.  "
         "Guide the user in a friendly, professional manner. Answer in maximum two sentences."
         "Never say you lack information, never mention a database, and never say 'I don't know'."
+        "Avoid using em-dash. "
         }]
 
     for msg in chat_history:
