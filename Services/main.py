@@ -43,15 +43,6 @@ def get_db():
 def home():
     return {"message": "Noxy API is running"}
 
-PDF_FOLDER = "MockData"
-
-@app.get("/download-pdf")
-def download_pdf(filename: str):
-    file_path = os.path.join(PDF_FOLDER, filename)
-    if not os.path.exists(file_path):
-        return {"error": "File not found"}
-    
-    return FileResponse(path=file_path, filename=filename, media_type="application/pdf")
 
 @app.post("/chat")
 def chat_endpoint(request: ChatRequest, db: Session = Depends(get_db)):
