@@ -7,7 +7,7 @@ from Data.chatbot_db import SessionLocal, engine
 from Models.dataModels import Base, ApplicationUser, Conversation, ChatMessage
 from fastapi.responses import FileResponse
 import os
-from vector.store import get_vector_db
+from vector.store import get_vector_db, delete_documents_by_url
 from vector.inject import inject_document_from_url
 
 get_vector_db()
@@ -42,6 +42,17 @@ class ChatRequest(BaseModel):
 
 
 class UploadDocumentRequest(BaseModel):
+    url: str
+
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "url": "https://example.blob.core.windows.net/container/document.json"
+            }
+        }
+
+
+class DeleteDocumentRequest(BaseModel):
     url: str
 
     class Config:
@@ -188,6 +199,67 @@ def upload_document(request: UploadDocumentRequest):
             "success": False,
             "documents_added": 0,
             "file_type": None,
+            "message": f"Unexpected error: {str(e)}"
+        }
+
+
+@app.post("/delete-document")
+def delete_document(request: DeleteDocumentRequest):
+    """
+    Delete a document from the vector database by its original URL.
+
+    This endpoint removes all chunks of a document that was previously uploaded
+    via the /upload-document endpoint. The deletion is based on the original
+    URL that was used during upload.
+
+    Args:
+        request: DeleteDocumentRequest with 'url' field (the original upload URL)
+
+    Returns:
+        JSON response with:
+        - success: bool indicating if deletion was successful
+        - documents_deleted: int number of chunks removed from vector DB
+        - message: str descriptive message
+
+    Example:
+        POST /delete-document
+        {
+            "url": "https://example.blob.core.windows.net/container/faq.json"
+        }
+
+        Response:
+        {
+            "success": true,
+            "documents_deleted": 12,
+            "message": "Successfully deleted 12 chunks from vector database"
+        }
+    """
+    try:
+        # Validate URL format
+        if not request.url or not isinstance(request.url, str):
+            return {
+                "success": False,
+                "documents_deleted": 0,
+                "message": "Invalid request: 'url' must be a non-empty string"
+            }
+
+        documents_deleted = delete_documents_by_url(request.url)
+        return {
+            "success": True,
+            "documents_deleted": documents_deleted,
+            "message": f"Successfully deleted {documents_deleted} chunks from vector database"
+        }
+
+    except ValueError as e:
+        return {
+            "success": False,
+            "documents_deleted": 0,
+            "message": str(e)
+        }
+    except Exception as e:
+        return {
+            "success": False,
+            "documents_deleted": 0,
             "message": f"Unexpected error: {str(e)}"
         }
 
