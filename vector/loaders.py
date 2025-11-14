@@ -41,6 +41,7 @@ def load_json_kb(path: str):
                     for r in requirements
                 )
 
+                # FAQs if present
                 faqs = item.get("faqs", [])
                 faq_text = " | ".join(
                     f"Q:{f.get('question')} A:{f.get('answer')}" 
@@ -60,7 +61,6 @@ def load_json_kb(path: str):
         print(f"[ERROR] JSON Load Failed ({path}): {e}")
 
     return docs
-
 
 
 def load_md_kb(path: str):

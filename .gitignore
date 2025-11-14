@@ -47,8 +47,6 @@ MANIFEST
 *.sqlite
 *.sqlite3
 
-# ChromaDB
-ChromaDB/chroma.sqlite3
 
 # OS
 .DS_Store
