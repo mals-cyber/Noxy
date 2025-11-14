@@ -10,5 +10,4 @@ def get_vector_db():
             persist_directory="ChromaDB",
             embedding_function=embedding_model
         )
-        print("ChromaDB loaded once.")
     return vector_db
