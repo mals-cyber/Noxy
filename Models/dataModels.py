@@ -11,7 +11,8 @@ class ApplicationUser(Base):
     Extended user model that mirrors AspNetCore Identity's IdentityUser.
     Stores application-specific user information beyond standard Identity fields.
     """
-    __tablename__ = "ApplicationUsers"
+    __tablename__ = "AspNetUsers"
+    __table_args__ = {"schema": "dbo"}
 
     Id = Column(String(450), primary_key=True)  # AspNetCore IdentityUser uses string IDs
     UserName = Column(String(256), unique=True, nullable=True)
@@ -31,7 +32,7 @@ class ApplicationUser(Base):
     # Custom properties
     FirstName = Column(String(100), nullable=True)
     LastName = Column(String(100), nullable=True)
-    DepartmentId = Column(Integer, ForeignKey("Departments.Id"), nullable=True)
+    DepartmentId = Column(Integer, ForeignKey("dbo.Departments.Id"), nullable=True)
     IsActive = Column(Boolean, default=True)
     CreatedAt = Column(DateTime, default=datetime.utcnow)
     UpdatedAt = Column(DateTime, nullable=True)
@@ -61,11 +62,12 @@ class Department(Base):
     Represents an organizational department.
     """
     __tablename__ = "Departments"
+    __table_args__ = {"schema": "dbo"}
 
     Id = Column(Integer, primary_key=True, autoincrement=True)
     Name = Column(String(100), nullable=False)
     Description = Column(String(500), nullable=True)
-    ManagerId = Column(String(450), ForeignKey("ApplicationUsers.Id"), nullable=True)
+    ManagerId = Column(String(450), ForeignKey("dbo.AspNetUsers.Id"), nullable=True)
     IsActive = Column(Boolean, default=True)
     CreatedAt = Column(DateTime, default=datetime.utcnow)
     UpdatedAt = Column(DateTime, nullable=True)
@@ -80,9 +82,10 @@ class Conversation(Base):
     Represents a Conversation entity containing chat messages between a user and Noxy.
     """
     __tablename__ = "Conversations"
+    __table_args__ = {"schema": "dbo"}
 
     ConvoId = Column(Integer, primary_key=True, autoincrement=True)
-    UserId = Column(String(450), ForeignKey("ApplicationUsers.Id"), nullable=True)
+    UserId = Column(String(450), ForeignKey("dbo.AspNetUsers.Id"), nullable=True)
     StartedAt = Column(DateTime, default=datetime.utcnow)
 
     # Relationships
@@ -95,9 +98,10 @@ class ChatMessage(Base):
     Represents a ChatMessage entity in a conversation.
     """
     __tablename__ = "ChatMessages"
+    __table_args__ = {"schema": "dbo"}
 
     MessageId = Column(Integer, primary_key=True, autoincrement=True)
-    ConvoId = Column(Integer, ForeignKey("Conversations.ConvoId"), nullable=False)
+    ConvoId = Column(Integer, ForeignKey("dbo.Conversations.ConvoId"), nullable=False)
     Sender = Column(String(50), nullable=True)  # 'User' or 'Noxy'
     Message = Column(Text, nullable=True)
     SentAt = Column(DateTime, default=datetime.utcnow)
@@ -111,6 +115,7 @@ class OnboardingFolder(Base):
     Represents a folder/category for organizing onboarding tasks.
     """
     __tablename__ = "OnboardingFolders"
+    __table_args__ = {"schema": "dbo"}
 
     Id = Column(Integer, primary_key=True, autoincrement=True)
     Title = Column(String(200), nullable=False)
@@ -127,11 +132,12 @@ class OnboardingTask(Base):
     Represents a specific onboarding task within a folder.
     """
     __tablename__ = "OnboardingTasks"
+    __table_args__ = {"schema": "dbo"}
 
     Id = Column(Integer, primary_key=True, autoincrement=True)
     Title = Column(String(200), nullable=False)
     Description = Column(String(1000), nullable=False)
-    FolderId = Column(Integer, ForeignKey("OnboardingFolders.Id"), nullable=False)
+    FolderId = Column(Integer, ForeignKey("dbo.OnboardingFolders.Id"), nullable=False)
     CreatedAt = Column(DateTime, default=datetime.utcnow)
     UpdatedAt = Column(DateTime, nullable=True)
 
@@ -146,12 +152,13 @@ class OnboardingMaterial(Base):
     Represents a material (file) associated with an onboarding task.
     """
     __tablename__ = "OnboardingMaterials"
+    __table_args__ = {"schema": "dbo"}
 
     Id = Column(Integer, primary_key=True, autoincrement=True)
     FileName = Column(String(256), nullable=False)
     FileType = Column(String(50), nullable=False)
     Url = Column(String(500), nullable=False)
-    TaskId = Column(Integer, ForeignKey("OnboardingTasks.Id"), nullable=False)
+    TaskId = Column(Integer, ForeignKey("dbo.OnboardingTasks.Id"), nullable=False)
     CreatedAt = Column(DateTime, default=datetime.utcnow)
     UpdatedAt = Column(DateTime, nullable=True)
 
@@ -164,11 +171,12 @@ class OnboardingSteps(Base):
     Represents a step within an onboarding task.
     """
     __tablename__ = "OnboardingSteps"
+    __table_args__ = {"schema": "dbo"}
 
     Id = Column(Integer, primary_key=True, autoincrement=True)
     StepDescription = Column(String(1000), nullable=False)
     SequenceOrder = Column(Integer, nullable=False)
-    TaskId = Column(Integer, ForeignKey("OnboardingTasks.Id"), nullable=False)
+    TaskId = Column(Integer, ForeignKey("dbo.OnboardingTasks.Id"), nullable=False)
     CreatedAt = Column(DateTime, default=datetime.utcnow)
     UpdatedAt = Column(DateTime, nullable=True)
 
