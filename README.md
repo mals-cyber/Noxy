@@ -72,6 +72,14 @@ alembic revision --autogenerate -m "Initial migration"
 # 4. Apply migration to the database
 alembic upgrade head
 ```
+### 6. Build the Knowledge Base (Run Vector DB Loader First)
+#### The KB loader reads files from KnowledgeBaseFiles and generates the ChromaDB vector store located in ChromaDB/.
+```bash
+# 1. Run this only once, unless you update the KnowlegdgeBase files:
+python -m vector.build_kb
+```
+#### Expected Output:
++ ChromaDB was successfully built.
 
 ## Run FastAPI Server
 ```bash
@@ -108,8 +116,9 @@ python -m uvicorn Services.main:app --reload
 - **Azure OpenAI** – Generates chat responses using deployed models  
 - **python-dotenv** – Loads `.env` credentials securely
 - **LangChain** – Framework used to connect LLMs, tools, and retrieval pipelines
-- **ChromaDB (Vector Database)** – Used for semantic search and document embeddings (in progress)
-- **LangGraph** – Enables structured AI workflows and controlled multi-step reasoning (in progress)
+- **ChromaDB (Vector Database)** – Used for semantic search and document embeddings
+- **MCP (Model Context Protocol)** – *In progress*: enables extended model capabilities
+
 
 
 
