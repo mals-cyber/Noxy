@@ -5,11 +5,12 @@ from sqlalchemy.orm import Session
 from Services.chatbot_logic import chat_with_azure
 from Data.chatbot_db import SessionLocal, engine
 from Models.dataModels import Base, User, Conversation, ChatMessage
-from Services.vector_store import setup_vector_db
 from fastapi.responses import FileResponse
 import os
+from vector.store import get_vector_db
 
-setup_vector_db("KnowledgeBaseFiles")
+get_vector_db()
+
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Chatbot API")
@@ -67,33 +68,7 @@ def chat_endpoint(request: ChatRequest, db: Session = Depends(get_db)):
 
     chat_history = db.query(ChatMessage).filter(ChatMessage.ConvoId == convo.ConvoId).all()
 
-    conversation_history = [
-        {"role": "system", "content":
-            "You are Noxy, an HR onboarding assistant. Your scope is strictly limited to: "
-            "HR policies, employee onboarding, company information, government requirements, documents, facilities, "
-            "and basic small talk such as greetings or simple friendly messages. "
-            "If a user asks anything outside this scope, reply politely that you can only assist with HR and onboarding matters. "
-
-            "Context Handling Rules: "
-            "1. Use ONLY the information provided in the system messages and retrieved knowledge base. "
-            "2. Never invent details not found in the knowledge base or retrieved documents. "
-            "3. If the system provides a vector search result, treat it as verified internal knowledge. "
-            "4. If no relevant knowledge is found, respond gently that the topic is outside your scope. "
-            "5. If vector search provides relevant internal knowledge, you MUST use that information,"
-            "exactly as written and do not replace it with your own interpretation. "\
-            
-            "Language Rule: Detect the user’s language. "
-            "- If Cebuano/Bisaya, respond in Cebuano. "
-            "- Otherwise, respond in English. "
-
-            "Response Style: "
-            "- Maximum of three simple sentences. "
-            "- No em-dash. "
-            "- Friendly, clear, and professional HR tone. "
-            "- Never mention databases, chains, vector search, or internal AI components."
-            "- Do not use line breaks or the \\n character."
-        }
-    ]
+    conversation_history = []
 
     for msg in chat_history:
         role = "user" if msg.Sender == "User" else "assistant"
