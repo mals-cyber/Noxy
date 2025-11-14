@@ -8,6 +8,7 @@ from Models.dataModels import Base, ApplicationUser, Conversation, ChatMessage
 from fastapi.responses import FileResponse
 import os
 from vector.store import get_vector_db
+from vector.inject import inject_document_from_url
 
 get_vector_db()
 
@@ -38,6 +39,17 @@ class ChatRequest(BaseModel):
         super().__init__(**data)
         if not self.username and not self.userId:
             raise ValueError("Either 'username' or 'userId' must be provided")
+
+
+class UploadDocumentRequest(BaseModel):
+    url: str
+
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "url": "https://example.blob.core.windows.net/container/document.json"
+            }
+        }
 
 def get_db():
     db = SessionLocal()
@@ -119,5 +131,64 @@ def get_history(username: str, db: Session = Depends(get_db)):
             for msg in history
         ]
     }
+
+
+@app.post("/upload-document")
+def upload_document(request: UploadDocumentRequest):
+    """
+    Upload and inject a JSON, PDF, or Markdown document into the vector database.
+
+    This endpoint accepts a public Azure Blob Storage URL or any public file URL,
+    downloads the file, and injects it into ChromaDB for semantic search.
+
+    Args:
+        request: UploadDocumentRequest with 'url' field
+
+    Returns:
+        JSON response with:
+        - success: bool indicating if injection was successful
+        - documents_added: int number of chunks added to vector DB
+        - file_type: str ("json", "pdf", "md", or None on error)
+        - message: str descriptive message
+
+    Supported file types:
+    - .json: Structured Q&A format (uses existing JSON loader)
+    - .pdf: PDF documents (text extracted via PyMuPDF)
+    - .md: Markdown documentation (split by headers with bullet point expansion)
+
+    Example:
+        POST /upload-document
+        {
+            "url": "https://example.blob.core.windows.net/container/faq.json"
+        }
+
+        Response:
+        {
+            "success": true,
+            "documents_added": 12,
+            "file_type": "json",
+            "message": "Successfully injected 12 chunks from JSON file"
+        }
+    """
+    try:
+        # Validate URL format
+        if not request.url or not isinstance(request.url, str):
+            return {
+                "success": False,
+                "documents_added": 0,
+                "file_type": None,
+                "message": "Invalid request: 'url' must be a non-empty string"
+            }
+
+        result = inject_document_from_url(request.url)
+        return result
+
+    except Exception as e:
+        return {
+            "success": False,
+            "documents_added": 0,
+            "file_type": None,
+            "message": f"Unexpected error: {str(e)}"
+        }
 
 
