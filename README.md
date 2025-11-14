@@ -55,32 +55,12 @@ SQL_PASS=Strong_Password123!
 #Verify that SQL Server is running and accessible
 python test_db.py
 ```
-### 5. Set up Database Migrations (Alembic)
+### 5. Set up Database Migrations
 ```bash
-# 1. Initialize Alembic. This will create a migrations folder and alembic.ini configuration file
-alembic init migrations
+# Use the migrations from the ASP.NET backend instead of FastAPI migrations
+# The database schema is managed and migrated through the ASP.NET backend (Entity Framework Core)
+# Ensure the ASP.NET backend has been run to apply all necessary migrations to SQL Server
 ```
-```bash
-# 2. Inside alembic.ini, update/verify the connection string:
-sqlalchemy.url = mssql+pyodbc://username:password@server/dbname?driver=ODBC+Driver+18+for+SQL+Server
-```
-```bash
-# 3. Generate migration script from models
-alembic revision --autogenerate -m "Initial migration"
-```
-```bash
-# 4. Apply migration to the database
-alembic upgrade head
-```
-### 6. Build the Knowledge Base (Run Vector DB Loader First)
-#### The KB loader reads files from KnowledgeBaseFiles and generates the ChromaDB vector store located in ChromaDB/.
-```bash
-# 1. Run this only once, unless you update the KnowlegdgeBase files:
-python -m vector.build_kb
-```
-#### Expected Output:
-+ ChromaDB was successfully built.
-
 ## Run FastAPI Server
 ```bash
 # Start the Application
