@@ -19,7 +19,6 @@
 1. [Health Check](#1-health-check)
 2. [Chat Message](#2-chat-message)
 3. [Get Conversation History](#3-get-conversation-history)
-4. [Download PDF](#4-download-pdf)
 
 ---
 
@@ -298,79 +297,6 @@ curl http://127.0.0.1:8000/history/john_doe
 
 ---
 
-## 4. Download PDF
-
-### Endpoint Details
-
-| Property | Value |
-|----------|-------|
-| **HTTP Method** | `GET` |
-| **Path** | `/download-pdf` |
-| **Purpose** | Download PDF files from the MockData folder |
-| **Authentication** | None required |
-
-### Request
-
-**Query Parameters:**
-
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `filename` | string | Yes | Name of the PDF file to download |
-
-**Example:**
-```bash
-curl http://127.0.0.1:8000/download-pdf?filename=PTO_Policy.pdf
-```
-
-### Response - File Found
-
-**Status Code:** `200 OK`
-
-**Content-Type:** `application/pdf`
-
-**Body:** Binary PDF file content
-
-### Response - File Not Found
-
-**Status Code:** `200 OK` (implicit error handling)
-
-**Response:**
-```json
-{
-  "error": "File not found"
-}
-```
-
-### Processing Logic
-
-1. **Filename Validation**
-   - Checks if file exists in `./MockData` directory
-   - Returns error if file not found
-
-2. **File Retrieval**
-   - Returns file as FileResponse
-   - Browser will download file with original filename
-
-3. **PDF Folder Location**
-   - Base directory: `./MockData`
-   - Must be relative to application working directory
-
-### File Management
-
-| Location | Purpose |
-|----------|---------|
-| `./MockData/` | Storage for all downloadable PDF files |
-
-### Use Cases
-
-- Download PTO policy documents
-- Download onboarding guides
-- Download benefits information
-- Download form templates
-- Download any HR-related documents
-
----
-
 ## Database Schema
 
 ### Users Table
@@ -565,11 +491,6 @@ curl -X POST http://127.0.0.1:8000/chat \
 curl http://127.0.0.1:8000/history/jane_smith
 ```
 
-### 4. Download PDF
-```bash
-curl http://127.0.0.1:8000/download-pdf?filename=Office_Policy.pdf -o Office_Policy.pdf
-```
-
 ---
 
 ## Additional Resources
@@ -582,5 +503,6 @@ curl http://127.0.0.1:8000/download-pdf?filename=Office_Policy.pdf -o Office_Pol
 
 ---
 
-**Last Updated:** 2025-11-12
-**Documentation Version:** 1.0
+**Last Updated:** 2025-11-14
+**Documentation Version:** 1.1
+**Changes:** Removed download-pdf endpoint documentation (endpoint has been removed from the codebase)

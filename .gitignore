@@ -53,3 +53,5 @@ ChromaDB/chroma.sqlite3
 # OS
 .DS_Store
 Thumbs.db
+
+CLAUDE.md

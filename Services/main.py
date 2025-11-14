@@ -30,8 +30,14 @@ app.add_middleware(
 )
 
 class ChatRequest(BaseModel):
-    username: str
+    username: str = None
+    userId: str = None
     message: str
+
+    def __init__(self, **data):
+        super().__init__(**data)
+        if not self.username and not self.userId:
+            raise ValueError("Either 'username' or 'userId' must be provided")
 
 def get_db():
     db = SessionLocal()
@@ -47,21 +53,24 @@ def home():
 
 @app.post("/chat")
 def chat_endpoint(request: ChatRequest, db: Session = Depends(get_db)):
-    user = db.query(User).filter(User.Username == request.username).first()
+    # Look up user by userId first, then by username
+    user = None
+    if request.userId:
+        user = db.query(ApplicationUser).filter(ApplicationUser.Id == request.userId).first()
+    elif request.username:
+        user = db.query(ApplicationUser).filter(ApplicationUser.UserName == request.username).first()
+
     if not user:
-        user = User(Username=request.username)
-        db.add(user)
-        db.commit()
-        db.refresh(user)
+        return {"error": "User not found"}
 
     convo = (
         db.query(Conversation)
-        .filter(Conversation.UserId == user.UserId)
+        .filter(Conversation.UserId == user.Id)
         .order_by(Conversation.StartedAt.desc())
         .first()
     )
     if not convo:
-        convo = Conversation(UserId=user.UserId)
+        convo = Conversation(UserId=user.Id)
         db.add(convo)
         db.commit()
         db.refresh(convo)
@@ -88,13 +97,13 @@ def chat_endpoint(request: ChatRequest, db: Session = Depends(get_db)):
 
 @app.get("/history/{username}")
 def get_history(username: str, db: Session = Depends(get_db)):
-    user = db.query(User).filter(User.Username == username).first()
+    user = db.query(ApplicationUser).filter(ApplicationUser.UserName == username).first()
     if not user:
         return {"error": "User not found"}
 
     convo = (
         db.query(Conversation)
-        .filter(Conversation.UserId == user.UserId)
+        .filter(Conversation.UserId == user.Id)
         .order_by(Conversation.StartedAt.desc())
         .first()
     )
