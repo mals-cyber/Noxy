@@ -12,11 +12,9 @@ from vector.inject import inject_document_from_url
 
 get_vector_db()
 
-Base.metadata.create_all(bind=engine)
-
 app = FastAPI(title="Chatbot API")
 
-# CORS middleware for Vite development
+# CORS middleware for Vite development and ASP.NET backend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -24,6 +22,8 @@ app.add_middleware(
         "http://localhost:5173",
         "http://127.0.0.1:3000",
         "http://127.0.0.1:5173",
+        "http://localhost:5164",
+        "http://127.0.0.1:5164",
     ],
     allow_credentials=True,
     allow_methods=["*"],
