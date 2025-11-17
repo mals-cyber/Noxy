@@ -71,7 +71,7 @@ def chat_with_azure(user_input: str, conversation: list):
 
     text_lower = user_input.lower()
 
-    conversation = conversation[-2:]
+    conversation = conversation[-6:]
 
     short_greeting = len(user_input.split()) <= 3
 
