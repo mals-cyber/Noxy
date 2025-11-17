@@ -19,6 +19,9 @@
 1. [Health Check](#1-health-check)
 2. [Chat Message](#2-chat-message)
 3. [Get Conversation History](#3-get-conversation-history)
+4. [Upload Document](#4-upload-document)
+5. [Delete Document](#5-delete-document)
+6. [Update Document](#6-update-document)
 
 ---
 
@@ -71,12 +74,13 @@ Simple health check to ensure the API server is operational.
 **Schema:**
 ```json
 {
-  "username": "string (required)",
+  "username": "string (optional)",
+  "userId": "string (optional)",
   "message": "string (required)"
 }
 ```
 
-**Example:**
+**Example with Username:**
 ```bash
 curl -X POST http://127.0.0.1:8000/chat \
   -H "Content-Type: application/json" \
@@ -86,12 +90,25 @@ curl -X POST http://127.0.0.1:8000/chat \
   }'
 ```
 
+**Example with User ID:**
+```bash
+curl -X POST http://127.0.0.1:8000/chat \
+  -H "Content-Type: application/json" \
+  -d '{
+    "userId": "12345",
+    "message": "How do I submit a PTO request?"
+  }'
+```
+
 ### Request Parameters
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `username` | string | Yes | Username of the person chatting. Creates new user if doesn't exist. |
+| `username` | string | Optional* | Username of the person chatting. Looked up first if userId not provided. |
+| `userId` | string | Optional* | User ID of the person chatting. Looked up first before username. |
 | `message` | string | Yes | The message to send to Noxy chatbot |
+
+*At least one of `username` or `userId` must be provided. If both are provided, `userId` takes precedence.
 
 ### Response
 
@@ -297,6 +314,421 @@ curl http://127.0.0.1:8000/history/john_doe
 
 ---
 
+## 4. Upload Document
+
+### Endpoint Details
+
+| Property | Value |
+|----------|-------|
+| **HTTP Method** | `POST` |
+| **Path** | `/upload-document` |
+| **Purpose** | Upload and inject a JSON, PDF, or Markdown document into the vector database |
+| **Content-Type** | `application/json` |
+| **Authentication** | None required |
+
+### Request
+
+**Schema:**
+```json
+{
+  "url": "string (required)"
+}
+```
+
+**Example:**
+```bash
+curl -X POST http://127.0.0.1:8000/upload-document \
+  -H "Content-Type: application/json" \
+  -d '{
+    "url": "https://example.blob.core.windows.net/container/faq.json"
+  }'
+```
+
+### Request Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `url` | string | Yes | Public URL to a JSON, PDF, or Markdown document. Supports Azure Blob Storage URLs or any public file URL. |
+
+### Response - Success
+
+**Status Code:** `200 OK`
+
+**Schema:**
+```json
+{
+  "success": true,
+  "documents_added": integer,
+  "file_type": "string (json|pdf|md)",
+  "message": "string"
+}
+```
+
+**Example:**
+```json
+{
+  "success": true,
+  "documents_added": 12,
+  "file_type": "json",
+  "message": "Successfully injected 12 chunks from JSON file"
+}
+```
+
+### Response - Validation Error
+
+**Status Code:** `200 OK`
+
+**Response:**
+```json
+{
+  "success": false,
+  "documents_added": 0,
+  "file_type": null,
+  "message": "Invalid request: 'url' must be a non-empty string"
+}
+```
+
+### Response - Download/Processing Error
+
+**Status Code:** `200 OK`
+
+**Response:**
+```json
+{
+  "success": false,
+  "documents_added": 0,
+  "file_type": null,
+  "message": "Unexpected error: {error details}"
+}
+```
+
+### Supported File Types
+
+| Type | Extension | Description |
+|------|-----------|-------------|
+| JSON | `.json` | Structured Q&A format with predefined schema |
+| PDF | `.pdf` | PDF documents (text extracted via PyMuPDF) |
+| Markdown | `.md` | Markdown documentation (split by headers with bullet point expansion) |
+
+### Processing Logic
+
+1. **URL Validation**
+   - Validates that URL is a non-empty string
+   - Accepts Azure Blob Storage URLs and any public HTTP/HTTPS URLs
+
+2. **File Download**
+   - Downloads file from provided URL
+   - Extracts file type from URL extension
+
+3. **Document Parsing**
+   - For JSON: Loads structured Q&A data
+   - For PDF: Extracts text using PyMuPDF (fitz)
+   - For Markdown: Parses headers and bullet points
+
+4. **Chunking**
+   - Splits documents into chunks for semantic search
+   - Chunks are sized appropriately for embedding
+
+5. **Vector Embedding**
+   - Generates embeddings using ChromaDB's embedding function
+   - Stores chunks in ChromaDB with document URL as metadata
+
+6. **Database Storage**
+   - Stores document URL and chunk metadata
+   - Enables later deletion/update by original URL
+
+### Dependencies
+
+- **ChromaDB Vector Store** - Stores and manages document chunks
+- **File Download** - HTTP/HTTPS URL access required
+- **PyMuPDF (fitz)** - For PDF text extraction
+- **Embedding Model** - sentence-transformers/all-MiniLM-L6-v2
+
+---
+
+## 5. Delete Document
+
+### Endpoint Details
+
+| Property | Value |
+|----------|-------|
+| **HTTP Method** | `POST` |
+| **Path** | `/delete-document` |
+| **Purpose** | Delete a document from the vector database by its original URL |
+| **Content-Type** | `application/json` |
+| **Authentication** | None required |
+
+### Request
+
+**Schema:**
+```json
+{
+  "url": "string (required)"
+}
+```
+
+**Example:**
+```bash
+curl -X POST http://127.0.0.1:8000/delete-document \
+  -H "Content-Type: application/json" \
+  -d '{
+    "url": "https://example.blob.core.windows.net/container/faq.json"
+  }'
+```
+
+### Request Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `url` | string | Yes | The original URL of the document to delete (must match URL used during upload) |
+
+### Response - Success
+
+**Status Code:** `200 OK`
+
+**Schema:**
+```json
+{
+  "success": true,
+  "documents_deleted": integer,
+  "message": "string"
+}
+```
+
+**Example:**
+```json
+{
+  "success": true,
+  "documents_deleted": 12,
+  "message": "Successfully deleted 12 chunks from vector database"
+}
+```
+
+### Response - Validation Error
+
+**Status Code:** `200 OK`
+
+**Response:**
+```json
+{
+  "success": false,
+  "documents_deleted": 0,
+  "message": "Invalid request: 'url' must be a non-empty string"
+}
+```
+
+### Response - Document Not Found
+
+**Status Code:** `200 OK`
+
+**Response:**
+```json
+{
+  "success": false,
+  "documents_deleted": 0,
+  "message": "Document at old_url not found: {error details}"
+}
+```
+
+### Response - Unexpected Error
+
+**Status Code:** `200 OK`
+
+**Response:**
+```json
+{
+  "success": false,
+  "documents_deleted": 0,
+  "message": "Unexpected error: {error details}"
+}
+```
+
+### Processing Logic
+
+1. **URL Validation**
+   - Validates that URL is a non-empty string
+
+2. **Document Lookup**
+   - Searches ChromaDB for all chunks matching the provided URL
+   - Uses document URL stored in chunk metadata
+
+3. **Deletion**
+   - Removes all matching chunks from vector database
+   - Returns count of deleted chunks
+
+4. **Return Results**
+   - Reports success/failure and number of chunks deleted
+
+### Dependencies
+
+- **ChromaDB Vector Store** - Queries and deletes document chunks
+- **Document URL Metadata** - Uses metadata to locate documents
+
+---
+
+## 6. Update Document
+
+### Endpoint Details
+
+| Property | Value |
+|----------|-------|
+| **HTTP Method** | `POST` |
+| **Path** | `/update-document` |
+| **Purpose** | Update a document in the vector database by replacing old version with new one |
+| **Content-Type** | `application/json` |
+| **Authentication** | None required |
+
+### Request
+
+**Schema:**
+```json
+{
+  "old_url": "string (required)",
+  "new_url": "string (required)"
+}
+```
+
+**Example:**
+```bash
+curl -X POST http://127.0.0.1:8000/update-document \
+  -H "Content-Type: application/json" \
+  -d '{
+    "old_url": "https://example.blob.core.windows.net/container/old.json",
+    "new_url": "https://example.blob.core.windows.net/container/new.json"
+  }'
+```
+
+### Request Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `old_url` | string | Yes | The original URL of the document to be replaced |
+| `new_url` | string | Yes | The URL of the new document to inject |
+
+### Response - Success
+
+**Status Code:** `200 OK`
+
+**Schema:**
+```json
+{
+  "success": true,
+  "documents_deleted": integer,
+  "documents_added": integer,
+  "file_type": "string (json|pdf|md)",
+  "message": "string"
+}
+```
+
+**Example:**
+```json
+{
+  "success": true,
+  "documents_deleted": 12,
+  "documents_added": 15,
+  "file_type": "json",
+  "message": "Successfully updated document: deleted 12 chunks, added 15 chunks"
+}
+```
+
+### Response - Validation Error
+
+**Status Code:** `200 OK`
+
+**Response:**
+```json
+{
+  "success": false,
+  "documents_deleted": 0,
+  "documents_added": 0,
+  "file_type": null,
+  "message": "Invalid request: 'old_url' must be a non-empty string"
+}
+```
+
+### Response - Old Document Not Found
+
+**Status Code:** `200 OK`
+
+**Response:**
+```json
+{
+  "success": false,
+  "documents_deleted": 0,
+  "documents_added": 0,
+  "file_type": null,
+  "message": "Document at old_url not found: {error details}"
+}
+```
+
+### Response - Partial Failure (Deletion Succeeded, Injection Failed)
+
+**Status Code:** `200 OK`
+
+**Response:**
+```json
+{
+  "success": false,
+  "documents_deleted": 12,
+  "documents_added": 0,
+  "file_type": null,
+  "message": "Deletion succeeded (12 chunks removed) but injection failed: File download error"
+}
+```
+
+### Response - Unexpected Error
+
+**Status Code:** `200 OK`
+
+**Response:**
+```json
+{
+  "success": false,
+  "documents_deleted": 0,
+  "documents_added": 0,
+  "file_type": null,
+  "message": "Unexpected error during update: {error details}"
+}
+```
+
+### Processing Logic
+
+This endpoint performs a two-phase atomic operation:
+
+**Phase 1: Deletion**
+1. Validates both URLs are non-empty strings
+2. Searches ChromaDB for chunks matching old_url
+3. Deletes all matching chunks
+4. If not found, returns error without attempting injection
+
+**Phase 2: Injection**
+1. Downloads file from new_url
+2. Parses and chunks the new document
+3. Generates embeddings
+4. Stores chunks in ChromaDB with new_url as metadata
+
+**Error Handling:**
+- If deletion fails: Operation aborted, returns error
+- If injection fails after successful deletion: Returns partial success with deletion count and error message
+- This allows clients to know exactly what happened and potentially retry the injection
+
+### Supported File Types for New Document
+
+| Type | Extension | Description |
+|------|-----------|-------------|
+| JSON | `.json` | Structured Q&A format with predefined schema |
+| PDF | `.pdf` | PDF documents (text extracted via PyMuPDF) |
+| Markdown | `.md` | Markdown documentation (split by headers with bullet point expansion) |
+
+### Dependencies
+
+- **ChromaDB Vector Store** - Deletes old chunks and stores new chunks
+- **File Download** - HTTP/HTTPS URL access required for new_url
+- **PyMuPDF (fitz)** - For PDF text extraction
+- **Embedding Model** - sentence-transformers/all-MiniLM-L6-v2
+
+---
+
 ## Database Schema
 
 ### Users Table
@@ -491,6 +923,34 @@ curl -X POST http://127.0.0.1:8000/chat \
 curl http://127.0.0.1:8000/history/jane_smith
 ```
 
+### 4. Upload a Document
+```bash
+curl -X POST http://127.0.0.1:8000/upload-document \
+  -H "Content-Type: application/json" \
+  -d '{
+    "url": "https://example.blob.core.windows.net/container/faq.json"
+  }'
+```
+
+### 5. Delete a Document
+```bash
+curl -X POST http://127.0.0.1:8000/delete-document \
+  -H "Content-Type: application/json" \
+  -d '{
+    "url": "https://example.blob.core.windows.net/container/faq.json"
+  }'
+```
+
+### 6. Update a Document
+```bash
+curl -X POST http://127.0.0.1:8000/update-document \
+  -H "Content-Type: application/json" \
+  -d '{
+    "old_url": "https://example.blob.core.windows.net/container/old.json",
+    "new_url": "https://example.blob.core.windows.net/container/new.json"
+  }'
+```
+
 ---
 
 ## Additional Resources
@@ -504,5 +964,10 @@ curl http://127.0.0.1:8000/history/jane_smith
 ---
 
 **Last Updated:** 2025-11-14
-**Documentation Version:** 1.1
-**Changes:** Removed download-pdf endpoint documentation (endpoint has been removed from the codebase)
+**Documentation Version:** 2.0
+**Changes:**
+- Added `/upload-document` endpoint documentation (POST)
+- Added `/delete-document` endpoint documentation (POST)
+- Added `/update-document` endpoint documentation (POST)
+- Updated Table of Contents with new endpoints
+- Added curl examples for all new endpoints in Quick Start Examples section

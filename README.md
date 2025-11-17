@@ -61,6 +61,12 @@ python test_db.py
 # The database schema is managed and migrated through the ASP.NET backend (Entity Framework Core)
 # Ensure the ASP.NET backend has been run to apply all necessary migrations to SQL Server
 ```
+### 6. Build Vector Database
+```bash
+# Build the ChromaDB vector store from knowledge base files
+# Run only once, or when knowledge base files change
+python -m vector.build_kb
+```
 ## Run FastAPI Server
 ```bash
 # Start the Application
