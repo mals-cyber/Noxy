@@ -420,5 +420,9 @@ def update_document(request: UpdateDocumentRequest):
             "file_type": None,
             "message": f"Unexpected error during update: {str(e)}"
         }
+ 
+
+
+
 
 

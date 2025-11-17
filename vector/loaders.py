@@ -6,89 +6,96 @@ from langchain_core.documents import Document
 from .chunker import expand_bullet_points
 
 
+def _safe_meta(value):
+    """Ensure metadata is always a str/int/bool/float/None."""
+    if isinstance(value, list):
+        return ", ".join(str(v) for v in value)
+    if isinstance(value, dict):
+        return json.dumps(value)
+    return value
+
+
 def load_json_kb(path: str):
     docs = []
+    source = os.path.basename(path)
+
     try:
         with open(path, encoding="utf-8") as f:
             data = json.load(f)
 
+        # ==========================
+        # FORMAT 1: departmentKnowledgeBase
+        # ==========================
         dep_root = data.get("departmentKnowledgeBase")
         if dep_root:
-            # ---- Departments + their FAQs ----
+
+            # DEPARTMENT FAQs
             for dept in dep_root.get("departments", []):
                 dept_name = dept.get("departmentName", "")
-                faqs = dept.get("faqs", [])
-
-                for faq in faqs:
+                for faq in dept.get("faqs", []):
                     text = (
-                        f"DEPARTMENT: {dept_name}\n"
-                        f"ID: {faq.get('id', '')}\n"
-                        f"CATEGORY: {faq.get('category', '')}\n"
-                        f"QUESTION: {faq.get('question', '')}\n"
-                        f"ANSWER: {faq.get('answer', '')}\n"
-                        f"KEYWORDS: {', '.join(faq.get('keywords', []))}\n"
+                        f"QUESTION: {faq.get('question')}\n"
+                        f"ANSWER: {faq.get('answer')}"
                     )
-                    docs.append(Document(page_content=text))
+                    docs.append(Document(
+                        page_content=text,
+                        metadata={
+                            "source": source,
+                            "type": "department_faq",
+                            "department": _safe_meta(dept_name),
+                            "id": _safe_meta(faq.get("id"))
+                        }
+                    ))
 
+            # CROSS-DEPARTMENT FAQs
             for faq in dep_root.get("crossDepartmentFAQs", []):
-                text = (
-                    f"CROSS-DEPARTMENT FAQ\n"
-                    f"ID: {faq.get('id', '')}\n"
-                    f"QUESTION: {faq.get('question', '')}\n"
-                    f"ANSWER: {faq.get('answer', '')}\n"
-                    f"RELATED: {', '.join(faq.get('relatedDepartments', []))}\n"
-                )
-                docs.append(Document(page_content=text))
-
-            general = dep_root.get("generalDepartmentInfo")
-            if general:
-                text = "GENERAL DEPARTMENT INFO\n" + json.dumps(general, indent=2)
-                docs.append(Document(page_content=text))
+                text = f"{faq.get('question')}\n{faq.get('answer')}"
+                docs.append(Document(
+                    page_content=text,
+                    metadata={
+                        "source": source,
+                        "type": "cross_department_faq",
+                        "related": _safe_meta(faq.get("relatedDepartments", [])),
+                        "id": _safe_meta(faq.get("id"))
+                    }
+                ))
 
             return docs
 
+        # ==========================
+        # FORMAT 2: knowledgeBase.categories
+        # ==========================
         kb_root = data.get("knowledgeBase", data)
         categories = kb_root.get("categories", [])
 
         for cat in categories:
 
-            # ---- entries[] format ----
+            # ---- entries[] format (Q&A)
             for entry in cat.get("entries", []):
-                q = entry.get("question", "")
-                a = entry.get("answer", "")
-                k = ", ".join(entry.get("keywords", []))
+                text = f"Q: {entry.get('question')}\nA: {entry.get('answer')}"
+                docs.append(Document(
+                    page_content=text,
+                    metadata={
+                        "source": source,
+                        "type": "entry",
+                        "category": _safe_meta(cat.get("categoryName")),
+                        "id": _safe_meta(entry.get("id")),
+                        "keywords": _safe_meta(entry.get("keywords", []))
+                    }
+                ))
 
-                text = (
-                    f"QUESTION: {q}\n"
-                    f"ANSWER: {a}\n"
-                    f"KEYWORDS: {k}"
-                )
-                docs.append(Document(page_content=text))
-
-            # ---- items[] format (government requirements) ----
+            # ---- items[] format (Gov requirements)
             for item in cat.get("items", []):
-                title = item.get("title", "")
-                content = item.get("content", "")
-
-                # Requirements
-                req_text = " | ".join(
-                    f"{r.get('item', '')}: {r.get('description', '')}"
-                    for r in item.get("requirements", [])
-                )
-
-                # FAQs inside items
-                faq_text = " | ".join(
-                    f"Q:{f.get('question')} A:{f.get('answer')}"
-                    for f in item.get("faqs", [])
-                )
-
-                text = (
-                    f"TITLE: {title}\n"
-                    f"CONTENT: {content}\n"
-                    f"REQUIREMENTS: {req_text}\n"
-                    f"FAQS: {faq_text}"
-                )
-                docs.append(Document(page_content=text))
+                text = f"{item.get('title')}\n{item.get('content')}"
+                docs.append(Document(
+                    page_content=text,
+                    metadata={
+                        "source": source,
+                        "type": "requirement_item",
+                        "category": _safe_meta(cat.get("name")),
+                        "id": _safe_meta(item.get("id"))
+                    }
+                ))
 
     except Exception as e:
         print(f"[ERROR] JSON Load Failed ({path}): {e}")
@@ -96,20 +103,28 @@ def load_json_kb(path: str):
     return docs
 
 
-
 def load_md_kb(path: str):
+    source = os.path.basename(path)
     docs = []
+
     try:
         with open(path, encoding="utf-8") as f:
             raw = expand_bullet_points(f.read())
 
-        sections = re.split(r"\n#+ ", raw)
+        sections = re.split(r"\n#+\s*", raw)
 
         for sec in sections:
-            if len(sec.strip()) > 40:
-                docs.append(Document(page_content=sec.strip()))
-    except:
-        pass
+            sec = sec.strip()
+            if len(sec) > 40:
+                docs.append(Document(
+                    page_content=sec,
+                    metadata={
+                        "source": source,
+                        "type": "markdown"
+                    }
+                ))
+    except Exception as e:
+        print(f"[ERROR] Markdown Load Failed {path}: {e}")
 
     return docs
 
@@ -126,7 +141,15 @@ def load_pdf_kb(pdf_folder="MockData"):
     docs = []
     for f in os.listdir(pdf_folder):
         if f.lower().endswith(".pdf"):
-            text = extract_pdf_text(os.path.join(pdf_folder, f))
+            path = os.path.join(pdf_folder, f)
+            text = extract_pdf_text(path)
+
             if text:
-                docs.append(Document(page_content=f"PDF FILE: {f}\n{text}"))
+                docs.append(Document(
+                    page_content=text,
+                    metadata={
+                        "source": f,
+                        "type": "pdf"
+                    }
+                ))
     return docs

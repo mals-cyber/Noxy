@@ -1,7 +1,15 @@
 # NOX Quick Reference FAQ
 ## Fast Answers for Common Onboarding Questions
 
----
+## HR CONTACT INFORMATION
+HR Email: hrdepartment@n-pax.com
+Contact Numbers:
+- Cebu HR: (032) 123-4567
+- Manila HR: (02) 987-6543
+HR Office Hours: Monday to Friday, 8:00 AM – 6:00 PM
+
+**Who handles compliance and documents?**
+The HR Compliance Specialist manages document verification, government requirements, and employee records processing.
 
 ## FIRST DAY ESSENTIALS
 
