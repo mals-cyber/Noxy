@@ -1,16 +1,47 @@
-from langchain_chroma import Chroma
-from .embeddings import embedding_model
+import os
+from dotenv import load_dotenv
+
+from langchain_community.vectorstores import Chroma
+from langchain_openai import AzureOpenAIEmbeddings
+
+load_dotenv()
+
+CHROMA_DIR = os.getenv("CHROMA_PERSIST_DIR", "ChromaDB")
+
+AZURE_EMBEDDING_API_KEY = os.getenv("AZURE_EMBEDDING_API_KEY")
+AZURE_EMBEDDING_ENDPOINT = os.getenv("AZURE_EMBEDDING_ENDPOINT")
+AZURE_EMBEDDING_API_VERSION = os.getenv("AZURE_EMBEDDING_API_VERSION", "2024-02-01")
+AZURE_EMBEDDING_DEPLOYMENT = os.getenv("AZURE_EMBEDDING_DEPLOYMENT")
 
 vector_db = None
 
+
 def get_vector_db():
     global vector_db
-    if vector_db is None:
-        vector_db = Chroma(
-            persist_directory="ChromaDB",
-            embedding_function=embedding_model
-        )
+
+    if vector_db is not None:
+        return vector_db
+
+    embeddings = AzureOpenAIEmbeddings(
+        model=AZURE_EMBEDDING_DEPLOYMENT,
+        api_key=AZURE_EMBEDDING_API_KEY,
+        azure_endpoint=AZURE_EMBEDDING_ENDPOINT,
+        api_version=AZURE_EMBEDDING_API_VERSION
+    )
+
+    vector_db = Chroma(
+        persist_directory=CHROMA_DIR,
+        embedding_function=embeddings
+    )
+
     return vector_db
+
+
+def persist_db():
+    try:
+        get_vector_db().persist()
+    except:
+        pass
 
 
 def add_documents_to_db(documents, metadatas=None):

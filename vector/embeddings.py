@@ -1,14 +1,17 @@
-from chromadb.utils.embedding_functions import DefaultEmbeddingFunction
+import os
+from dotenv import load_dotenv
+from langchain_openai import AzureOpenAIEmbeddings
 
-class ChromaEmbedWrapper:
-    def __init__(self):
-        self.model = DefaultEmbeddingFunction()
+load_dotenv()
 
-    def embed_documents(self, texts):
-        return self.model(texts)
+AZURE_EMBEDDING_API_KEY = os.getenv("AZURE_EMBEDDING_API_KEY")
+AZURE_EMBEDDING_ENDPOINT = os.getenv("AZURE_EMBEDDING_ENDPOINT")
+AZURE_EMBEDDING_API_VERSION = os.getenv("AZURE_EMBEDDING_API_VERSION", "2024-02-01")
+AZURE_EMBEDDING_DEPLOYMENT = os.getenv("AZURE_EMBEDDING_DEPLOYMENT")
 
-    def embed_query(self, text):
-        return self.model([text])[0]
-
-
-embedding_model = ChromaEmbedWrapper()
+embedding_model = AzureOpenAIEmbeddings(
+    model=AZURE_EMBEDDING_DEPLOYMENT,        
+    azure_endpoint=AZURE_EMBEDDING_ENDPOINT, 
+    api_key=AZURE_EMBEDDING_API_KEY,         
+    api_version=AZURE_EMBEDDING_API_VERSION  
+)
