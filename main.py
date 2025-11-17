@@ -2,7 +2,6 @@ from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
-from Services.chatbot_logic import chat_with_azure
 from Data.chatbot_db import SessionLocal, engine
 from Models.dataModels import Base, ApplicationUser, Conversation, ChatMessage
 from fastapi.responses import FileResponse
