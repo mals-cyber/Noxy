@@ -37,14 +37,26 @@ AZURE_OPENAI_API_KEY=<apikey>
 AZURE_OPENAI_ENDPOINT=<endpoint>
 AZURE_OPENAI_DEPLOYMENT_NAME=<deploymentname>
 
+#2. Add Azure Embedding Credentials
+AZURE_EMBEDDING_API_KEY=<apikey>
+AZURE_EMBEDDING_ENDPOINT=<endpoint>
+AZURE_EMBEDDING_API_VERSION=2024-02-01
+AZURE_EMBEDDING_DEPLOYMENT=<deploymentname>
+
+
 #These variables are defined directly in Python using the os.environ method:
 load_dotenv()
 AZURE_API_KEY = os.getenv("AZURE_OPENAI_API_KEY")
 AZURE_ENDPOINT = os.getenv("AZURE_OPENAI_ENDPOINT")
 AZURE_DEPLOYMENT_NAME = os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME")
+
+AZURE_EMBEDDING_API_KEY = os.getenv("AZURE_EMBEDDING_API_KEY")
+AZURE_EMBEDDING_ENDPOINT = os.getenv("AZURE_EMBEDDING_ENDPOINT")
+AZURE_EMBEDDING_API_VERSION = os.getenv("AZURE_EMBEDDING_API_VERSION", "2024-02-01")
+AZURE_EMBEDDING_DEPLOYMENT = os.getenv("AZURE_EMBEDDING_DEPLOYMENT")
 ```
 ```bash
-# 2. Add SQL Server connection
+#3. Add SQL Server connection
 SQL_SERVER=localhost,1433
 SQL_DB=NoxyChatbotDB
 SQL_USER=sa
@@ -103,10 +115,6 @@ python -m uvicorn Services.main:app --reload
 - **python-dotenv** – Loads `.env` credentials securely
 - **LangChain** – Framework used to connect LLMs, tools, and retrieval pipelines
 - **ChromaDB (Vector Database)** – Used for semantic search and document embeddings
-- **MCP (Model Context Protocol)** – *In progress*: enables extended model capabilities
-
-
-
 
 ## License
 
