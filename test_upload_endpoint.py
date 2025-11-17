@@ -15,7 +15,7 @@ def test_imports():
     try:
         from vector.inject import inject_document_from_url, download_file_from_url, get_file_type
         from vector.store import add_documents_to_db, get_vector_db
-        from Services.main import upload_document, UploadDocumentRequest
+        from main import upload_document, UploadDocumentRequest
         print("✓ All imports successful")
         return True
     except ImportError as e:
@@ -96,7 +96,7 @@ def test_endpoint_request_model():
     """Test the Pydantic request model"""
     print("\nTesting endpoint request model...")
     try:
-        from Services.main import UploadDocumentRequest
+        from main import UploadDocumentRequest
 
         # Test valid request
         req = UploadDocumentRequest(url="https://example.com/file.json")

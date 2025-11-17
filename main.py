@@ -9,6 +9,7 @@ from fastapi.responses import FileResponse
 import os
 from vector.store import get_vector_db, delete_documents_by_url
 from vector.inject import inject_document_from_url
+from agent.noxy_agent import ask_noxy
 
 get_vector_db()
 
@@ -123,7 +124,8 @@ def chat_endpoint(request: ChatRequest, db: Session = Depends(get_db)):
     db.add(user_msg)
     db.commit()
 
-    reply = chat_with_azure(request.message, conversation_history)
+    from agent.noxy_agent import ask_noxy
+    reply = ask_noxy(request.message)
 
     bot_msg = ChatMessage(ConvoId=convo.ConvoId, Sender="Noxy", Message=reply)
     db.add(bot_msg)
