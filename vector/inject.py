@@ -131,18 +131,17 @@ def inject_document_from_url(url: str) -> dict:
         if not chunks:
             raise ValueError("No chunks created from document")
 
+        # Add metadata to each chunk
+        for c in chunks:
+            c.metadata = {
+                "source": url,
+                "file_type": file_type,
+                "original_filename": Path(url).name
+            }
+
         # Add to ChromaDB
         vector_db = get_vector_db()
-        vector_db.add_documents(
-            documents=chunks,
-            metadatas=[
-                {
-                    "source": url,
-                    "file_type": file_type,
-                    "original_filename": Path(url).name
-                }
-            ] * len(chunks)
-        )
+        vector_db.add_documents(chunks)
 
         return {
             "success": True,
