@@ -184,38 +184,3 @@ class OnboardingSteps(Base):
     # Relationships
     Task = relationship("OnboardingTask", back_populates="Steps")
 
-class Requirement(Base):
-    __tablename__ = "Requirements"
-    __table_args__ = {"schema": "dbo"}
-
-    Id = Column(Integer, primary_key=True, autoincrement=True)
-
-    Category = Column(String(200), nullable=False)
-    Name = Column(String(300), nullable=False)
-    IsActive = Column(Boolean, default=True)
-
-    # Relationships
-    UserRequirements = relationship("UserRequirement", back_populates="Requirement")
-
-class UserRequirement(Base):
-    __tablename__ = "UserRequirements"
-    __table_args__ = {"schema": "dbo"}
-
-    Id = Column(Integer, primary_key=True, autoincrement=True)
-
-    # FK to AspNetUsers.Id (string GUID)
-    UserId = Column(String(450), ForeignKey("dbo.AspNetUsers.Id"), nullable=False)
-
-    # FK to Requirement.Id
-    RequirementId = Column(Integer, ForeignKey("dbo.Requirements.Id"), nullable=False)
-
-    Status = Column(String(50), default="Pending")  
-    FileUrl = Column(String(500), nullable=True)
-    SubmittedAt = Column(DateTime, nullable=True)
-    ReviewedAt = Column(DateTime, nullable=True)
-    ReviewerId = Column(String(450), nullable=True)
-
-    # Relationships
-    Requirement = relationship("Requirement", back_populates="UserRequirements")
-    User = relationship("ApplicationUser", back_populates="UserRequirements")
-

@@ -124,5 +124,5 @@ def llm_followup_sentence(filename: str):
     return result.content.strip()
 
 def retrieve_context(input: dict):
-    q = input["question"].lower()   # now this works
+    q = input["question"].lower() 
 
