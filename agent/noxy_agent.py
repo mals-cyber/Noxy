@@ -5,6 +5,8 @@ from vector.search import search_vectors
 from Services.config import AZURE_API_KEY, AZURE_ENDPOINT, AZURE_DEPLOYMENT_NAME
 from tools.pdf_tool import fetch_pdf_links
 from tools.file_matcher import find_best_file_match
+from tools.pending_tasks import fetch_pending_tasks
+
 
 
 # ---- LLM MODEL ----
@@ -92,26 +94,39 @@ chain = (
     | llm
 )
 
-def ask_noxy(message: str):
+def ask_noxy(message: str, user_id: str = None):
     q = message.lower()
 
-    # Check if user is asking for a file
+    # 1️⃣ Pending requirements first
+    requirements_keywords = [
+        "lacking requirements", "pending", "incomplete", 
+        "what do i need", "requirements", "missing"
+    ]
+
+    if any(k in q for k in requirements_keywords) and user_id:
+        pending = fetch_pending_tasks(user_id)
+
+        if not pending:
+            return "You currently have no pending onboarding requirements."
+
+        # Build readable list
+        items = ", ".join([t["taskTitle"] for t in pending])
+        return f"These are your pending onboarding requirements: {items}. Please submit them as soon as possible."
+
+    # 2️⃣ File request logic
     request_keywords = ["form", "pdf", "file", "document", "download", "copy"]
+
     if any(k in q for k in request_keywords):
-        
         files = fetch_pdf_links()
         if not files:
             return "I’m having trouble retrieving the files right now. Please try again later."
 
-        # AI matching
         best = find_best_file_match(q, files)
-
         if best:
             followup = llm_followup_sentence(best["name"])
             return f"Here is the file you need: {best['url']}. {followup}"
 
-
-    # Otherwise run normal LLM
+    # 3️⃣ Fallback to LLM
     result = chain.invoke({"question": message})
     return result.content
 

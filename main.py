@@ -124,7 +124,8 @@ def chat_endpoint(request: ChatRequest, db: Session = Depends(get_db)):
     db.commit()
 
     from agent.noxy_agent import ask_noxy
-    reply = ask_noxy(request.message)
+    reply = ask_noxy(request.message, user_id=request.userId)
+
 
     bot_msg = ChatMessage(ConvoId=convo.ConvoId, Sender="Noxy", Message=reply)
     db.add(bot_msg)
