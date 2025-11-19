@@ -1,21 +1,50 @@
-from langchain.tools import tool
+import requests
+from Services.config import storage_name
 
-PDF_MAP = {
-    "sss": "SSS E1 FORM.pdf",
-    "e1": "SSS E1 FORM.pdf",
-    "pagibig": "HDMF.pdf",
-    "pag-ibig": "HDMF.pdf",
-    "philhealth": "PHILHEALTH.pdf",
-    "1904": "BIR FORM 1904.pdf",
-    "1905": "BIR FORM 1905.pdf",
-    "2316": "BIR FORM 2316.pdf"
-}
+AZURE_PDF_ENDPOINT = (
+    "http://localhost:5164/api/AzureBlobStorage/containers/onboarding-materials/blobs/"
+)
 
-@tool
-def pdf_lookup(query: str) -> str:
-    """Returns PDF filename if user requests a form."""
-    q = query.lower()
-    for key, file in PDF_MAP.items():
-        if key in q:
-            return f"The correct PDF is {file}."
-    return ""
+def fetch_pdf_links():
+    headers = {
+        "accept": "application/octet-stream"
+    }
+
+    try:
+        resp = requests.get(AZURE_PDF_ENDPOINT, headers=headers)
+
+        print("STATUS CODE:", resp.status_code)
+        print("RAW TEXT:", repr(resp.text[:500]))
+
+        # If it’s not returning JSON, show content type
+        print("CONTENT-TYPE:", resp.headers.get("Content-Type"))
+
+        # If failed, return nothing
+        if resp.status_code != 200:
+            print("ERROR: Server did not return 200")
+            return []
+
+        # Try parse JSON
+        try:
+            data = resp.json()
+            print("PARSED JSON:", data)
+        except Exception as e:
+            print("JSON PARSE ERROR:", e)
+            return []
+
+        blobs = data.get("blobs", [])
+        print("FOUND BLOBS:", blobs)
+
+        # Build full blob URLs
+        results = [
+            {
+                "name": blob,
+                "url": f"https://{storage_name}.blob.core.windows.net/onboarding-materials/{blob}"
+            }
+            for blob in blobs
+            if blob.lower().endswith(".pdf")
+        ]
+
+        return results
+    except Exception as ex:
+        return []

@@ -3,6 +3,8 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnableParallel, RunnablePassthrough
 from vector.search import search_vectors
 from Services.config import AZURE_API_KEY, AZURE_ENDPOINT, AZURE_DEPLOYMENT_NAME
+from tools.pdf_tool import fetch_pdf_links
+from tools.file_matcher import find_best_file_match
 
 
 # ---- LLM MODEL ----
@@ -40,6 +42,7 @@ Rules:
 3. If query is HR-related, use vector search results.
 4. If search is empty and query is HR-related → say you cannot find info.
 5. Maximum 3 simple sentences. No line breaks.
+6. If there is a link, provide a simple one sentence after.
 
 HR CONTACT INFORMATION:
 Email: hrdepartment@n-pax.com
@@ -90,8 +93,35 @@ chain = (
 )
 
 def ask_noxy(message: str):
+    q = message.lower()
+
+    # Check if user is asking for a file
+    request_keywords = ["form", "pdf", "file", "document", "download", "copy"]
+    if any(k in q for k in request_keywords):
+        
+        files = fetch_pdf_links()
+        if not files:
+            return "I’m having trouble retrieving the files right now. Please try again later."
+
+        # AI matching
+        best = find_best_file_match(q, files)
+
+        if best:
+            followup = llm_followup_sentence(best["name"])
+            return f"Here is the file you need: {best['url']}. {followup}"
+
+
+    # Otherwise run normal LLM
     result = chain.invoke({"question": message})
     return result.content
+
+def llm_followup_sentence(filename: str):
+    prompt = (
+        f"Write a simple one sentence after the link and make it friendly: {filename}. "
+        f"Do not add a link, do not ask questions. Maximum 1 sentence."
+    )
+    result = llm.invoke(prompt)
+    return result.content.strip()
 
 def retrieve_context(input: dict):
     q = input["question"].lower()   # now this works
