@@ -55,8 +55,6 @@ class ApplicationUser(Base):
         """Gets the user's full name by combining first and last names."""
         parts = [self.FirstName, self.LastName]
         return " ".join(p for p in parts if p).strip()
-    
-    UserRequirements = relationship("UserRequirement", back_populates="User", cascade="all, delete")
 
 class Department(Base):
     """
