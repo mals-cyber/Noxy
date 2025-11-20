@@ -39,7 +39,7 @@ Rules:
 2. If greeting (hi, hello, good morning), answer warmly without search.
 3. If query is HR-related, use vector search results.
 4. If search is empty and query is HR-related → say you cannot find info.
-5. Maximum 3 simple sentences. No line breaks.
+5. Maximum 3 simple sentences.
 6. If there is a link, provide a simple one sentence after.
 7. Do not use Mdash or special formatting.
 
@@ -90,9 +90,9 @@ def ask_noxy(message: str, user_id: str = None):
     q = message.lower()
 
     requirements_keywords = [
-        "lacking requirements", "pending", "incomplete", 
-        "what do i need", "requirements", "missing"
-    ]
+    "lacking requirements", "pending", "incomplete", 
+    "what do i need", "missing"
+]
 
     if any(k in q for k in requirements_keywords) and user_id:
         pending = fetch_pending_tasks(user_id)
@@ -100,9 +100,23 @@ def ask_noxy(message: str, user_id: str = None):
         if not pending:
             return "You currently have no pending onboarding requirements."
 
-        # Build readable list
-        items = ", ".join([t["taskTitle"] for t in pending])
-        return f"These are your pending onboarding requirements: {items}. Please submit them as soon as possible."
+        # Build bullet list
+        items = "\n".join([f"- {t['taskTitle']}" for t in pending])
+
+        # Ask LLM to generate intro + outro
+        natural_text = llm_pending_sentence()
+
+        # Try to split into intro + outro
+        if ". " in natural_text:
+            intro, outro = natural_text.split(". ", 1)
+            outro = outro.strip()
+        else:
+            intro = natural_text
+            outro = "Please complete them soon."
+
+        # Final combined formatted answer
+        return f"{intro}:\n{items}\n{outro}"
+
 
     request_keywords = ["form", "pdf", "file", "document", "download", "copy"]
 
@@ -126,6 +140,17 @@ def llm_followup_sentence(filename: str):
     )
     result = llm.invoke(prompt)
     return result.content.strip()
+
+def llm_pending_sentence():
+    prompt = (
+        "Write two short, friendly sentences for showing pending onboarding "
+        "requirements to a user. The first sentence should introduce the list. "
+        "The second sentence should come after the list and encourage the user "
+        "to complete the requirements. Do NOT add bullets or formatting, only two sentences."
+    )
+    result = llm.invoke(prompt)
+    return result.content.strip()
+
 
 def retrieve_context(input: dict):
     q = input["question"].lower() 
