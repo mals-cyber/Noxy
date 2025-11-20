@@ -11,7 +11,6 @@ def fetch_pending_tasks(user_id: str):
 
         tasks = resp.json()
 
-        # Filter only "pending"
         pending = [t for t in tasks if t.get("status") == "pending"]
         return pending
 

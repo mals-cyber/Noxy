@@ -23,9 +23,6 @@ def load_json_kb(path: str):
         with open(path, encoding="utf-8") as f:
             data = json.load(f)
 
-        # ==========================
-        # FORMAT 1: departmentKnowledgeBase
-        # ==========================
         dep_root = data.get("departmentKnowledgeBase")
         if dep_root:
 
@@ -62,15 +59,11 @@ def load_json_kb(path: str):
 
             return docs
 
-        # ==========================
-        # FORMAT 2: knowledgeBase.categories
-        # ==========================
         kb_root = data.get("knowledgeBase", data)
         categories = kb_root.get("categories", [])
 
         for cat in categories:
 
-            # ---- entries[] format (Q&A)
             for entry in cat.get("entries", []):
                 text = f"Q: {entry.get('question')}\nA: {entry.get('answer')}"
                 docs.append(Document(
@@ -84,7 +77,6 @@ def load_json_kb(path: str):
                     }
                 ))
 
-            # ---- items[] format (Gov requirements)
             for item in cat.get("items", []):
                 text = f"{item.get('title')}\n{item.get('content')}"
                 docs.append(Document(

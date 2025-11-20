@@ -8,8 +8,6 @@ from tools.file_matcher import find_best_file_match
 from tools.pending_tasks import fetch_pending_tasks
 
 
-
-# ---- LLM MODEL ----
 llm = AzureChatOpenAI(
     api_key=AZURE_API_KEY,
     azure_endpoint=AZURE_ENDPOINT,
@@ -18,8 +16,6 @@ llm = AzureChatOpenAI(
     temperature=0.2
 )
 
-
-# ---- SYSTEM PROMPT ----
 SYSTEM_PROMPT = """
 You are Noxy, an HR onboarding assistant.
 
@@ -45,6 +41,7 @@ Rules:
 4. If search is empty and query is HR-related → say you cannot find info.
 5. Maximum 3 simple sentences. No line breaks.
 6. If there is a link, provide a simple one sentence after.
+7. Do not use Mdash or special formatting.
 
 HR CONTACT INFORMATION:
 Email: hrdepartment@n-pax.com
@@ -54,7 +51,6 @@ Hours: Monday–Friday, 8:00 AM – 6:00 PM
 """
 
 
-# ---- FORMAT INPUT TO LLM ----
 prompt = ChatPromptTemplate.from_messages([
     ("system", SYSTEM_PROMPT),
     ("human", """
@@ -68,19 +64,15 @@ Answer as Noxy.
 ])
 
 
-# ---- PIPELINE ----
 def retrieve_context(input: dict):
     q = input["question"].lower()
 
-    # Greeting → no vector search
     if q in ["hi", "hello", "hey", "good morning", "good afternoon"]:
         return ""
 
-    # Vague → no vector search
     if q in ["guide me", "help me", "assist me"]:
         return ""
 
-    # Normal → use vector search
     hits = search_vectors(q)
     return "\n".join(hits)
 
@@ -97,7 +89,6 @@ chain = (
 def ask_noxy(message: str, user_id: str = None):
     q = message.lower()
 
-    # 1️⃣ Pending requirements first
     requirements_keywords = [
         "lacking requirements", "pending", "incomplete", 
         "what do i need", "requirements", "missing"
@@ -113,7 +104,6 @@ def ask_noxy(message: str, user_id: str = None):
         items = ", ".join([t["taskTitle"] for t in pending])
         return f"These are your pending onboarding requirements: {items}. Please submit them as soon as possible."
 
-    # 2️⃣ File request logic
     request_keywords = ["form", "pdf", "file", "document", "download", "copy"]
 
     if any(k in q for k in request_keywords):
@@ -126,7 +116,6 @@ def ask_noxy(message: str, user_id: str = None):
             followup = llm_followup_sentence(best["name"])
             return f"Here is the file you need: {best['url']}. {followup}"
 
-    # 3️⃣ Fallback to LLM
     result = chain.invoke({"question": message})
     return result.content
 
