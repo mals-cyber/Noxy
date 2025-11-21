@@ -90,8 +90,10 @@ def ask_noxy(message: str, user_id: str = None):
     q = message.lower()
     responses = []  # collect partial responses
 
-    requirements_keywords = ["lacking requirements", "pending", "incomplete", 
-                             "what do i need", "missing"]
+    requirements_keywords = [
+        "lacking requirements", "pending", "incomplete",
+        "what do i need", "missing"
+    ]
 
     if any(k in q for k in requirements_keywords) and user_id:
         pending = fetch_pending_tasks(user_id)
@@ -117,10 +119,17 @@ def ask_noxy(message: str, user_id: str = None):
         else:
             responses.append("I’m having trouble retrieving the files right now.")
 
-    llm_result = chain.invoke({"question": message}).content
-    responses.append(llm_result)
+    try:
+        llm_result = chain.invoke({"question": message}).content
+    except Exception as e:
+        if "content_filter" in str(e).lower() or "jailbreak" in str(e).lower():
+            return "I can’t answer that. Let’s stay on onboarding topics only."
+        raise e  
 
+    responses.append(llm_result)
     return "\n\n".join(responses)
+
+
 
 def llm_followup_sentence(filename: str):
     prompt = (
