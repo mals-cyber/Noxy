@@ -39,7 +39,7 @@ Rules:
 2. If greeting (hi, hello, good morning), answer warmly without search.
 3. If query is HR-related, use vector search results.
 4. If search is empty and query is HR-related → say you cannot find info.
-5. Maximum 3 simple sentences. No line breaks.
+5. Maximum 3 simple sentences.
 6. If there is a link, provide a simple one sentence after.
 7. Do not use Mdash or special formatting.
 
@@ -49,6 +49,7 @@ Cebu HR: (032) 123-4567
 Manila HR: (02) 987-6543
 Hours: Monday–Friday, 8:00 AM – 6:00 PM
 """
+
 
 prompt = ChatPromptTemplate.from_messages([
     ("system", SYSTEM_PROMPT),
@@ -87,48 +88,50 @@ chain = (
 
 def ask_noxy(message: str, user_id: str = None):
     q = message.lower()
-    responses = []  # collect partial responses
 
     requirements_keywords = [
-        "lacking requirements", "pending", "incomplete",
-        "what do i need", "missing"
-    ]
+    "lacking requirements", "pending", "incomplete", 
+    "what do i need", "missing"
+]
 
     if any(k in q for k in requirements_keywords) and user_id:
         pending = fetch_pending_tasks(user_id)
-        if pending:
-            items = "\n".join([f"- {t['taskTitle']}" for t in pending])
-            natural = llm_pending_sentence()
-            intro, outro = natural.split(". ", 1)
-            responses.append(f"{intro}:\n{items}\n{outro}")
+
+        if not pending:
+            return "You currently have no pending onboarding requirements."
+
+        # Build bullet list
+        items = "\n".join([f"- {t['taskTitle']}" for t in pending])
+
+        # Ask LLM to generate intro + outro
+        natural_text = llm_pending_sentence()
+
+        # Try to split into intro + outro
+        if ". " in natural_text:
+            intro, outro = natural_text.split(". ", 1)
+            outro = outro.strip()
         else:
-            responses.append("You currently have no pending onboarding requirements.")
+            intro = natural_text
+            outro = "Please complete them soon."
+
+        # Final combined formatted answer
+        return f"{intro}:\n{items}\n{outro}"
+
 
     request_keywords = ["form", "pdf", "file", "document", "download", "copy"]
 
     if any(k in q for k in request_keywords):
         files = fetch_pdf_links()
-        if files:
-            best = find_best_file_match(q, files)
-            if best:
-                followup = llm_followup_sentence(best["name"])
-                responses.append(
-                    f"Here is the file you need: {best['url']}. {followup}"
-                )
-        else:
-            responses.append("I’m having trouble retrieving the files right now.")
+        if not files:
+            return "I’m having trouble retrieving the files right now. Please try again later."
 
-    try:
-        llm_result = chain.invoke({"question": message}).content
-    except Exception as e:
-        if "content_filter" in str(e).lower() or "jailbreak" in str(e).lower():
-            return "I can’t answer that. Let’s stay on onboarding topics only."
-        raise e  
+        best = find_best_file_match(q, files)
+        if best:
+            followup = llm_followup_sentence(best["name"])
+            return f"Here is the file you need: {best['url']}. {followup}"
 
-    responses.append(llm_result)
-    return "\n\n".join(responses)
-
-
+    result = chain.invoke({"question": message})
+    return result.content
 
 def llm_followup_sentence(filename: str):
     prompt = (
