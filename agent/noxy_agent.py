@@ -50,7 +50,6 @@ Manila HR: (02) 987-6543
 Hours: Monday–Friday, 8:00 AM – 6:00 PM
 """
 
-
 prompt = ChatPromptTemplate.from_messages([
     ("system", SYSTEM_PROMPT),
     ("human", """
