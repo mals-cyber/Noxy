@@ -11,7 +11,11 @@ def fetch_pending_tasks(user_id: str):
 
         tasks = resp.json()
 
-        pending = [t for t in tasks if t.get("status") == "pending"]
+        pending = [
+            t for t in tasks
+            if t.get("status", "").lower() in ["pending", "in progress"]
+        ]
+
         return pending
 
     except Exception as e:
