@@ -5,7 +5,7 @@ from vector.search import search_vectors
 from Services.config import AZURE_API_KEY, AZURE_ENDPOINT, AZURE_DEPLOYMENT_NAME
 from tools.pdf_tool import fetch_pdf_links
 from tools.file_matcher import find_best_file_match
-from tools.pending_tasks import fetch_pending_tasks
+from tools.pendingtasks_tools import pending_tasks_tool
 
 
 llm = AzureChatOpenAI(
@@ -86,37 +86,24 @@ chain = (
     | llm
 )
 
-def ask_noxy(message: str, user_id: str = None):
-    q = message.lower()
-
-    requirements_keywords = [
-    "lacking requirements", "pending", "incomplete", 
-    "what do i need", "missing"
+PENDING_TASK_PHRASES = [
+    "what are the tasks i need to comply",
+    "what do i need",
+    "what are my pending requirements",
+    "what am i missing",
+    "what do i still need to submit",
+    "incomplete tasks",
+    "lacking requirements",
+    "pending requirements"
 ]
 
-    if any(k in q for k in requirements_keywords) and user_id:
-        pending = fetch_pending_tasks(user_id)
 
-        if not pending:
-            return "You currently have no pending onboarding requirements."
+def ask_noxy(message: str, user_id: str = None, task_progress=None):
+    q = message.lower()
 
-        # Build bullet list
-        items = "\n".join([f"- {t['taskTitle']}" for t in pending])
-
-        # Ask LLM to generate intro + outro
-        natural_text = llm_pending_sentence()
-
-        # Try to split into intro + outro
-        if ". " in natural_text:
-            intro, outro = natural_text.split(". ", 1)
-            outro = outro.strip()
-        else:
-            intro = natural_text
-            outro = "Please complete them soon."
-
-        # Final combined formatted answer
-        return f"{intro}:\n{items}\n{outro}"
-
+    # ✅ Let LLM decide when to call the tool
+    if task_progress and any(p in q for p in PENDING_TASK_PHRASES):
+        return pending_tasks_tool.invoke({"data": {"task_progress": task_progress}})
 
     request_keywords = ["form", "pdf", "file", "document", "download", "copy"]
 
@@ -154,4 +141,5 @@ def llm_pending_sentence():
 
 def retrieve_context(input: dict):
     q = input["question"].lower() 
+
 

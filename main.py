@@ -9,6 +9,8 @@ import os
 from vector.store import get_vector_db, delete_documents_by_url
 from vector.inject import inject_document_from_url
 from agent.noxy_agent import ask_noxy
+from Models.dataModels import UserOnboardingTaskProgress, OnboardingTask
+
 
 get_vector_db()
 
@@ -123,9 +125,8 @@ def chat_endpoint(request: ChatRequest, db: Session = Depends(get_db)):
     db.add(user_msg)
     db.commit()
 
-    from agent.noxy_agent import ask_noxy
-    reply = ask_noxy(request.message, user_id=request.userId)
-
+    task_progress = get_user_task_progress(request.userId, db)
+    reply = ask_noxy(request.message, user_id=request.userId, task_progress=task_progress)
 
     bot_msg = ChatMessage(ConvoId=convo.ConvoId, Sender="Noxy", Message=reply)
     db.add(bot_msg)
@@ -158,6 +159,29 @@ def get_history(username: str, db: Session = Depends(get_db)):
         ]
     }
 
+def get_user_task_progress(user_id: str, db: Session):
+    progress = (
+        db.query(UserOnboardingTaskProgress)
+        .join(OnboardingTask)
+        .filter(UserOnboardingTaskProgress.UserId == user_id)
+        .all()
+    )
+
+    return [
+        {
+            "taskId": p.TaskId,
+            "taskTitle": p.Task.Title,
+            "taskDescription": p.Task.Description,
+            "status": p.Status,
+            "updatedAt": p.UpdatedAt
+        }
+        for p in progress
+    ]
+
+
+@app.get("/user-task-progress/{user_id}")
+def get_user_task_progress_endpoint(user_id: str, db: Session = Depends(get_db)):
+    return get_user_task_progress(user_id, db)
 
 @app.post("/upload-document")
 def upload_document(request: UploadDocumentRequest):
@@ -423,8 +447,3 @@ def update_document(request: UpdateDocumentRequest):
             "message": f"Unexpected error during update: {str(e)}"
         }
  
-
-
-
-
-

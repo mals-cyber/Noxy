@@ -182,3 +182,21 @@ class OnboardingSteps(Base):
     # Relationships
     Task = relationship("OnboardingTask", back_populates="Steps")
 
+class UserOnboardingTaskProgress(Base):
+    __tablename__ = "UserOnboardingTaskProgress"
+    __table_args__ = {"schema": "dbo"}
+
+    Id = Column(Integer, primary_key=True, autoincrement=True)
+    UserId = Column(String(450), ForeignKey("dbo.AspNetUsers.Id"), nullable=False)
+    TaskId = Column(Integer, ForeignKey("dbo.OnboardingTasks.Id"), nullable=False)
+
+    # pending | in_progress | completed
+    Status = Column(String(50), nullable=False, default="pending")
+
+    UpdatedAt = Column(DateTime, default=datetime.utcnow)
+
+    # Relationships
+    User = relationship("ApplicationUser")
+    Task = relationship("OnboardingTask")
+
+
