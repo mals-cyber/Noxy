@@ -110,16 +110,6 @@ def ask_noxy(message: str, user_id: str = None, task_progress=None):
     result = chain.invoke({"question": message})
     return result.content
 
-def llm_pending_sentence():
-    prompt = (
-        "Write two short, friendly sentences for showing pending onboarding "
-        "requirements to a user. The first sentence should introduce the list. "
-        "The second sentence should come after the list and encourage the user "
-        "to complete the requirements. Do NOT add bullets or formatting, only two sentences."
-    )
-    result = llm.invoke(prompt)
-    return result.content.strip()
-
 def retrieve_context(input: dict):
     q = input["question"].lower() 
 

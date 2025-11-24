@@ -23,7 +23,6 @@ def fetch_pdf_links():
 
         print("PARSED JSON:", data)
 
-        # Backend returns LIST -> data = [ "file1.pdf", "file2.pdf", ... ]
         if isinstance(data, list):
             blobs = data
         elif isinstance(data, dict):

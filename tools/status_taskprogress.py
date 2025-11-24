@@ -1,6 +1,5 @@
 import requests
 
-# Detect when user is asking about task status
 PENDING_TASK_PHRASES = [
     "what are the tasks i need to comply",
     "what do i need",
