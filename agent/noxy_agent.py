@@ -5,7 +5,9 @@ from vector.search import search_vectors
 from Services.config import AZURE_API_KEY, AZURE_ENDPOINT, AZURE_DEPLOYMENT_NAME
 from tools.pdf_tool import fetch_pdf_links
 from tools.file_matcher import find_best_file_match
-from tools.pendingtasks_tools import pending_tasks_tool
+from tools.pendingtasks_tool import pending_tasks_tool
+from tools.pending_tasks import PENDING_TASK_PHRASES
+from tools.pending_tasks import fetch_task_status_groups
 
 
 llm = AzureChatOpenAI(
@@ -86,39 +88,59 @@ chain = (
     | llm
 )
 
-PENDING_TASK_PHRASES = [
-    "what are the tasks i need to comply",
-    "what do i need",
-    "what are my pending requirements",
-    "what am i missing",
-    "what do i still need to submit",
-    "incomplete tasks",
-    "lacking requirements",
-    "pending requirements"
-]
-
-
 def ask_noxy(message: str, user_id: str = None, task_progress=None):
     q = message.lower()
 
-    # ✅ Let LLM decide when to call the tool
-    if task_progress and any(p in q for p in PENDING_TASK_PHRASES):
-        return pending_tasks_tool.invoke({"data": {"task_progress": task_progress}})
+    # Pending task handling
+    if user_id and any(p in q for p in PENDING_TASK_PHRASES):
+        task_groups = fetch_task_status_groups(user_id)
+        return pending_tasks_tool.invoke({
+            "data": {
+                "pending": task_groups.get("pending", []),
+                "in_progress": task_groups.get("in_progress", []),
+                "completed": task_groups.get("completed", [])
+            }
+        })
 
+
+    # Detect if user is asking for any file
     request_keywords = ["form", "pdf", "file", "document", "download", "copy"]
 
     if any(k in q for k in request_keywords):
+
+        # Special handling for generic BIR queries
+        generic_bir_cases = [
+            "bir",
+            "bir form",
+            "bir file",
+            "bir document",
+            "bir pdf",
+            "bureau of internal revenue"
+        ]
+
+        if q.strip() in generic_bir_cases:
+            return "It looks like you are requesting a BIR form, but there are multiple types. May I know the specific form number you need?"
+
+        # Fetch files
         files = fetch_pdf_links()
         if not files:
             return "I’m having trouble retrieving the files right now. Please try again later."
 
+        # Attempt to match
         best = find_best_file_match(q, files)
-        if best:
-            followup = llm_followup_sentence(best["name"])
-            return f"Here is the file you need: {best['url']}. {followup}"
 
+        # If no specific file found, ask clarification
+        if best is None:
+            return "I could not find a matching file. Can you specify the exact form name or number?"
+
+        # If found, return file with friendly follow-up
+        followup = llm_followup_sentence(best["name"])
+        return f"Here is the file you need: {best['url']}. {followup}"
+
+    # Default LLM response flow
     result = chain.invoke({"question": message})
     return result.content
+
 
 def llm_followup_sentence(filename: str):
     prompt = (
