@@ -1,52 +1,41 @@
-import requests
-from Services.config import storage_name
+import re
+from langchain.tools import tool
+from tools.file_matcher import find_best_file_match, generic_bir_cases
+from LLM.llm_followup import llm_followup_sentence
+from tools.pdf_fetch import fetch_pdf_links
 
-AZURE_PDF_ENDPOINT = "http://localhost:5164/api/onboarding/materials/blobs"
 
-def fetch_pdf_links():
-    try:
-        resp = requests.get(AZURE_PDF_ENDPOINT)
+@tool("pdf_file_tool")
+def pdf_file_tool(data: dict) -> str:
+    """Return requested onboarding PDF file or ask for clarification if needed."""
 
-        print("STATUS CODE:", resp.status_code)
-        print("RAW TEXT:", resp.text[:300])
+    q = data.get("query", "").lower()
 
-        if resp.status_code != 200:
-            print("ERROR: Non-200 status")
-            return []
+    request_keywords = ["form", "pdf", "file", "document", "download", "copy"]
 
-        # Parse JSON
-        try:
-            data = resp.json()
-        except Exception as e:
-            print("JSON PARSE ERROR:", e)
-            return []
+    if not any(k in q for k in request_keywords):
+        return "No file request detected."
 
-        print("PARSED JSON:", data)
+    # enhanced numeric extractor
+    bir_form_match = re.search(r"\b\d{3,4}\b", q)
 
-        # Backend returns LIST -> data = [ "file1.pdf", "file2.pdf", ... ]
-        if isinstance(data, list):
-            blobs = data
-        elif isinstance(data, dict):
-            blobs = data.get("blobs", [])
-        else:
-            print("Unknown response format")
-            return []
+    # generic BIR handling only if no form number
+    if any(term in q for term in generic_bir_cases) and not bir_form_match:
+        return "It looks like you are requesting a BIR form, but there are multiple types. May I know the specific form number you need?"
 
-        print("FOUND BLOBS:", blobs)
+    files = fetch_pdf_links()
+    if not files:
+        return "I’m having trouble retrieving the files right now. Please try again later."
 
-        # Build full Azure URLs
-        results = [
-            {
-                "name": blob.split("/")[-1],  # keep only filename
-                "url": f"https://{storage_name}.blob.core.windows.net/onboarding-materials/{blob}"
-            }
-            for blob in blobs
-            if blob.lower().endswith(".pdf")
-        ]
+    best = find_best_file_match(q, files)
 
-        print("PDF RESULTS:", results)
-        return results
+    # form number exists but unavailable
+    if bir_form_match and best is None:
+        return "I could not find a matching file. Can you specify the exact form name or number?"
 
-    except Exception as e:
-        print("REQUEST ERROR:", e)
-        return []
+    if best is None:
+        return "I could not find a matching file. Can you specify the exact form name or number?"
+
+    followup = llm_followup_sentence(best["name"])
+
+    return f"Here is the file you need: {best['url']}. {followup}"

@@ -10,6 +10,7 @@ PENDING_TASK_PHRASES = [
     "incomplete tasks",
     "lacking requirements",
     "pending requirements",
+    "pending tasks"
     "onboarding tasks status",
     "task status",
 ]

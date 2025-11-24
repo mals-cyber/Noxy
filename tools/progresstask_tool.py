@@ -18,8 +18,8 @@ def pending_tasks_tool(data: dict) -> str:
 
     message = (
         "Here is your onboarding task status:\n\n" +
-        format_section("Pending", pending) + "\n" +
-        format_section("In Progress", in_progress) + "\n" +
+        format_section("Pending", pending) +
+        format_section("In Progress", in_progress)+
         format_section("Completed", completed) +
         "\nPlease continue working on the remaining requirements."
     )
