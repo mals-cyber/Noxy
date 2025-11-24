@@ -11,7 +11,7 @@ llm = AzureChatOpenAI(
 
 def llm_followup_sentence(filename: str):
     prompt = (
-        f"Write one sentence after link and ask the user if they need anything else."
+        f"Write one sentence asking the user if they need anything else."
         f"Do not add a link, do not ask questions. Maximum 1 sentence."
     )
     result = llm.invoke(prompt)

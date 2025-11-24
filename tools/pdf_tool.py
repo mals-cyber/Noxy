@@ -11,7 +11,7 @@ def pdf_file_tool(data: dict) -> str:
 
     q = data.get("query", "").lower()
 
-    request_keywords = ["form", "pdf", "file", "document", "download", "copy"]
+    request_keywords = ["form", "pdf", "file", "download", "copy"]
 
     if not any(k in q for k in request_keywords):
         return "No file request detected."
