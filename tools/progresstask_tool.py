@@ -2,7 +2,7 @@ from langchain.tools import tool
 
 @tool("pending_tasks_tool")
 def pending_tasks_tool(data: dict) -> str:
-    """Return pending, in progress, and completed onboarding tasks in a friendly formatted list."""
+    """Return onboarding status: pending, in progress, and completed onboarding tasks in a friendly formatted list."""
 
     pending = data.get("pending", [])
     in_progress = data.get("in_progress", [])

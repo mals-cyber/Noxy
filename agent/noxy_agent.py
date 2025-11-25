@@ -44,6 +44,12 @@ Rules:
 3. Do not use Mdash or special formatting.
 4. There is no supported live HR support. 
 5. Use a supportive and helpful tone. Be happy to assist them.
+6. For onboarding task status, use this format:
+- List categories in this order: Pending, In Progress, Completed
+- Use hyphen bullets ( - )
+- If empty, write “- None”
+- If all tasks are complete, add a short congratulatory line
+- If not complete, add a short reminder
 
 HR CONTACT INFORMATION:
 Email: hr.department@n-pax.com
@@ -86,16 +92,6 @@ def ask_noxy(message: str, user_id: str = None, task_progress=None):
         if filter_result == "vague":
             return llm.invoke("The user asked for help but was unclear. "
                              "Ask naturally which HR or onboarding topic they mean. Keep it short.").content
-        
-        if user_id and any(p in q for p in PENDING_TASK_PHRASES):
-            task_groups = fetch_task_status_groups(user_id)
-            return pending_tasks_tool.invoke({
-                "data": {
-                    "pending": task_groups.get("pending", []),
-                    "in_progress": task_groups.get("in_progress", []),
-                    "completed": task_groups.get("completed", [])
-                }
-            })
         
         context = retrieve_context(message)
         
