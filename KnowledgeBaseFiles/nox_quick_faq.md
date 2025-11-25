@@ -1,13 +1,6 @@
 # NOX Quick Reference FAQ
 ## Fast Answers for Common Onboarding Questions
 
-## HR CONTACT INFORMATION
-HR Email: hrdepartment@n-pax.com
-Contact Numbers:
-- Cebu HR: (032) 123-4567
-- Manila HR: (02) 987-6543
-HR Office Hours: Monday to Friday, 8:00 AM – 6:00 PM
-
 **Who handles compliance and documents?**
 The HR Compliance Specialist manages document verification, government requirements, and employee records processing.
 
@@ -109,25 +102,16 @@ A: Depends on your role. IT will install necessary software and provide access t
 A: NOX (N-PAX Onboarding Expert) is your onboarding assistant system featuring Noxy, an AI chatbot, and document management tools.
 
 **Q: How do I access NOX?**
-A: You'll receive login credentials on Day 1. Access NOX through the web portal using your company email and password.
+A: You will receive your login credentials from HR. Access the NOX portal using the email and temporary password provided.
 
 **Q: What can I ask Noxy?**
-A: Anything about onboarding, company policies, benefits, procedures, contacts, and general company information!
+A: You can ask about onboarding requirements, government IDs, HR policies, company information, benefits, task progress, and general employee guidelines.
 
 **Q: Is Noxy available 24/7?**
 A: Yes! Chat with Noxy anytime, day or night, weekends included.
 
-**Q: What if Noxy can't answer my question?**
-A: Use the Request HR Consultation feature to connect with a human HR representative.
-
 **Q: How do I upload documents to NOX?**
-A: Log in to NOX, go to Document Management, click Upload, select your file, tag it correctly, and submit.
-
-**Q: What file formats are accepted for document uploads?**
-A: Common formats: PDF, JPG, PNG. PDF is preferred for documents. Maximum file size will be specified in the system.
-
-**Q: How do I know if my documents are approved?**
-A: Check your NOX dashboard for status updates. You'll also receive email notifications for approvals/rejections.
+A: NOX does not support document uploading. Instead, Noxy will guide you by providing the list of onboarding requirements and the step-by-step process for getting onboarding documents. Once you complete them, submit the physical or digital copies directly to HR based on their instructions.
 
 ---
 

@@ -274,7 +274,7 @@
               },
               {
                 "topic": "Work Schedule",
-                "description": "Most companies follow a Monday to Friday schedule, 9:00 AM to 6:00 PM with 1 hour lunch break. Some companies offer flexible schedules or compressed workweek arrangements."
+                "description": "Most companies follow a Monday to Friday schedule, 8:00 AM to 6:00 PM with 1 hour lunch break. Break time: 10:00-10:15 AM AND 3:00-3:15 PM. Some companies offer flexible schedules or compressed workweek arrangements."
               },
               {
                 "topic": "Break Periods",
@@ -347,7 +347,7 @@
             "faqs": [
               {
                 "question": "How do I file for leave?",
-                "answer": "Leave should be filed through your company's HR system or portal. For planned leave (like vacation), file at least 5-7 days in advance. For sick leave, notify your supervisor immediately and submit medical certificate if required."
+                "answer": "Leave should be filed through your company's N-xpert portal. For planned leave (like vacation), file at least 5-7 days in advance. For sick leave, notify your supervisor immediately and submit medical certificate if required."
               },
               {
                 "question": "Can I convert unused leave to cash?",
@@ -726,232 +726,6 @@
         ]
       },
       {
-        "id": "onboarding-checklist",
-        "name": "New Employee Onboarding Checklist",
-        "description": "Complete checklist for new employees",
-        "items": [
-          {
-            "id": "onboard-001",
-            "title": "Pre-Employment Requirements Checklist",
-            "category": "Onboarding",
-            "priority": "mandatory",
-            "content": "Essential requirements to complete before or during your first day.",
-            "checklist": [
-              {
-                "item": "Valid Government-Issued IDs",
-                "description": "2 valid IDs (e.g., Passport, Driver's License, UMID, Postal ID, Voter's ID)",
-                "deadline": "First day",
-                "required": true
-              },
-              {
-                "item": "NBI Clearance",
-                "description": "National Bureau of Investigation clearance (recent, within 6 months)",
-                "deadline": "Within first week",
-                "required": true
-              },
-              {
-                "item": "Birth Certificate (PSA)",
-                "description": "Original PSA-issued birth certificate",
-                "deadline": "Within first week",
-                "required": true
-              },
-              {
-                "item": "SSS Number",
-                "description": "Social Security System number. If none, HR will assist with registration",
-                "deadline": "Before first salary",
-                "required": true
-              },
-              {
-                "item": "PhilHealth Number",
-                "description": "PhilHealth Identification Number (PIN). If none, HR will assist with registration",
-                "deadline": "Before first salary",
-                "required": true
-              },
-              {
-                "item": "Pag-IBIG MID Number",
-                "description": "Pag-IBIG Member ID Number. If none, HR will assist with registration",
-                "deadline": "Before first salary",
-                "required": true
-              },
-              {
-                "item": "TIN (Tax Identification Number)",
-                "description": "BIR Tax Identification Number. If none, HR will coordinate registration",
-                "deadline": "Before first salary",
-                "required": true
-              },
-              {
-                "item": "BIR Form 2316",
-                "description": "Certificate from previous employer (if applicable, for those who worked earlier in the year)",
-                "deadline": "Before first salary",
-                "required": false
-              },
-              {
-                "item": "Educational Documents",
-                "description": "Diploma, Transcript of Records, or Certificate of Graduation",
-                "deadline": "Within first week",
-                "required": true
-              },
-              {
-                "item": "Employment Certificate/COE",
-                "description": "From previous employer (if applicable)",
-                "deadline": "Within first month",
-                "required": false
-              },
-              {
-                "item": "Medical Certificate",
-                "description": "Pre-employment medical exam results from accredited clinic",
-                "deadline": "Within first week",
-                "required": true
-              },
-              {
-                "item": "2x2 ID Pictures",
-                "description": "Recent ID photos (usually 6 copies, white background)",
-                "deadline": "First day",
-                "required": true
-              },
-              {
-                "item": "Bank Account Details",
-                "description": "For salary crediting (bank name, account number, account name)",
-                "deadline": "Before first payroll",
-                "required": true
-              }
-            ]
-          },
-          {
-            "id": "onboard-002",
-            "title": "First Day Checklist",
-            "category": "Onboarding",
-            "priority": "essential",
-            "content": "What to expect and complete on your first day.",
-            "checklist": [
-              {
-                "item": "Report to HR Department",
-                "description": "Check in with HR upon arrival for orientation",
-                "required": true
-              },
-              {
-                "item": "Submit Pre-Employment Requirements",
-                "description": "Bring all required documents for submission",
-                "required": true
-              },
-              {
-                "item": "Sign Employment Contract",
-                "description": "Review and sign your employment agreement",
-                "required": true
-              },
-              {
-                "item": "Receive Company ID",
-                "description": "Obtain your employee identification card",
-                "required": true
-              },
-              {
-                "item": "IT Equipment Setup",
-                "description": "Receive laptop, email access, and other IT resources",
-                "required": true
-              },
-              {
-                "item": "Orientation Session",
-                "description": "Attend company orientation covering policies, culture, and expectations",
-                "required": true
-              },
-              {
-                "item": "Office Tour",
-                "description": "Guided tour of facilities, workstations, pantry, restrooms",
-                "required": true
-              },
-              {
-                "item": "Meet Your Team",
-                "description": "Introduction to your immediate supervisor and team members",
-                "required": true
-              },
-              {
-                "item": "Review Employee Handbook",
-                "description": "Read through the company handbook and policies",
-                "required": true
-              }
-            ]
-          },
-          {
-            "id": "onboard-003",
-            "title": "First Week Checklist",
-            "category": "Onboarding",
-            "priority": "essential",
-            "content": "Tasks to complete during your first week.",
-            "checklist": [
-              {
-                "item": "Complete Onboarding Training",
-                "description": "Attend all scheduled orientation and training sessions",
-                "required": true
-              },
-              {
-                "item": "Set Up Work Tools",
-                "description": "Configure email, install necessary software, set up workstation",
-                "required": true
-              },
-              {
-                "item": "Review Job Description",
-                "description": "Meet with supervisor to clarify roles, responsibilities, and expectations",
-                "required": true
-              },
-              {
-                "item": "Submit Pending Documents",
-                "description": "Complete submission of any pending pre-employment requirements",
-                "required": true
-              },
-              {
-                "item": "Enroll in Benefits",
-                "description": "Complete enrollment for HMO, insurance, and other company benefits",
-                "required": true
-              },
-              {
-                "item": "Learn Company Systems",
-                "description": "Familiarize with HRIS, attendance system, communication tools",
-                "required": true
-              },
-              {
-                "item": "Schedule One-on-One with Manager",
-                "description": "Set regular check-in schedule with your direct supervisor",
-                "required": true
-              }
-            ]
-          },
-          {
-            "id": "onboard-004",
-            "title": "First Month Checklist",
-            "category": "Onboarding",
-            "priority": "important",
-            "content": "Goals for your first 30 days.",
-            "checklist": [
-              {
-                "item": "Complete All Training Modules",
-                "description": "Finish mandatory training including compliance, safety, and role-specific training",
-                "required": true
-              },
-              {
-                "item": "Understand Performance Expectations",
-                "description": "Clarify KPIs, goals, and success metrics for probationary period",
-                "required": true
-              },
-              {
-                "item": "Build Team Relationships",
-                "description": "Get to know colleagues, understand team dynamics",
-                "required": true
-              },
-              {
-                "item": "First Performance Check-In",
-                "description": "Meet with supervisor for initial feedback and progress assessment",
-                "required": true
-              },
-              {
-                "item": "Verify Government Registrations",
-                "description": "Confirm SSS, PhilHealth, and Pag-IBIG contributions are being deducted",
-                "required": true
-              }
-            ]
-          }
-        ]
-      },
-      {
         "id": "department-faqs",
         "name": "Department-Specific FAQs",
         "description": "Frequently asked questions by department",
@@ -963,19 +737,7 @@
             "faqs": [
               {
                 "question": "Who should I contact for payroll concerns?",
-                "answer": "Contact the HR Payroll team at hr.payroll@company.com or visit the HR office. Have your employee ID and specific concern ready."
-              },
-              {
-                "question": "How do I update my personal information?",
-                "answer": "Submit a request through the HRIS portal or fill out a Change of Information form from HR. Provide supporting documents for changes to civil status, address, or beneficiaries."
-              },
-              {
-                "question": "Where can I get my pay slip?",
-                "answer": "Pay slips are available through the HRIS portal. Log in using your employee credentials to view and download current and historical pay slips."
-              },
-              {
-                "question": "How do I request HR documents?",
-                "answer": "Submit a request through the HRIS portal or email hr@company.com. COE typically takes 3-5 business days. Other documents may vary."
+                "answer": "Contact the HR or visit the HR office or email."
               }
             ]
           },
@@ -986,11 +748,7 @@
             "faqs": [
               {
                 "question": "Who do I contact for IT support?",
-                "answer": "Contact IT Helpdesk at ithelpdesk@company.com or call local extension XXX. For urgent issues, escalate to IT manager."
-              },
-              {
-                "question": "How do I reset my password?",
-                "answer": "Use the self-service password reset portal at [company portal URL] or contact IT Helpdesk if you can't access the portal."
+                "answer": "Contact the HR to help you."
               },
               {
                 "question": "Can I install software on my work laptop?",
@@ -998,49 +756,7 @@
               },
               {
                 "question": "What should I do if my equipment is not working?",
-                "answer": "Submit a ticket through the IT portal or email IT Helpdesk with details of the issue. For critical equipment failures, call the helpdesk directly."
-              }
-            ]
-          },
-          {
-            "id": "dept-admin-001",
-            "title": "Admin Department FAQs",
-            "category": "Department FAQs",
-            "faqs": [
-              {
-                "question": "How do I request office supplies?",
-                "answer": "Submit a requisition form to the Admin department. Approved requests are fulfilled within 2-3 business days."
-              },
-              {
-                "question": "Where can I park?",
-                "answer": "Employee parking is located at [location]. Request a parking sticker from Admin. Parking is first-come, first-served unless you have an assigned slot."
-              },
-              {
-                "question": "How do I book a meeting room?",
-                "answer": "Use the room booking system at [booking portal URL] or coordinate with Admin for assistance. Book at least 24 hours in advance when possible."
-              },
-              {
-                "question": "What are the pantry/cafeteria hours?",
-                "answer": "Pantry is open 24/7 for employees. Cafeteria operates from 7 AM to 5 PM. Lunch service is from 11:30 AM to 1:30 PM."
-              }
-            ]
-          },
-          {
-            "id": "dept-finance-001",
-            "title": "Finance Department FAQs",
-            "category": "Department FAQs",
-            "faqs": [
-              {
-                "question": "How do I request reimbursement?",
-                "answer": "Submit expenses through the expense management system with original receipts. Reimbursements are processed with the next payroll cycle after approval."
-              },
-              {
-                "question": "What expenses can I claim?",
-                "answer": "Claimable expenses include business travel, client entertainment (with approval), training fees, and other work-related expenses as per company policy."
-              },
-              {
-                "question": "How do I request a cash advance?",
-                "answer": "Fill out the Cash Advance Request Form and submit to Finance with justification. Approval depends on purpose and amount. Liquidate within 7 days after activity."
+                "answer": "Contact the IT Helpdesk with details of the issue. For critical equipment failures, call the helpdesk directly."
               }
             ]
           }
@@ -1076,27 +792,10 @@
     ],
     "emergencyContacts": [
       {
-        "department": "HR Department",
-        "email": "hr@company.com",
-        "phone": "Local XXX",
-        "purpose": "Leave, payroll, benefits inquiries"
-      },
-      {
         "department": "IT Helpdesk",
         "email": "ithelpdesk@company.com",
         "phone": "Local XXX",
         "purpose": "Technical support, password reset"
-      },
-      {
-        "department": "Admin",
-        "email": "admin@company.com",
-        "phone": "Local XXX",
-        "purpose": "Facilities, supplies, parking"
-      },
-      {
-        "department": "Security",
-        "phone": "Local XXX",
-        "purpose": "Emergency, lost items, access issues"
       }
     ]
   }

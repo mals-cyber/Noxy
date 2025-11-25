@@ -129,8 +129,6 @@ New employees must prepare the following documents before their first day:
 - Performance expectations and KPIs
 - Team collaboration tools and practices
 
-**3:30 PM - 3:45 PM: Break**
-
 **3:45 PM - 4:30 PM: Introduction to NOX System**
 - NOX (N-PAX Onboarding Expert) system walkthrough
 - Meet Noxy, your AI assistant
@@ -275,7 +273,6 @@ New employees must prepare the following documents before their first day:
 - View document submission status
 - See pending requirements
 - Access deadline reminders
-- View approved/rejected documents
 
 **Chatting with Noxy:**
 - Ask questions about company policies
@@ -293,7 +290,6 @@ New employees must prepare the following documents before their first day:
 - "Who do I contact for IT support?"
 - "What is the dress code?"
 - "When is payday?"
-- "How do I access the employee handbook?"
 - "What training is required for my role?"
 
 **Document Management:**
@@ -468,7 +464,7 @@ A: During probation, you're expected to demonstrate: technical competence, good 
 
 ---
 
-## 10. ONBOARDING CHECKLIST
+## 10. Checklist
 
 ### ✓ Pre-Onboarding
 □ Received and confirmed onboarding schedule
@@ -528,26 +524,15 @@ A: During probation, you're expected to demonstrate: technical competence, good 
 ## 11. CONTACTS AND RESOURCES
 
 ### Key Contacts
-- **HR Department**: [Provided during onboarding]
 - **IT Support**: [Provided during onboarding]
 - **Your Supervisor**: [Assigned on Day 1]
 - **Onboarding Buddy**: [Assigned on Day 1]
 - **NOX System Support**: Available through Noxy chatbot 24/7
 
 ### Useful Resources
-- **Employee Handbook**: Received on Day 1, also available in NOX
-- **NOX System**: Your primary onboarding resource - https://nox.n-pax.com (example URL)
+- **NOX System website**: Your primary onboarding resource - [https://nox.n-pax.com (example URL)](http://20.106.176.126:5173/)
 - **Company Website**: www.n-pax.com
-- **Internal Knowledge Base**: Accessible through NOX
-- **Training Materials**: Available through NOX system
 - **Team Documentation**: Provided by department
-
-### Emergency Contacts
-- **Office Emergency**: [Specific to location]
-- **Building Security**: [Specific to location]
-- **Medical Emergency**: 911 or local emergency services
-- **After Hours HR Emergency**: [Provided during onboarding]
-
 ---
 
 ## 12. TIPS FOR A SUCCESSFUL ONBOARDING
@@ -594,13 +579,9 @@ We're excited to have you as part of the N-PAX family. Here's to an amazing jour
 
 **For any questions or concerns during onboarding, remember:**
 1. First, ask Noxy in the NOX system
-2. Check your onboarding materials and employee handbook
-3. Reach out to your onboarding buddy
-4. Contact HR through NOX HR Consultation feature
-5. Speak with your immediate supervisor
+2. Contact HR department throough email
 
 ---
-
 *This document is part of the NOX (N-PAX Onboarding Expert) knowledge base and is regularly updated to reflect current onboarding procedures.*
 
 *Last Updated: November 2025*

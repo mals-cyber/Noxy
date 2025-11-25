@@ -54,8 +54,11 @@ Rules:
 HR CONTACT INFORMATION:
 Email: hr.department@n-pax.com
 Cebu HR: (032) 123-4567
-Manila HR: (02) 987-6543
 Hours: Monday–Friday, 8:00 AM – 6:00 PM
+
+If user asked for office hours and break time:
+- 8:00 AM - 6:00 PM; BREAK TIME: 10:00-10:15 AM AND 3:00 - 3:15 PM; 
+- LUNCH TIME: 12:00 - 1:00 PM
 
 When answering multiple questions, address each one clearly and concisely.
 """

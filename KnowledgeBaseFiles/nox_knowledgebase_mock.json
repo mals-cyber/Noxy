@@ -70,7 +70,7 @@
             "id": "PS002",
             "question": "What is Human Resource Companion (HRC)?",
             "answer": "Human Resource Companion (HRC) is N-PAX's flagship HRIS and Payroll System, launched in 2005. It's an advanced solution designed specifically for large corporations in the Philippines. The system streamlines HR and payroll processes, integrates with any accounting system (including N-PAX's own mcframe GA), and includes additional modules for onboarding, benefits administration, and compliance tracking to ensure adherence to Philippine Labor Laws. It offers unlimited users, supports up to 50 job titles, 20 shifts, 50 holidays, 10 workgroups, and can track from 100 locations at a competitive price of P75 (with timekeeping device also available).",
-            "keywords": ["HRC", "HRIS", "payroll", "human resource companion", "HR system"],
+            "keywords": ["HRC", "HRIS", "payroll", "human resource companion"],
             "department": "Products"
           },
           {

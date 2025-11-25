@@ -1,0 +1,603 @@
+{
+  "departmentKnowledgeBase": {
+    "metadata": {
+      "company": "N-PAX Philippines, Inc.",
+      "version": "2.0",
+      "lastUpdated": "2025-11-14",
+      "purpose": "NOX Chatbot - Department Products FAQ Knowledge Base",
+      "description": "Comprehensive FAQ covering N-PAX's four major product divisions: ERP, HRC, AADX, and MCF"
+    },
+    "departments": [
+      {
+        "departmentId": "ERP_DIVISION",
+        "departmentName": "ERP Division - N-XPERT",
+        "productName": "N-XPERT Enterprise Resource Planning Software",
+        "headedBy": "Jimmy Flores (Executive Vice President)",
+        "establishedYear": 2005,
+        "overview": "N-XPERT is N-PAX's comprehensive ERP solution designed to streamline business operations across various departments including manufacturing, logistics, sales, purchasing, and inventory management. It provides end-to-end business process management with IoT integration and industry-specific modules.",
+        "faqs": [
+          {
+            "id": "ERP001",
+            "category": "Product Overview",
+            "question": "What is N-XPERT ERP?",
+            "answer": "N-XPERT is N-PAX's Enterprise Resource Planning (ERP) Software, launched in 2005. It's a comprehensive business management solution that integrates and manages core business processes including manufacturing, sales, purchasing, inventory, finance, accounting, and human resources in a single unified system. The system has undergone continuous enhancements and is widely adopted across various industries in the Philippines and internationally.",
+            "keywords": ["N-XPERT", "ERP", "what is", "overview", "enterprise resource planning"],
+            "relatedQuestions": ["ERP002", "ERP003"]
+          },
+          {
+            "id": "ERP002",
+            "category": "Product Overview",
+            "question": "What industries can use N-XPERT ERP?",
+            "answer": "N-XPERT serves a diverse range of industries including: Manufacturing (discrete, process, and mixed-mode), Logistics and Distribution, Retail and Wholesale, Services Industry, Government Agencies, and Corporate Enterprises. The system is versatile enough to support businesses of all sizes, from small enterprises to large corporations.",
+            "keywords": ["industries", "sectors", "who can use", "applicable", "suitable for"],
+            "relatedQuestions": ["ERP001", "ERP004"]
+          },
+          {
+            "id": "ERP003",
+            "category": "Features & Modules",
+            "question": "What modules are included in N-XPERT ERP?",
+            "answer": "N-XPERT includes comprehensive modules covering: (1) Financial Management: General Ledger, Accounts Payable/Receivable, Fixed Assets, Cash Management; (2) Sales Management: Order Management, Quotations, Customer Management, Pricing; (3) Purchasing Management: Purchase Orders, Vendor Management, Procurement; (4) Inventory Management: Stock Control, Warehouse Management, Multi-location Tracking; (5) Manufacturing: Production Planning, Work Orders, Bill of Materials, Shop Floor Control; (6) Human Resources: Basic HR functions integration; (7) Project Management: Project tracking and costing; (8) Business Intelligence: Reporting and Analytics Dashboard.",
+            "keywords": ["modules", "features", "functions", "capabilities", "what's included"],
+            "relatedQuestions": ["ERP004", "ERP005"]
+          },
+          {
+            "id": "ERP004",
+            "category": "Features & Modules",
+            "question": "Does N-XPERT support manufacturing operations?",
+            "answer": "Yes, N-XPERT has robust manufacturing capabilities including: Production Planning and Scheduling, Bill of Materials (BOM) Management, Work Order Management, Shop Floor Control, Quality Control Functions, Production Output Monitoring, Work-in-Process (WIP) Management with options to 'Store' in current process or 'Forward' to next process, and Capacity Planning. The system optimizes production capacity utilization and maintains inventory at optimum levels at all times.",
+            "keywords": ["manufacturing", "production", "BOM", "work orders", "shop floor"],
+            "relatedQuestions": ["ERP003", "ERP006"]
+          },
+          {
+            "id": "ERP005",
+            "category": "Features & Modules",
+            "question": "What inventory management features does N-XPERT offer?",
+            "answer": "N-XPERT's inventory management includes: Multi-location Warehouse Management, Real-time Stock Tracking, Inventory Level Optimization, Barcode and RFID System Integration, Stock Transfer Management, Inventory Valuation (FIFO, LIFO, Weighted Average), Reorder Point Management, Stock Aging Reports, Batch and Serial Number Tracking, and Integration with Sales and Purchasing modules for automated stock updates.",
+            "keywords": ["inventory", "warehouse", "stock", "WMS", "barcode", "RFID"],
+            "relatedQuestions": ["ERP003", "ERP004", "ERP007"]
+          },
+          {
+            "id": "ERP006",
+            "category": "Features & Modules",
+            "question": "Does N-XPERT have IoT capabilities?",
+            "answer": "Yes, N-XPERT incorporates IoT (Internet of Things) technologies for advanced operations. Features include: Centralized Fluid Inventory Monitoring across entire sites (from single industrial plants to complex multi-regional plants), Ultrasonic Sensor Integration using reflected sound waves to measure distance, Real-time Transaction Snapshots, Automated Data Capture from IoT devices, and Remote Monitoring and Control capabilities. This enables real-time visibility of operations and automated data collection.",
+            "keywords": ["IoT", "internet of things", "sensors", "automation", "monitoring"],
+            "relatedQuestions": ["ERP004", "ERP005"]
+          },
+          {
+            "id": "ERP007",
+            "category": "Features & Modules",
+            "question": "Does N-XPERT have document management capabilities?",
+            "answer": "Yes, N-XPERT includes an ISO Document Management System with: Web-based Platform accessible on all devices, Easy Creation, Approval, Editing, and Locating of ISO documents, Centralized Document Control, Version Management, Document Workflow and Approval Routing, Access Control and Permissions, Document Search and Retrieval, and Audit Trail for all document changes. This helps organizations maintain compliance with ISO standards.",
+            "keywords": ["document management", "ISO", "DMS", "document control", "compliance"],
+            "relatedQuestions": ["ERP003", "ERP012"]
+          },
+          {
+            "id": "ERP008",
+            "category": "Integration & Technology",
+            "question": "Can N-XPERT integrate with other systems?",
+            "answer": "Yes, N-XPERT is designed for seamless integration with: Accounting Systems (including mcframe GA), HRC (Human Resource Companion) for HR and Payroll data synchronization, Third-party Applications via APIs, Banking Systems for payment processing, E-commerce Platforms, Warehouse Management Systems (WMS), Business Intelligence Tools (like MotionBoard), and POS (Point of Sale) Systems. The modular architecture allows flexible integration based on business needs.",
+            "keywords": ["integration", "API", "connect", "interface", "systems"],
+            "relatedQuestions": ["ERP003", "ERP009"]
+          },
+          {
+            "id": "ERP009",
+            "category": "Integration & Technology",
+            "question": "Is N-XPERT cloud-based or on-premise?",
+            "answer": "N-XPERT supports both deployment options: (1) Cloud-Based: Hosted on secure cloud infrastructure for flexibility, scalability, and remote access; (2) On-Premise: Installed on company servers for organizations requiring full control over their data and infrastructure; (3) Hybrid: Combination of both approaches. The web-based architecture ensures access from any device with internet connectivity.",
+            "keywords": ["cloud", "on-premise", "deployment", "hosting", "infrastructure"],
+            "relatedQuestions": ["ERP008", "ERP013"]
+          },
+          {
+            "id": "ERP010",
+            "category": "Implementation & Training",
+            "question": "How long does it take to implement N-XPERT?",
+            "answer": "Implementation timeline varies based on company size, number of modules, customization requirements, and business complexity. Typical implementation includes: Requirement Analysis (2-4 weeks), System Configuration (4-8 weeks), Data Migration (2-4 weeks), User Training (2-3 weeks), Testing and Go-Live (2-3 weeks). Small to medium enterprises may complete implementation in 3-4 months, while large enterprises with complex requirements may take 6-12 months. N-XPERT's modular design allows staged implementation.",
+            "keywords": ["implementation", "deployment", "how long", "timeline", "go-live"],
+            "relatedQuestions": ["ERP011", "ERP012"]
+          },
+          {
+            "id": "ERP011",
+            "category": "Implementation & Training",
+            "question": "What training is provided for N-XPERT users?",
+            "answer": "N-PAX provides comprehensive training including: End-User Training for daily operations, Administrator Training for system configuration and maintenance, Customized Training Programs based on roles and departments, On-site Training at client location, Remote/Online Training Sessions, Training Documentation and User Manuals, Video Tutorials, Train-the-Trainer Programs, and Post-Implementation Support. Training ensures users can effectively utilize all system features.",
+            "keywords": ["training", "education", "learning", "user training", "how to use"],
+            "relatedQuestions": ["ERP010", "ERP014"]
+          },
+          {
+            "id": "ERP012",
+            "category": "Support & Maintenance",
+            "question": "What support is available after N-XPERT implementation?",
+            "answer": "N-PAX provides comprehensive post-implementation support: Technical Support via phone, email, and ticketing system, Regular System Updates and Enhancements, Bug Fixes and Issue Resolution, Performance Optimization, System Health Monitoring, User Support for questions and troubleshooting, Customization and Enhancement Services, and Maintenance Contracts with defined SLAs. Support is available during business hours with options for extended or 24/7 support.",
+            "keywords": ["support", "maintenance", "help", "technical support", "customer service"],
+            "relatedQuestions": ["ERP011", "ERP014"]
+          },
+          {
+            "id": "ERP013",
+            "category": "Costs & Licensing",
+            "question": "How is N-XPERT priced?",
+            "answer": "N-XPERT pricing is customized based on: Number of Users, Modules Required, Deployment Type (cloud vs on-premise), Implementation Scope, Customization Requirements, Training Needs, and Support Level. Pricing typically includes: Software License Fees, Implementation Services, Training Costs, Annual Maintenance and Support, and Optional Customization. Contact N-PAX sales team for a detailed quotation tailored to your business needs.",
+            "keywords": ["price", "cost", "pricing", "how much", "fees", "licensing"],
+            "relatedQuestions": ["ERP010", "ERP014"]
+          },
+          {
+            "id": "ERP014",
+            "category": "Business Benefits",
+            "question": "What are the benefits of implementing N-XPERT?",
+            "answer": "Key benefits include: (1) Operational Efficiency: Streamlined processes and automated workflows; (2) Real-time Visibility: Instant access to business data and KPIs; (3) Cost Reduction: Reduced manual errors and operational costs; (4) Better Decision Making: Comprehensive reporting and analytics; (5) Improved Productivity: Integrated systems eliminate duplicate data entry; (6) Scalability: Grows with your business; (7) Compliance: Built-in controls for regulatory requirements; (8) Customer Satisfaction: Faster order processing and better service; (9) Inventory Optimization: Reduced carrying costs and stockouts; (10) Competitive Advantage: Agility and efficiency in operations.",
+            "keywords": ["benefits", "advantages", "ROI", "value", "why use"],
+            "relatedQuestions": ["ERP001", "ERP002"]
+          },
+          {
+            "id": "ERP015",
+            "category": "Customization",
+            "question": "Can N-XPERT be customized for specific business needs?",
+            "answer": "Yes, N-XPERT offers extensive customization capabilities: Custom Fields and Forms, Tailored Workflows and Approval Processes, Industry-Specific Modifications, Custom Reports and Dashboards, Integration with Legacy Systems, Specialized Business Rules, Custom Modules for unique requirements, and Branding and User Interface customization. The ERP Division team, led by EVP Jimmy Flores, works closely with clients to design and implement customizations that fit their unique business processes.",
+            "keywords": ["customization", "custom", "tailor", "modify", "personalize"],
+            "relatedQuestions": ["ERP010", "ERP011"]
+          }
+        ]
+      },
+      {
+        "departmentId": "HRC_DIVISION",
+        "departmentName": "HRC Division - Human Resource Companion",
+        "productName": "Human Resource Companion (HRC)",
+        "headedBy": "Vernon Oro (General Manager, HRC Division)",
+        "establishedYear": 2005,
+        "overview": "Human Resource Companion (HRC) is N-PAX's flagship HRIS and Payroll System designed specifically for large corporations in the Philippines. It streamlines HR and payroll processes, ensures compliance with Philippine Labor Laws, and integrates seamlessly with accounting systems. HRC has been in the Philippine market for over 10 years with embedded Business Intelligence capabilities through partnership with WingArc1st's MotionBoard.",
+        "faqs": [
+          {
+            "id": "HRC001",
+            "category": "Product Overview",
+            "question": "What is Human Resource Companion (HRC)?",
+            "answer": "Human Resource Companion (HRC) is N-PAX's advanced HRIS (Human Resource Information System) and Payroll System, launched in 2005. It's specifically designed for large corporations in the Philippines to streamline HR and payroll processes, save time and resources, and ensure compliance with Philippine Labor Laws. HRC is a well-established system that has been in the Philippine local market for more than 10 years, serving companies with up to 30,000+ single-client headcount capacity.",
+            "keywords": ["HRC", "HRIS", "what is", "Human Resource Companion", "overview"],
+            "relatedQuestions": ["HRC002", "HRC003"]
+          },
+          {
+            "id": "HRC002",
+            "category": "Product Overview",
+            "question": "What makes HRC different from other HRIS systems?",
+            "answer": "HRC stands out because it's: (1) Designed specifically for the Philippine market with full Philippine Labor Law compliance; (2) Capable of handling large corporations (30,000+ employees); (3) Cost-effective end-to-end HR process management; (4) Integrated with Business Intelligence (MotionBoard by WingArc1st); (5) Developed by local experts who understand Philippine business culture; (6) Proven track record with 10+ years in the market; (7) Seamlessly integrates with accounting systems including mcframe GA; (8) Highly configurable to suit unique business needs.",
+            "keywords": ["advantages", "benefits", "why HRC", "unique features", "difference"],
+            "relatedQuestions": ["HRC001", "HRC014"]
+          },
+          {
+            "id": "HRC003",
+            "category": "Core Features",
+            "question": "What are the main features of HRC?",
+            "answer": "HRC includes comprehensive features: (1) Employee Information Management: Centralized secure database for all employee information; (2) Payroll Processing: Automated payroll with Philippine tax compliance; (3) Time and Attendance: Real-time data capture for attendance, overtime, and leave; (4) Benefits Administration: Management of government-mandated and company benefits; (5) Employee Self-Service Portal; (6) Leave Management: Request and approval workflows; (7) Document Management: HR documents and assets; (8) Position and Training Management; (9) Recruitment and Onboarding modules; (10) Compliance Tracking for Philippine regulations; (11) Customizable Form Generation; (12) Comprehensive Reporting and Analytics.",
+            "keywords": ["features", "modules", "capabilities", "functions", "what's included"],
+            "relatedQuestions": ["HRC004", "HRC005", "HRC006"]
+          },
+          {
+            "id": "HRC004",
+            "category": "Payroll Management",
+            "question": "How does HRC handle payroll processing?",
+            "answer": "HRC provides comprehensive payroll management: Automated Payroll Calculation based on attendance and leave data, Philippine Tax Compliance (BIR regulations), Statutory Deductions (SSS, PhilHealth, Pag-IBIG), Customizable Payroll Rules and Formulas, Multiple Pay Periods support, 13th Month Pay computation, Prorated Salary Calculations, Overtime and Night Differential computations, Loan Deductions management, Payslip Generation and Distribution, Direct Bank File Generation for salary crediting, and Integration with Accounting Systems. The system simplifies complex Philippine payroll requirements.",
+            "keywords": ["payroll", "salary", "compensation", "wages", "pay processing"],
+            "relatedQuestions": ["HRC003", "HRC005", "HRC010"]
+          },
+          {
+            "id": "HRC005",
+            "category": "Compliance",
+            "question": "Is HRC compliant with Philippine Labor Laws?",
+            "answer": "Yes, HRC is specifically designed to ensure full compliance with Philippine regulations including: Labor Code of the Philippines, BIR (Bureau of Internal Revenue) tax regulations, SSS (Social Security System) requirements, PhilHealth regulations, Pag-IBIG (HDMF) requirements, DOLE (Department of Labor and Employment) standards, 13th Month Pay Law, Minimum Wage regulations, Overtime and Holiday Pay rules, Leave entitlements (Service Incentive Leave), and Data Privacy Act of 2012. The system is regularly updated to reflect regulatory changes.",
+            "keywords": ["compliance", "labor law", "Philippine law", "legal", "regulations"],
+            "relatedQuestions": ["HRC004", "HRC011"]
+          },
+          {
+            "id": "HRC006",
+            "category": "Employee Management",
+            "question": "What employee information can HRC manage?",
+            "answer": "HRC provides a centralized, secure location for all employee data: Personal Information (name, address, contact details), Employment Details (position, department, hire date, employment status), Government IDs and Numbers (SSS, TIN, PhilHealth, Pag-IBIG), Educational Background and Certifications, Training History and Development records, Performance Evaluation data, Disciplinary Records, Leave Balances and History, Salary and Compensation History, Benefits Enrollment, Dependents and Emergency Contacts, Documents and Attachments (scanned IDs, certificates), and Custom Fields for organization-specific data.",
+            "keywords": ["employee data", "employee information", "records", "personnel data", "employee database"],
+            "relatedQuestions": ["HRC003", "HRC007"]
+          },
+          {
+            "id": "HRC007",
+            "category": "Time & Attendance",
+            "question": "How does HRC track employee attendance?",
+            "answer": "HRC offers comprehensive time and attendance management with Real-time Data Capture: Integration with Biometric Devices (fingerprint, facial recognition), Time Clock integration, Web-based Time-in/Time-out, Mobile App check-in (if available), Automatic Overtime Calculation, Leave Request and Approval Workflow, Tardiness and Undertime tracking, Shift Scheduling (supports up to 20 different shifts), Holiday Calendar Management (up to 50 holidays), Multi-location Tracking (up to 100 locations), Real-time Attendance Monitoring dashboards, and Exception Reporting for absences and late arrivals. Attendance data automatically feeds into payroll.",
+            "keywords": ["attendance", "time tracking", "biometric", "time-in", "time-out", "shifts"],
+            "relatedQuestions": ["HRC003", "HRC004", "HRC008"]
+          },
+          {
+            "id": "HRC008",
+            "category": "Time & Attendance",
+            "question": "Does HRC support multiple shifts and work schedules?",
+            "answer": "Yes, HRC is highly flexible for shift management: Supports up to 20 Different Shift Schedules, Flexible Work Arrangements, Rotating Shifts, Night Shift Differential calculations, Compressed Workweek schedules, Flexible Time-in policies, Multiple Workgroups (up to 10), Location-based Schedules, Holiday and Weekend scheduling, Shift Swapping capabilities, and Overtime Policies per shift. This makes it ideal for organizations with diverse workforce arrangements including manufacturing, BPOs, retail, and 24/7 operations.",
+            "keywords": ["shifts", "schedules", "work hours", "flexible time", "rotating shifts"],
+            "relatedQuestions": ["HRC007", "HRC004"]
+          },
+          {
+            "id": "HRC009",
+            "category": "Leave Management",
+            "question": "What leave management features does HRC provide?",
+            "answer": "HRC offers comprehensive leave management: Multiple Leave Types (Vacation, Sick, Emergency, Maternity, Paternity, Solo Parent, etc.), Leave Accrual and Balance Tracking, Leave Request and Approval Workflow, Multi-level Approval routing, Leave Calendar visualization, Leave Conversion and Monetization, Service Incentive Leave computation, Unused Leave Carry-over rules, Leave Without Pay tracking, Integration with Attendance and Payroll, Email Notifications for requests and approvals, Manager Dashboard for team leave visibility, and Compliance with Philippine leave entitlements.",
+            "keywords": ["leave", "vacation", "sick leave", "time off", "leave management"],
+            "relatedQuestions": ["HRC003", "HRC007", "HRC005"]
+          },
+          {
+            "id": "HRC010",
+            "category": "Government Compliance",
+            "question": "How does HRC handle government contributions (SSS, PhilHealth, Pag-IBIG)?",
+            "answer": "HRC automates government statutory requirements: Automatic computation of SSS contributions based on latest tables, PhilHealth premium calculations, Pag-IBIG contributions, Updated contribution tables reflecting regulatory changes, Employee and Employer share computations, Loan deductions (SSS, Pag-IBIG) management, Government report generation (R1A, R3, Alphabetical List, etc.), Remittance file generation, BIR Forms generation (2316, 1601C, 1604C), Quarter-end and year-end reporting, and Export formats for government portals. This eliminates manual calculation errors and ensures timely, accurate compliance.",
+            "keywords": ["SSS", "PhilHealth", "Pag-IBIG", "government", "contributions", "statutory"],
+            "relatedQuestions": ["HRC004", "HRC005", "HRC011"]
+          },
+          {
+            "id": "HRC011",
+            "category": "Reporting & Analytics",
+            "question": "What reports can HRC generate?",
+            "answer": "HRC provides extensive reporting capabilities: Standard Reports (payroll registers, employee listings, attendance reports, leave reports), Compliance Reports (government remittances, tax reports, labor statistics), Custom Report Builder for tailored reports, Payroll Summary and Details, Headcount and Turnover Analysis, Cost Center Reports, Department-wise Reports, Year-end Reports (Alphalist, 2316, etc.), Audit Trail Reports, Employee History Reports, Benefits Reports, and Exception Reports. With MotionBoard BI integration, users get Interactive Dashboards, Data Visualization, Real-time Analytics, Predictive Analytics, and Ad-hoc Query capabilities.",
+            "keywords": ["reports", "reporting", "analytics", "dashboard", "BI", "business intelligence"],
+            "relatedQuestions": ["HRC012", "HRC003"]
+          },
+          {
+            "id": "HRC012",
+            "category": "Business Intelligence",
+            "question": "What is the MotionBoard integration in HRC?",
+            "answer": "HRC has embedded Business Intelligence through partnership with WingArc1st's MotionBoard tool. This provides: Interactive Dashboards for HR and Payroll data visualization, Real-time Data Analytics, Customizable Charts and Graphs, KPI Tracking and Monitoring, Trend Analysis (headcount, turnover, costs), Predictive Analytics for workforce planning, Drill-down capabilities for detailed analysis, Mobile BI access, Data Export for further analysis, and Hypothesis Testing models. The Advanced Analytics features help stakeholders gain deeper insights into their HR data and make data-driven decisions. This makes HRC more than just an HRIS—it's a strategic HR analytics tool.",
+            "keywords": ["MotionBoard", "business intelligence", "BI", "analytics", "dashboard", "data visualization"],
+            "relatedQuestions": ["HRC011", "HRC013"]
+          },
+          {
+            "id": "HRC013",
+            "category": "Integration",
+            "question": "Can HRC integrate with accounting systems?",
+            "answer": "Yes, HRC integrates seamlessly with accounting systems: Native Integration with mcframe GA (N-PAX's accounting system), Integration with any accounting system for payroll posting, Automated Journal Entry generation, Cost center allocation, Expense distribution by department/project, Chart of Accounts mapping, Elimination of manual data entry, Real-time or scheduled synchronization, and Export formats (CSV, Excel, API) for various accounting platforms. This integration ensures accurate financial reporting and eliminates duplicate data entry between HR and Finance.",
+            "keywords": ["integration", "accounting", "mcframe", "interface", "connect"],
+            "relatedQuestions": ["HRC003", "HRC014"]
+          },
+          {
+            "id": "HRC014",
+            "category": "Additional Modules",
+            "question": "What additional modules are available for HRC?",
+            "answer": "Beyond core HRIS and Payroll, HRC offers optional modules: (1) Recruitment Module: Applicant tracking, job posting, interview scheduling; (2) Onboarding Module: Digital onboarding workflows, document collection, orientation tracking; (3) Performance Management: Goal setting, appraisals, 360-degree feedback; (4) Learning & Development: Training management, course scheduling, competency tracking; (5) Benefits Administration: Flexible benefits, claims management; (6) Employee Self-Service: Portal for employees to view payslips, request leave, update information; (7) Manager Self-Service: Dashboards for team management; (8) Succession Planning; (9) Exit Management: Resignation, clearance processing. Modules can be added based on organizational needs.",
+            "keywords": ["modules", "add-ons", "optional features", "recruitment", "onboarding", "performance"],
+            "relatedQuestions": ["HRC003", "HRC001"]
+          },
+          {
+            "id": "HRC015",
+            "category": "Security & Access",
+            "question": "How does HRC ensure data security and privacy?",
+            "answer": "HRC implements robust security measures: Data Encryption for sensitive information (SSS, TIN, salaries), Secure SSL/HTTPS communication, Role-Based Access Control (RBAC) - users access only what they need, Audit Trail logging all system activities, Password Policies (complexity, expiration), User Activity Monitoring, Data Backup and Recovery procedures, Compliance with Data Privacy Act of 2012, Secure hosting environment, Regular Security Updates, and Access Control per module/function. Employee data is protected from unauthorized access while ensuring HR can efficiently perform their duties.",
+            "keywords": ["security", "privacy", "data protection", "access control", "confidentiality"],
+            "relatedQuestions": ["HRC005", "HRC006"]
+          },
+          {
+            "id": "HRC016",
+            "category": "Capacity & Scalability",
+            "question": "How many employees can HRC handle?",
+            "answer": "HRC is designed for large-scale operations: Proven capacity of 30,000+ employees per single client, Unlimited Users can access the system, Supports up to 50 Job Titles, Handles 20 Different Shifts, Manages 50 Holidays, Supports 10 Workgroups, Tracks from 100 Locations, Scalable architecture grows with your organization, High-performance database for fast processing, and Multi-company/Multi-entity support. Whether you have hundreds or tens of thousands of employees, HRC can scale to meet your needs.",
+            "keywords": ["capacity", "scalability", "how many employees", "limits", "size"],
+            "relatedQuestions": ["HRC001", "HRC002"]
+          },
+          {
+            "id": "HRC017",
+            "category": "Implementation",
+            "question": "How much does HRC cost and what's included?",
+            "answer": "HRC offers competitive pricing starting at P75 per user with flexible options: Software License, Unlimited Users, Core HRIS and Payroll Modules, Standard Implementation, Initial Data Migration, User Training, Documentation, First Year Maintenance and Support, and Regular System Updates. Additional costs may apply for: Optional Modules, Advanced Customization, Additional Training, Timekeeping Devices (also available), and Extended Support Hours. Contact HRC Division for a customized quotation based on your organization's specific requirements and number of employees.",
+            "keywords": ["price", "cost", "pricing", "how much", "fees", "P75"],
+            "relatedQuestions": ["HRC014", "HRC016"]
+          }
+        ]
+      },
+      {
+        "departmentId": "AADX_DIVISION",
+        "departmentName": "Advanced Analytics Division (AADX)",
+        "productName": "N-PAX Advanced Analytics Services",
+        "abbreviation": "AADX",
+        "establishedYear": 2019,
+        "overview": "The Advanced Analytics Division provides end-to-end data analytics services and solutions that deliver real business value. Composed of Data Scientists, Data Analysts, and Data Visualization Developers, AADX helps organizations develop data-driven strategies through services including data management, BI & dashboarding, advanced analytics, data science solutions, consulting, and corporate training. Powered by WingArc1st's MotionBoard BI tool.",
+        "faqs": [
+          {
+            "id": "AADX001",
+            "category": "Division Overview",
+            "question": "What is N-PAX Advanced Analytics Division (AADX)?",
+            "answer": "The N-PAX Advanced Analytics Division (AADX) was established in 2019 to provide comprehensive data analytics services and solutions that give value and real impact to businesses. The division is composed of Data Scientists, Data Analysts, and Data Visualization Developers who help organizations develop a data-driven strategy to visualize new business potentials. AADX provides end-to-end data orchestration via on-premise, private, and managed cloud services, along with corporate training to promote data-driven culture in Philippine companies.",
+            "keywords": ["AADX", "Advanced Analytics", "what is", "data analytics", "overview"],
+            "relatedQuestions": ["AADX002", "AADX003"]
+          },
+          {
+            "id": "AADX002",
+            "category": "Division Overview",
+            "question": "What services does the Advanced Analytics Division provide?",
+            "answer": "AADX offers a comprehensive suite of services: (1) Data Management: Data integration, cleansing, and governance; (2) Business Intelligence (BI) & Dashboarding: Interactive dashboards and reporting using MotionBoard; (3) Advanced Analytics & Data Science: Predictive modeling, machine learning, statistical analysis; (4) Consulting Services: Data strategy, architecture design, analytics roadmap; (5) Training Services: Corporate data analytics training, workshops, skill development; (6) Data Visualization: Creating compelling visual representations of data; (7) Model Development: Hypothesis testing, predictive models; (8) Analytics Implementation: End-to-end solution deployment.",
+            "keywords": ["services", "offerings", "what we do", "capabilities", "solutions"],
+            "relatedQuestions": ["AADX001", "AADX003", "AADX004"]
+          },
+          {
+            "id": "AADX003",
+            "category": "Technologies & Tools",
+            "question": "What is MotionBoard and how does AADX use it?",
+            "answer": "MotionBoard is a Business Intelligence (BI) tool provided by WingArc1st (N-PAX's partner) that AADX leverages to deliver visual analytics solutions. MotionBoard enables: Interactive Dashboards with real-time data updates, Data Visualization through charts, graphs, and widgets, Drill-down Analysis capabilities, Multi-device Access (desktop, tablet, mobile), Integration with various data sources, Predictive Analytics features, Ad-hoc Analysis and Exploration, Custom Dashboard Design, and Scheduled Report Distribution. AADX uses MotionBoard to develop visual tools that help stakeholders analyze, interpret, and create models for hypothesis testing, gaining deeper insights into their business data.",
+            "keywords": ["MotionBoard", "BI tool", "business intelligence", "dashboard", "WingArc"],
+            "relatedQuestions": ["AADX002", "AADX005"]
+          },
+          {
+            "id": "AADX004",
+            "category": "Analytics Techniques",
+            "question": "What types of analytics does AADX perform?",
+            "answer": "AADX provides a wide array of analytics techniques: (1) Time Series Analysis: Analyzing patterns and relationships from data over time; (2) Text Analytics/Text Mining: Exploring and mining insights from unstructured text data; (3) Econometric Analysis: Quantitative approach analyzing economic relationships using statistical methodologies; (4) Predictive Analytics: Making future predictions using historical and present data; (5) Predictive Modeling: Using machine learning and statistical methods to forecast outcomes; (6) Customer Segmentation: Dividing customer bases into groups with similar characteristics; (7) Recommendation Systems: Identifying patterns to suggest relevant items to users; (8) Prescriptive Analytics: Recommending actions based on predictions; (9) Diagnostic Analytics: Determining why something happened.",
+            "keywords": ["analytics types", "techniques", "methods", "time series", "predictive", "text mining"],
+            "relatedQuestions": ["AADX002", "AADX005", "AADX006"]
+          },
+          {
+            "id": "AADX005",
+            "category": "Data Science",
+            "question": "What data science capabilities does AADX have?",
+            "answer": "AADX's data science team offers: Machine Learning Model Development (classification, regression, clustering), Statistical Modeling and Analysis, Deep Learning implementations, Natural Language Processing (NLP) for text data, Computer Vision for image analysis, Anomaly Detection systems, Recommendation Engines, Forecasting Models, Optimization Algorithms, Feature Engineering, Model Validation and Testing, A/B Testing design and analysis, and Ensemble Methods. The team uses Python, R, and other data science tools to deliver solutions that translate business problems into analytical solutions.",
+            "keywords": ["data science", "machine learning", "AI", "modeling", "algorithms"],
+            "relatedQuestions": ["AADX004", "AADX006"]
+          },
+          {
+            "id": "AADX006",
+            "category": "Business Intelligence",
+            "question": "How does AADX help with Business Intelligence (BI)?",
+            "answer": "AADX's BI services include: Dashboard Design and Development using MotionBoard, KPI Tracking and Monitoring, Data Warehouse Design and Implementation, ETL (Extract, Transform, Load) Processes, Self-Service BI enablement, Executive Dashboards for leadership, Operational Dashboards for daily monitoring, Strategic BI for long-term planning, Data Storytelling and Visualization, Report Automation, Real-time Data Integration, Historical Trend Analysis, and Comparative Analysis (period-over-period, benchmarking). AADX helps organizations turn data into actionable insights for better decision-making.",
+            "keywords": ["business intelligence", "BI", "dashboards", "KPI", "reporting", "data warehouse"],
+            "relatedQuestions": ["AADX002", "AADX003", "AADX007"]
+          },
+          {
+            "id": "AADX007",
+            "category": "Data Management",
+            "question": "What data management services does AADX provide?",
+            "answer": "AADX offers comprehensive data management: Data Integration from multiple sources (databases, APIs, files, cloud), Data Quality Assessment and Cleansing, Master Data Management (MDM), Data Governance Framework design, Data Cataloging and Documentation, Data Pipeline Development and Automation, Data Lake and Data Warehouse Architecture, Cloud Data Platform setup, Data Security and Compliance, Metadata Management, Data Migration Services, and Real-time Data Streaming. AADX ensures your data is accurate, accessible, and actionable.",
+            "keywords": ["data management", "data integration", "data quality", "ETL", "data governance"],
+            "relatedQuestions": ["AADX002", "AADX006"]
+          },
+          {
+            "id": "AADX008",
+            "category": "Training & Consulting",
+            "question": "What training services does AADX offer?",
+            "answer": "AADX provides corporate training to promote data-driven culture: Data Analytics Fundamentals, Business Intelligence Tools Training (MotionBoard), Excel Advanced Analytics, SQL for Data Analysis, Python/R for Data Science, Data Visualization Best Practices, Statistics for Business, Machine Learning Essentials, Dashboard Design, Data Storytelling, Customized Training Programs for specific needs, On-site or Remote Training Options, Workshops and Bootcamps, Train-the-Trainer Programs, and Certification Preparation. Training helps organizations build internal analytics capabilities.",
+            "keywords": ["training", "education", "workshops", "courses", "learning", "corporate training"],
+            "relatedQuestions": ["AADX002", "AADX009"]
+          },
+          {
+            "id": "AADX009",
+            "category": "Training & Consulting",
+            "question": "What consulting services does AADX provide?",
+            "answer": "AADX's consulting services include: Data Strategy Development aligned with business goals, Analytics Roadmap creation, Technology Selection and Vendor Evaluation, Data Architecture Design, Business Case Development for analytics initiatives, Change Management for data-driven transformation, Analytics Maturity Assessment, BI Tool Implementation Planning, Data Monetization Strategies, AI/ML Use Case Identification, ROI Analysis for analytics investments, Best Practices and Frameworks, and Executive Advisory. AADX helps organizations navigate their data analytics journey from strategy to execution.",
+            "keywords": ["consulting", "advisory", "strategy", "roadmap", "architecture"],
+            "relatedQuestions": ["AADX001", "AADX002", "AADX008"]
+          },
+          {
+            "id": "AADX010",
+            "category": "Industries & Use Cases",
+            "question": "What industries does AADX serve?",
+            "answer": "AADX serves diverse industries including: Manufacturing (production optimization, quality analytics), Retail (customer analytics, inventory optimization), Finance (risk modeling, fraud detection), Healthcare (patient analytics, operational efficiency), Telecommunications (churn prediction, network optimization), Government (public service analytics, resource allocation), Logistics (route optimization, demand forecasting), Real Estate (market analysis, property valuation), Education (student performance, enrollment forecasting), and BPO/Services (workforce analytics, performance management). Solutions are customized to industry-specific needs.",
+            "keywords": ["industries", "sectors", "use cases", "applications", "who we serve"],
+            "relatedQuestions": ["AADX011", "AADX002"]
+          },
+          {
+            "id": "AADX011",
+            "category": "Industries & Use Cases",
+            "question": "What are common use cases for AADX services?",
+            "answer": "Common analytics use cases include: Customer Churn Prediction and Prevention, Sales Forecasting and Demand Planning, Price Optimization, Customer Segmentation and Targeting, Fraud Detection and Prevention, Risk Assessment and Management, Supply Chain Optimization, Product Recommendation Systems, Marketing Campaign ROI Analysis, Employee Attrition Prediction, Quality Control and Defect Detection, Equipment Predictive Maintenance, Inventory Optimization, Financial Planning and Budgeting, Sentiment Analysis from customer feedback, Network Performance Monitoring, and Energy Consumption Forecasting. AADX tailors solutions to specific business challenges.",
+            "keywords": ["use cases", "applications", "examples", "solutions", "problems solved"],
+            "relatedQuestions": ["AADX010", "AADX004", "AADX005"]
+          },
+          {
+            "id": "AADX012",
+            "category": "Implementation & Delivery",
+            "question": "How does AADX deliver analytics projects?",
+            "answer": "AADX follows a structured delivery methodology: (1) Discovery & Assessment: Understanding business problems, data landscape, and goals; (2) Strategy & Planning: Defining analytics approach, selecting techniques and tools; (3) Data Preparation: Collecting, integrating, and cleansing data; (4) Analysis & Modeling: Applying analytics techniques, building models; (5) Visualization & Reporting: Creating dashboards and reports; (6) Validation & Testing: Ensuring accuracy and reliability; (7) Deployment & Integration: Implementing solution in production; (8) Training & Handover: Enabling client teams; (9) Support & Optimization: Ongoing improvement. Projects typically range from 8 weeks to 6 months depending on complexity.",
+            "keywords": ["methodology", "process", "how we work", "delivery", "project approach"],
+            "relatedQuestions": ["AADX009", "AADX013"]
+          },
+          {
+            "id": "AADX013",
+            "category": "Technology Stack",
+            "question": "What technologies and tools does AADX use?",
+            "answer": "AADX leverages modern data analytics stack: BI & Visualization: MotionBoard, Power BI, Tableau; Programming Languages: Python, R, SQL; Data Science: Scikit-learn, TensorFlow, PyTorch, Pandas, NumPy; Databases: SQL Server, PostgreSQL, MySQL, MongoDB; Big Data: Spark, Hadoop (when needed); Cloud Platforms: Azure, AWS, Google Cloud; ETL Tools: SSIS, Talend, custom scripts; Version Control: Git; Notebooks: Jupyter, R Studio; and various specialized libraries for NLP, time series, etc. Tool selection depends on project requirements and client environment.",
+            "keywords": ["technology", "tools", "software", "platforms", "tech stack"],
+            "relatedQuestions": ["AADX003", "AADX005"]
+          },
+          {
+            "id": "AADX014",
+            "category": "Benefits & Value",
+            "question": "What value does AADX bring to organizations?",
+            "answer": "AADX delivers tangible business value: Better Decision Making through data-driven insights, Revenue Growth through customer analytics and optimization, Cost Reduction by identifying inefficiencies, Risk Mitigation through predictive analytics, Improved Customer Experience via personalization, Operational Excellence through process optimization, Competitive Advantage with advanced analytics capabilities, Faster Time-to-Insight with automated reporting, Enhanced Forecasting Accuracy, Employee Productivity through self-service analytics, Regulatory Compliance through data governance, and Innovation Enablement by uncovering new opportunities. AADX helps organizations turn data into strategic assets.",
+            "keywords": ["benefits", "value", "ROI", "advantages", "business impact"],
+            "relatedQuestions": ["AADX001", "AADX002"]
+          },
+          {
+            "id": "AADX015",
+            "category": "Getting Started",
+            "question": "How can I engage AADX for analytics services?",
+            "answer": "To start your analytics journey with AADX: (1) Contact N-PAX through www.n-pax.com or visit the Advanced Analytics page; (2) Schedule an Initial Consultation (no obligation); (3) Discuss your business challenges and analytics needs; (4) Receive a Proposal outlining approach, timeline, and investment; (5) Scope Review and agreement; (6) Project Kickoff and engagement. AADX can also provide a complimentary Analytics Maturity Assessment to help identify opportunities. For urgent inquiries, reach out to N-PAX's main office in BGC Taguig or Cebu. The team is keen to help you start your data analytics project.",
+            "keywords": ["contact", "get started", "engage", "hire", "request", "inquiry"],
+            "relatedQuestions": ["AADX009", "AADX014"]
+          }
+        ]
+      },
+      {
+        "departmentId": "MCF_DIVISION",
+        "departmentName": "mcframe GA Division",
+        "productName": "mcframe GA - Global Accounting ERP",
+        "abbreviation": "MCF",
+        "partnership": "B-EN-G (Business Engineering Corporation) - Sales and implementation partner since 2017",
+        "establishedYear": "2017 (partnership)",
+        "overview": "mcframe GA is a next-generation accounting platform system for overseas business bases, developed by Business Engineering Corporation (B-EN-G) of Japan. N-PAX serves as the exclusive sales and implementation partner in the Philippines since 2017. mcframe GA provides comprehensive ERP capabilities with multilingual, multicurrency, and multi-standard functions, specifically designed for multinational corporations and companies with overseas operations. Implemented in over 600 companies across 24+ countries.",
+        "faqs": [
+          {
+            "id": "MCF001",
+            "category": "Product Overview",
+            "question": "What is mcframe GA?",
+            "answer": "mcframe GA is a compact ERP and accounting system designed for overseas business operations, developed by Business Engineering Corporation (B-EN-G) of Japan. N-PAX is the exclusive sales and implementation partner in the Philippines since 2017. mcframe GA stands for 'Manufacturing and Communications Framework - Global Accounting.' It's a web-based, next-generation accounting infrastructure system with comprehensive functions including accounting, sales, purchasing, and inventory management. The system supports multilingual, multicurrency, and multiple accounting standards, making it ideal for companies with international operations. mcframe GA has been implemented in over 600 companies in more than 24 countries worldwide.",
+            "keywords": ["mcframe", "MCF", "what is", "global accounting", "overview"],
+            "relatedQuestions": ["MCF002", "MCF003"]
+          },
+          {
+            "id": "MCF002",
+            "category": "Product Overview",
+            "question": "What makes mcframe GA unique?",
+            "answer": "mcframe GA's distinguishing features include: (1) Quick Implementation: Can be deployed in 2-3 months for accounting, 6 months for full functionality with minimal customization; (2) Compact Design: Simple, necessary, and sufficient functions - not bloated; (3) Global Ready: Built for international operations from ground up; (4) Multi-everything: Languages, currencies, accounting standards, locations; (5) Cloud-Compatible: Designed for cloud deployment with centralized management; (6) Cost-Effective: Significantly lower implementation cost and time compared to other ERP packages; (7) Proven Track Record: 20+ years of refinement, 600+ implementations globally; (8) Japanese Engineering: Built with precision and reliability; (9) BIR-Accredited in Philippines for financial reporting; (10) Flexible Licensing based on usage scope.",
+            "keywords": ["unique", "advantages", "benefits", "why mcframe", "differentiators"],
+            "relatedQuestions": ["MCF001", "MCF003", "MCF014"]
+          },
+          {
+            "id": "MCF003",
+            "category": "Core Modules",
+            "question": "What modules does mcframe GA include?",
+            "answer": "mcframe GA includes comprehensive modules: (1) Financial Accounting: General Ledger, Accounts Payable, Accounts Receivable, Cash Management, Fixed Assets, Financial Consolidation; (2) Sales Management: Order processing, Quotations, Customer management, Pricing; (3) Purchasing Management: Purchase orders, Vendor management, Procurement; (4) Inventory Management: Stock control, Warehouse management, Multi-location inventory; (5) Multi-Currency Management: Unlimited currencies, exchange rate management; (6) Multi-Standard Accounting: Up to 20 different accounting standards simultaneously; (7) Reporting: Financial statements, Management reports, Statutory reports. You can choose 'accounting only' or 'full functionality' based on needs, with flexible licensing.",
+            "keywords": ["modules", "features", "functions", "components", "capabilities"],
+            "relatedQuestions": ["MCF001", "MCF004", "MCF005"]
+          },
+          {
+            "id": "MCF004",
+            "category": "Multilingual Capabilities",
+            "question": "What languages does mcframe GA support?",
+            "answer": "mcframe GA supports multiple languages with full flexibility: Japanese, English, Thai, Chinese, and other major languages can be configured. Key features: (1) Screen Captions in multiple languages; (2) Master Data Registration and Display by language; (3) Report Output in selected language; (4) Real-time Language Switching from any screen; (5) Date and Numerical Format customization (e.g., Japanese vs Western date formats); (6) Users can operate in their preferred language - Japanese HQ staff can use Japanese, Filipino staff can use English; (7) Multi-cultural Number Formatting support. This makes the system accessible to global teams without language barriers.",
+            "keywords": ["languages", "multilingual", "localization", "translation", "international"],
+            "relatedQuestions": ["MCF003", "MCF007"]
+          },
+          {
+            "id": "MCF005",
+            "category": "Multicurrency Features",
+            "question": "How does mcframe GA handle multiple currencies?",
+            "answer": "mcframe GA provides powerful multicurrency capabilities: (1) Unlimited Currency Registration - manage currencies from around the world without restriction; (2) Exchange Rate Management: 10 types of rate types per currency, daily conversion rate tracking; (3) Foreign Currency Transactions: Automatic calculation of exchange gains/losses; (4) Multi-Currency Financial Statements: Create reports in any currency by setting display currency; (5) Rate Type Options: spot rate, budget rate, month-end rate, etc.; (6) Automatic Revaluation of foreign currency balances; (7) Multi-currency consolidated reporting; (8) Currency Exchange Setting module for centralized management; (9) Historical Rate Tracking for audit and analysis. Essential for multinational operations and companies dealing with multiple currencies.",
+            "keywords": ["currency", "multicurrency", "forex", "exchange rate", "foreign currency"],
+            "relatedQuestions": ["MCF003", "MCF006"]
+          },
+          {
+            "id": "MCF006",
+            "category": "Multi-Standard Accounting",
+            "question": "What is multi-standard accounting in mcframe GA?",
+            "answer": "mcframe GA's multi-standard accounting is a powerful feature allowing: (1) Up to 20 Different Accounting Standards maintained simultaneously from the same source data; (2) Common Standards Supported: Philippine Accounting Standards, IFRS (International Financial Reporting Standards), Japanese GAAP (JFOX), Local GAAP, Management Accounting, Tax Accounting; (3) Reclassified Data Management: Up to 5 types of reclassified journals for different purposes (local accounting, headquarters, consolidation, etc.); (4) Single Data Entry: Post once, report in multiple standards; (5) Retroactive Adjustments: Apply to previous periods across all standards; (6) Different Financial Statement Formats per standard; (7) Consolidated Financial Statements combining multiple standards. This eliminates manual rework and ensures consistency while meeting diverse reporting requirements.",
+            "keywords": ["accounting standards", "IFRS", "GAAP", "multi-standard", "financial reporting"],
+            "relatedQuestions": ["MCF003", "MCF005", "MCF010"]
+          },
+          {
+            "id": "MCF007",
+            "category": "Global Operations",
+            "question": "How does mcframe GA support global and regional operations?",
+            "answer": "mcframe GA is specifically designed for multinational operations: (1) Centralized Management: Japanese HQ can monitor all overseas subsidiaries in real-time; (2) Cloud-Based Architecture: Access same system from multiple countries simultaneously; (3) Multi-Company Consolidation: Aggregate data across entities and regions; (4) Multi-Location Support: Manage multiple offices, warehouses, plants; (5) Transfer Pricing: Inter-company transaction management; (6) Global Chart of Accounts: Standardized while allowing local variations; (7) Cross-Border Compliance: Meet local regulations in each country; (8) Time Zone Aware: Operate across different time zones; (9) Remote Access: Overseas offices don't need local IT infrastructure; (10) Centralized Updates: System maintained from HQ, rolled out globally.",
+            "keywords": ["global", "multinational", "international", "overseas", "subsidiaries", "consolidation"],
+            "relatedQuestions": ["MCF001", "MCF002", "MCF008"]
+          },
+          {
+            "id": "MCF008",
+            "category": "Philippine Compliance",
+            "question": "Is mcframe GA compliant with Philippine regulations?",
+            "answer": "Yes, mcframe GA is fully compliant with Philippine requirements: (1) BIR-Accredited System: Officially recognized by Bureau of Internal Revenue for generating official financial documents; (2) Philippine Tax System Support: VAT, withholding tax, expanded withholding tax; (3) BIR Forms Generation: Alphalist, relief forms, tax returns; (4) VAT Forms and Reports: Sales and Purchase Books, VAT returns; (5) Philippine Chart of Accounts templates; (6) Philippine Financial Statement Formats; (7) Philippine Accounting Standards (PAS) support; (8) Required Audit Trail and Controls for BIR compliance; (9) E-filing Ready: Export formats for BIR electronic filing; (10) Regular updates for regulatory changes. N-PAX as local implementation partner ensures Philippine-specific requirements are met.",
+            "keywords": ["Philippine", "BIR", "compliance", "VAT", "taxes", "regulations"],
+            "relatedQuestions": ["MCF006", "MCF009"]
+          },
+          {
+            "id": "MCF009",
+            "category": "Philippine Compliance",
+            "question": "Can mcframe GA generate Philippine BIR reports?",
+            "answer": "Yes, mcframe GA is equipped for Philippine BIR reporting: (1) Alphalist of Employees (ALE) - annual report of employee compensation; (2) Alphalist of Payees - annual report of payments to suppliers/contractors; (3) Quarterly Income Tax Returns; (4) Monthly VAT Returns (Form 2550M/Q); (5) Withholding Tax Returns (1601C, 1601E, 1601F, 1604); (6) Annual Income Tax Return; (7) BIR Form 2316 (Certificate of Compensation); (8) Sales and Purchase Books; (9) Summary List of Sales/Purchases; (10) Export formats compatible with BIR electronic systems. The system maintains required audit trails and data integrity for BIR audit compliance. As a BIR-accredited system, mcframe GA ensures businesses meet their tax filing obligations accurately.",
+            "keywords": ["BIR reports", "tax reports", "Alphalist", "VAT return", "withholding tax"],
+            "relatedQuestions": ["MCF008", "MCF010"]
+          },
+          {
+            "id": "MCF010",
+            "category": "Reporting & Analytics",
+            "question": "What reports can mcframe GA generate?",
+            "answer": "mcframe GA provides extensive reporting: (1) Standard Financial Statements: Balance Sheet, Income Statement, Cash Flow, Trial Balance; (2) Management Reports: P&L by department/project/cost center, Budget vs Actual, Variance Analysis; (3) Consolidation Reports: Multi-company, multi-currency consolidated financials; (4) Statutory Reports: Per local requirements (BIR reports for Philippines); (5) Multi-Standard Reports: Same data presented under different accounting standards; (6) Custom Reports: User-definable formats and layouts; (7) Export Options: Excel (CSV), PDF, system-specific formats; (8) Multilingual Reports: Generate in different languages; (9) Multi-Currency Reports: Display in any currency; (10) Drill-Down Capability: From summary to detail transactions; (11) Scheduled Reports: Automated generation and distribution.",
+            "keywords": ["reports", "reporting", "financial statements", "analytics", "customization"],
+            "relatedQuestions": ["MCF006", "MCF011"]
+          },
+          {
+            "id": "MCF011",
+            "category": "Integration",
+            "question": "Can mcframe GA integrate with other systems?",
+            "answer": "Yes, mcframe GA offers flexible integration: (1) HRC Integration: Seamless payroll-to-accounting posting from Human Resource Companion; (2) N-XPERT Integration: Can work with N-PAX ERP for sales/purchasing data; (3) Third-Party Accounting Systems: Can serve as overseas accounting system while integrating with HQ systems (e.g., AS400, SAP); (4) Banking Systems: Import bank statements, generate payment files; (5) POS Systems: Sales data import; (6) E-commerce Platforms: Online sales integration; (7) Tax Filing Systems: Export for government e-filing; (8) Custom Interfaces: API and file-based integration options; (9) Excel Import/Export: For ad-hoc data exchange; (10) External Data Sources: Automated data feeds. Integration methods include staging tables, APIs, file transfer, and web services.",
+            "keywords": ["integration", "interface", "connect", "API", "system integration"],
+            "relatedQuestions": ["MCF003", "MCF012"]
+          },
+          {
+            "id": "MCF012",
+            "category": "Implementation",
+            "question": "How long does mcframe GA implementation take?",
+            "answer": "mcframe GA is designed for rapid implementation: Standard Timeline: (1) Accounting Functions Only: 2-3 months from project start to go-live; (2) Full Functionality (Accounting + Sales + Purchasing + Inventory): Approximately 6 months. Implementation Phases: (1) Requirement Analysis: 2-3 weeks - define needs, prepare report layouts, master data preparation; (2) System Setup: 3-4 weeks - configuration, chart of accounts, workflow; (3) Data Migration: 2-3 weeks - historical data, opening balances; (4) Testing: 2-3 weeks - UAT, parallel run; (5) Training: 2 weeks - end-user and administrator training; (6) Go-Live: 1 week - cutover and stabilization. The quick implementation is possible because the package is designed with minimal customization requirements, unlike other ERP systems that take 12-18 months. N-PAX handles all implementation services in the Philippines.",
+            "keywords": ["implementation", "timeline", "deployment", "how long", "go-live"],
+            "relatedQuestions": ["MCF013", "MCF014"]
+          },
+          {
+            "id": "MCF013",
+            "category": "Implementation",
+            "question": "What support does N-PAX provide for mcframe GA?",
+            "answer": "As the exclusive Philippines partner, N-PAX provides complete support: (1) Pre-Sales Consultation: Needs assessment, system demonstration, proposal preparation; (2) Implementation Services: Project management, system configuration, data migration, testing; (3) Training: End-user training, administrator training, customized workshops; (4) Go-Live Support: On-site support during cutover, stabilization period; (5) Post-Implementation Support: Help desk (phone, email, ticketing), bug fixes, troubleshooting; (6) Maintenance Services: System updates, regulatory updates (BIR changes), performance optimization; (7) Customization: Development of custom reports, interfaces, modules if needed; (8) Consulting: Process improvement, best practices, optimization; (9) Localization: Ensuring Philippine compliance and requirements. N-PAX's local presence ensures responsive support and understanding of Philippine business environment.",
+            "keywords": ["support", "services", "N-PAX role", "partner", "implementation partner"],
+            "relatedQuestions": ["MCF012", "MCF014", "MCF015"]
+          },
+          {
+            "id": "MCF014",
+            "category": "Costs & Licensing",
+            "question": "How is mcframe GA priced?",
+            "answer": "mcframe GA offers flexible, cost-effective licensing: (1) Modular Pricing: License based on modules used - 'Accounting Only' or 'Full Functionality'; (2) User-Based: Number of concurrent or named users; (3) Scope-Based: Can add modules later as needs grow; (4) Significantly Lower Cost: Compared to traditional ERP systems due to quick implementation and minimal customization; (5) Cloud Option (SaaS): Monthly subscription model, no infrastructure costs, includes 24/7 support; (6) On-Premise Option: Perpetual license with annual maintenance; (7) Implementation Fees: Based on scope, number of users, customization; (8) Training Fees: Included in standard implementation; (9) Annual Maintenance: Covers updates, support, minor enhancements. Contact N-PAX for customized quotation based on your organization's specific needs, number of users, and module requirements. The investment is reasonable and quick ROI is achievable due to fast implementation.",
+            "keywords": ["price", "cost", "pricing", "fees", "how much", "license"],
+            "relatedQuestions": ["MCF002", "MCF012", "MCF013"]
+          },
+          {
+            "id": "MCF015",
+            "category": "Cloud & Deployment",
+            "question": "Is mcframe GA available as a cloud service?",
+            "answer": "Yes, mcframe GA is fully cloud-compatible: (1) SaaS Offering: Available as Software-as-a-Service with monthly subscription; (2) Multi-Tenant Cloud: Shared infrastructure with data isolation; (3) Private Cloud: Dedicated cloud instance for security-sensitive organizations; (4) Hybrid Deployment: Some functions cloud, some on-premise; (5) Cloud Benefits: No hardware procurement, reduced IT infrastructure maintenance, automatic updates, 24/7 multilingual support, remote access from anywhere, disaster recovery built-in, scalability; (6) Managed Service: B-EN-G/N-PAX handles hosting, backups, updates, monitoring; (7) Security: Data encryption, secure access, regular backups; (8) No Local IT Required: Overseas offices don't need local servers or IT staff - everything managed centrally from HQ or by N-PAX. Cloud deployment is particularly attractive for SMEs and companies with multiple locations.",
+            "keywords": ["cloud", "SaaS", "hosted", "online", "web-based", "deployment"],
+            "relatedQuestions": ["MCF001", "MCF007", "MCF014"]
+          },
+          {
+            "id": "MCF016",
+            "category": "Target Customers",
+            "question": "Who should use mcframe GA?",
+            "answer": "mcframe GA is ideal for: (1) Japanese Companies in Philippines: Subsidiaries or branches of Japanese corporations needing to report back to Japanese HQ; (2) Philippine Companies with Overseas Operations: Local companies with branches or subsidiaries abroad; (3) Multinational Corporations: Companies operating in multiple countries needing consolidated reporting; (4) Trading Companies: Importers/exporters dealing with multiple currencies; (5) Manufacturing Companies with Global Supply Chains; (6) SMEs Going Global: Small to medium enterprises expanding internationally; (7) Companies Seeking Quick ERP Implementation: Organizations needing operational system fast; (8) Companies Replacing Legacy Systems: Modernization projects; (9) Companies Needing Multi-Standard Reporting: Report to different stakeholders (local tax, HQ, IFRS); (10) BPO and Service Companies with International Clients. If you need global visibility, multi-currency/multi-standard support, and rapid deployment, mcframe GA is a strong fit.",
+            "keywords": ["who should use", "target market", "ideal for", "customers", "suitable"],
+            "relatedQuestions": ["MCF001", "MCF002", "MCF007"]
+          },
+          {
+            "id": "MCF017",
+            "category": "Benefits",
+            "question": "What are the key benefits of mcframe GA?",
+            "answer": "Major benefits of implementing mcframe GA: (1) Speed: Go-live in 2-6 months vs 12-18 months for traditional ERP; (2) Cost Savings: Lower implementation cost, minimal customization, cloud option reduces infrastructure; (3) Global Control: Real-time visibility of all overseas operations from HQ; (4) Compliance: Meet local regulations in each country while consolidating globally; (5) Efficiency: Eliminate manual data entry, automatic currency conversion, streamlined processes; (6) Flexibility: Multi-standard reporting without multiple systems; (7) Scalability: Add companies, users, modules as you grow; (8) Reliability: Proven system with 600+ global implementations; (9) Support: N-PAX's local Philippines support plus B-EN-G's global expertise; (10) Modern Architecture: Web-based, cloud-ready, mobile accessible; (11) Risk Mitigation: Standardized processes, audit trails, controls; (12) Better Decision Making: Timely, accurate financial information.",
+            "keywords": ["benefits", "advantages", "value", "ROI", "why use"],
+            "relatedQuestions": ["MCF001", "MCF002", "MCF014"]
+          }
+        ]
+      }
+    ],
+    "crossDepartmentFAQs": [
+      {
+        "id": "CROSS001",
+        "question": "Can N-XPERT ERP and HRC work together?",
+        "answer": "Yes, N-XPERT ERP and HRC integrate seamlessly. HRC handles all HR and Payroll functions, while N-XPERT manages other business operations. Key integration points include: (1) Payroll to Accounting: Payroll journals automatically post to N-XPERT's General Ledger; (2) Employee Master Data: Shared employee information for consistency; (3) Cost Center Allocation: Payroll expenses distributed to departments/projects in ERP; (4) Headcount Reporting: Real-time employee counts for operational planning; (5) Budget Management: HR costs in ERP budget vs actual reports. This integration eliminates duplicate data entry and ensures financial accuracy.",
+        "relatedDepartments": ["ERP_DIVISION", "HRC_DIVISION"]
+      },
+      {
+        "id": "CROSS002",
+        "question": "How does HRC integrate with mcframe GA?",
+        "answer": "HRC and mcframe GA have native integration capabilities. HRC processes payroll and generates journal entries that automatically transfer to mcframe GA's General Ledger. Integration features: (1) Automated Payroll Posting: No manual journal entry needed; (2) Multi-Currency Support: For companies with overseas employees; (3) Cost Center Distribution: Payroll allocated to proper cost centers/departments; (4) Consolidation: Payroll data from HRC feeds into mcframe GA's multi-company consolidation; (5) Real-time or Scheduled Sync: Choose synchronization method. This is particularly powerful for companies using mcframe GA for global accounting while HRC handles Philippines HR operations.",
+        "relatedDepartments": ["HRC_DIVISION", "MCF_DIVISION"]
+      },
+      {
+        "id": "CROSS003",
+        "question": "What analytics can AADX provide for HRC data?",
+        "answer": "AADX's Advanced Analytics Division enhances HRC with powerful insights through MotionBoard integration. Analytics include: (1) Workforce Analytics: Headcount trends, turnover analysis, demographics; (2) Compensation Analytics: Salary benchmarking, cost analysis, equity analysis; (3) Attendance Analytics: Patterns, absenteeism trends, productivity correlation; (4) Attrition Prediction: Machine learning models to predict employee churn; (5) Recruitment Analytics: Time-to-hire, cost-per-hire, source effectiveness; (6) Performance Analytics: Performance distribution, high-performer identification; (7) Leave Analytics: Leave patterns, impact on operations; (8) Overtime Analytics: Cost control, workload distribution; (9) Training ROI: Impact of training on performance; (10) Predictive Models: Future headcount needs, budget forecasting. AADX transforms HRC's operational data into strategic insights.",
+        "relatedDepartments": ["AADX_DIVISION", "HRC_DIVISION"]
+      },
+      {
+        "id": "CROSS004",
+        "question": "Can AADX provide analytics for N-XPERT or mcframe GA data?",
+        "answer": "Yes, AADX can provide advanced analytics and BI for both N-XPERT ERP and mcframe GA data. Services include: (1) Financial Analytics: P&L analysis, variance analysis, trend forecasting; (2) Sales Analytics: Customer segmentation, sales forecasting, pricing optimization; (3) Inventory Analytics: Stock optimization, ABC analysis, demand forecasting; (4) Manufacturing Analytics: Production efficiency, quality metrics, capacity utilization; (5) Supply Chain Analytics: Supplier performance, procurement analytics; (6) Custom Dashboards: Executive dashboards using MotionBoard; (7) Predictive Maintenance: For manufacturing operations; (8) Customer Analytics: Churn prediction, lifetime value; (9) Cash Flow Forecasting: ML-based cash flow predictions; (10) Multi-Dimensional Analysis: Slice data by department, product, region, time. AADX connects to ERP/accounting systems to extract, transform, and analyze data for actionable insights.",
+        "relatedDepartments": ["AADX_DIVISION", "ERP_DIVISION", "MCF_DIVISION"]
+      },
+      {
+        "id": "CROSS005",
+        "question": "Which N-PAX product should I choose for my business?",
+        "answer": "Product selection depends on your needs: (1) **Choose N-XPERT ERP** if you need: Complete business management (sales, purchasing, inventory, accounting), Manufacturing operations, Philippine-focused single-country operations, IoT integration, Warehouse management, Moderate complexity; (2) **Choose HRC** if you need: HR and Payroll only, Philippine Labor Law compliance, Large workforce (thousands of employees), Advanced HRIS features, Recruitment and onboarding, Benefits administration; (3) **Choose mcframe GA** if you need: Global multi-country accounting, Japanese HQ reporting, Multi-currency and multi-standard accounting, Quick implementation (2-6 months), Overseas subsidiaries management, BIR compliance in Philippines plus other countries; (4) **Choose AADX** if you need: Advanced analytics and BI, Data-driven insights, Predictive modeling, Custom dashboards, Data strategy consulting, Training services; (5) **Choose Multiple Products**: Many clients use combinations (e.g., HRC + mcframe GA for HR and global accounting, N-XPERT + HRC + AADX for complete integrated solution). Contact N-PAX sales for consultation to determine the best fit.",
+        "relatedDepartments": ["ERP_DIVISION", "HRC_DIVISION", "MCF_DIVISION", "AADX_DIVISION"]
+      }
+    ],
+    "generalDepartmentInfo": {
+      "contactInfo": "For product inquiries, demonstrations, or quotations, contact N-PAX main office at: Cebu Office - Hernan Cortes, Mandaue City, Cebu; Manila Office - 17th Floor, Unit 1702, One Global Place, BGC, Taguig City; Website: www.n-pax.com",
+      "salesProcess": "To purchase any N-PAX product: (1) Initial Consultation - discuss needs; (2) Product Demonstration - see system in action; (3) Requirements Gathering - understand your processes; (4) Proposal - receive customized quotation; (5) Contract - finalize agreement; (6) Implementation - project kickoff; (7) Training - user enablement; (8) Go-Live - start using system; (9) Support - ongoing assistance",
+      "evaluationOptions": "N-PAX typically offers: System demonstrations (in-office or online), Proof-of-Concept for complex requirements, References and case studies, Site visits to existing clients (with permission), Trial period or pilot implementation (case-by-case basis)"
+    }
+  }
+}
