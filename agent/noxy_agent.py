@@ -87,6 +87,16 @@ def ask_noxy(message: str, user_id: str = None, task_progress=None):
             return llm.invoke("The user asked for help but was unclear. "
                              "Ask naturally which HR or onboarding topic they mean. Keep it short.").content
         
+        if user_id and any(p in q for p in PENDING_TASK_PHRASES):
+            task_groups = fetch_task_status_groups(user_id)
+            return pending_tasks_tool.invoke({
+                "data": {
+                    "pending": task_groups.get("pending", []),
+                    "in_progress": task_groups.get("in_progress", []),
+                    "completed": task_groups.get("completed", [])
+                }
+            })
+        
         context = retrieve_context(message)
         
         full_prompt = prompt.format(question=message)
@@ -129,7 +139,7 @@ def ask_noxy(message: str, user_id: str = None, task_progress=None):
                             }
                         })
                     else:
-                        tool_result = "User ID required to fetch tasks."
+                        tool_result = "I need your user information to check your pending tasks. Please make sure you're logged in."
                 
                 elif tool_name == "pdf_file_tool":
                     tool_result = pdf_file_tool.invoke({"data": {"query": message}})
