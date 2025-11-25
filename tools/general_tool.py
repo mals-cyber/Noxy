@@ -23,19 +23,15 @@ def is_pure_greeting(query: str) -> bool:
 
 @tool("general_filter_tool")
 def general_filter_tool(data: dict) -> str:
-    """
-    Detects greetings or vague requests and returns a label.
-    The LLM will produce the natural response.
-    """
+    """Detect vague messages and allow the LLM to handle identity/greetings normally."""
+    
     query = data.get("query", "").lower()
 
     if any(n in query for n in NAME_QUESTIONS):
         return None
 
-    if is_pure_greeting(query):
-        return "greeting"
-
     if any(v in query for v in VAGUE):
         return "vague"
 
     return None
+

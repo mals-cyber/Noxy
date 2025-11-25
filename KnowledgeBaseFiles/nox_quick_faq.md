@@ -212,17 +212,11 @@ A: Check with HR. Some offices have first aid stations or arrangements with near
 
 ## CONTACTS & HELP
 
-**Q: How do I contact HR?**
-A: Use the NOX HR Consultation feature, email HR directly (address provided during onboarding), or visit the HR office.
-
 **Q: How do I contact IT support?**
 A: IT support contact details will be provided during IT setup. Usually via email or internal ticketing system.
 
 **Q: Who do I talk to if I have concerns?**
-A: First, your onboarding buddy or supervisor. For sensitive matters, contact HR directly.
-
-**Q: Can I call the office?**
-A: Yes, main office numbers are: [Provided during onboarding]. Use these for necessary calls only.
+A: First, your supervisor. For sensitive matters, contact HR directly.
 
 ---
 
@@ -282,8 +276,7 @@ A: Submit changes through HR with supporting documents (e.g., marriage certifica
 
 ## QUICK CONTACT REFERENCE
 
-**For general questions:** Ask Noxy in NOX system
-**For HR matters:** NOX HR Consultation or HR Department
+**For HR matters:** HR Department
 **For IT issues:** IT Support (contact provided during onboarding)
 **For emergencies:** Supervisor, HR, or 911
 **For payroll questions:** HR or Finance Department

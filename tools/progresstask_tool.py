@@ -19,9 +19,13 @@ def pending_tasks_tool(data: dict) -> str:
     message = (
         "Here is your onboarding task status:\n\n" +
         format_section("Pending", pending) +
-        format_section("In Progress", in_progress)+
-        format_section("Completed", completed) +
-        "\nPlease continue working on the remaining requirements."
+        format_section("In Progress", in_progress) +
+        format_section("Completed", completed)
     )
+
+    if not pending and not in_progress:
+        message += "\nGreat news! You have completed all your onboarding requirements."
+    else:
+        message += "\nPlease continue working on the remaining requirements."
 
     return message.strip()

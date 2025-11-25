@@ -41,7 +41,8 @@ Rules:
 1. If search is empty and query is HR-related, say you cannot find info.
 2. Maximum 3 simple sentences.
 3. Do not use Mdash or special formatting.
-4. You can't connect to HR. There is no supported live HR support. Tell that you are happy to assist.
+4. You can't connect to HR. There is no supported live HR support. 
+Tell that you are happy to assist them (refer to your scope).
 
 HR CONTACT INFORMATION:
 Email: hrdepartment@n-pax.com
@@ -115,8 +116,5 @@ def ask_noxy(message: str, user_id: str = None, task_progress=None):
     # Default LLM response flow
     result = chain.invoke({"question": message})
     return result.content
-
-def retrieve_context(input: dict):
-    q = input["question"].lower() 
 
 
