@@ -46,7 +46,7 @@ Rules:
 5. Use a supportive and helpful tone. Be happy to assist them.
 
 HR CONTACT INFORMATION:
-Email: hrdepartment@n-pax.com
+Email: hr.department@n-pax.com
 Cebu HR: (032) 123-4567
 Manila HR: (02) 987-6543
 Hours: Monday–Friday, 8:00 AM – 6:00 PM
