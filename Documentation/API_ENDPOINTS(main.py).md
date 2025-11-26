@@ -7,6 +7,7 @@ The `main.py` file implements the FastAPI REST API for the Noxy HR onboarding ch
 ---
 
 ## Application Setup
+**Quick Reference:** See [README.md](../README.md) for setup instructions and project overview.
 
 ### FastAPI Initialization
 
@@ -829,3 +830,8 @@ print(response.json())
 response = requests.get(f"{BASE_URL}/history/john.doe")
 print(response.json())
 ```
+---
+
+## License
+
+This project is part of the NPAX platform. See LICENSE for details.
