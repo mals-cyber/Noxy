@@ -1,384 +1,416 @@
-# Noxy Chatbot API - Endpoint Documentation
+# Noxy API Documentation(main.py)
 
 ## Overview
 
-**Project:** Noxy Chatbot API
-**Framework:** FastAPI (Python)
-**Server:** Uvicorn ASGI Server
-**Base URL:** `http://127.0.0.1:8000`
-**Auto-Generated Docs:**
-- Swagger UI: `http://localhost:8000/docs`
-- ReDoc: `http://localhost:8000/redoc`
-
-**Quick Reference:** See [README.md](../README.md) for setup instructions and project overview.
+The `main.py` file implements the FastAPI REST API for the Noxy HR onboarding chatbot. It provides endpoints for chat interactions, conversation history, user task progress, and vector database document management.
 
 ---
 
-## Table of Contents
+## Application Setup
 
-1. [Health Check](#1-health-check)
-2. [Chat Message](#2-chat-message)
-3. [Get Conversation History](#3-get-conversation-history)
-4. [Upload Document](#4-upload-document)
-5. [Delete Document](#5-delete-document)
-6. [Update Document](#6-update-document)
+### FastAPI Initialization
 
----
-
-## 1. Health Check
-
-### Endpoint Details
-
-| Property | Value |
-|----------|-------|
-| **HTTP Method** | `GET` |
-| **Path** | `/` |
-| **Purpose** | Verify API is running and responsive |
-| **Authentication** | None required |
-
-### Request
-
-```bash
-curl http://127.0.0.1:8000/
+```python
+app = FastAPI(title="Chatbot API")
 ```
 
-### Response
+### CORS Configuration
 
-**Status Code:** `200 OK`
+```python
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://localhost:5173",
+        "http://127.0.0.1:3000",
+        "http://127.0.0.1:5173",
+        "http://localhost:5164",
+        "http://127.0.0.1:5164",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+```
 
+**Purpose:** Enables cross-origin requests from development servers (Vite, React, ASP.NET)
+
+**Allowed Origins:**
+- Port 3000 - React/Node.js dev server
+- Port 5173 - Vite dev server
+- Port 5164 - ASP.NET backend
+
+---
+
+## Data Models
+
+### ChatRequest
+
+```python
+class ChatRequest(BaseModel):
+    username: str = None
+    userId: str = None
+    message: str
+```
+
+**Fields:**
+- `username` (optional): User's username
+- `userId` (optional): User's unique identifier
+- `message` (required): User's chat message
+
+**Validation:** At least one of `username` or `userId` must be provided
+
+**Example:**
+```json
+{
+  "userId": "user-123",
+  "message": "What are the office hours?"
+}
+```
+
+---
+
+### UploadDocumentRequest
+
+```python
+class UploadDocumentRequest(BaseModel):
+    url: str
+```
+
+**Fields:**
+- `url` (required): Public URL to JSON, PDF, or Markdown file
+
+**Example:**
+```json
+{
+  "url": "https://example.blob.core.windows.net/container/document.json"
+}
+```
+
+---
+
+### DeleteDocumentRequest
+
+```python
+class DeleteDocumentRequest(BaseModel):
+    url: str
+```
+
+**Fields:**
+- `url` (required): Original URL of document to delete
+
+**Example:**
+```json
+{
+  "url": "https://example.blob.core.windows.net/container/document.json"
+}
+```
+
+---
+
+### UpdateDocumentRequest
+
+```python
+class UpdateDocumentRequest(BaseModel):
+    old_url: str
+    new_url: str
+```
+
+**Fields:**
+- `old_url` (required): URL of document to replace
+- `new_url` (required): URL of new document version
+
+**Example:**
+```json
+{
+  "old_url": "https://example.blob.core.windows.net/container/old_document.json",
+  "new_url": "https://example.blob.core.windows.net/container/new_document.json"
+}
+```
+
+---
+
+## Database Dependency
+
+### get_db()
+
+```python
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+```
+
+**Purpose:** Provides database session management with automatic cleanup
+
+**Usage Pattern:**
+```python
+@app.post("/endpoint")
+def endpoint(db: Session = Depends(get_db)):
+    # Use db session
+    pass
+    # Session automatically closed after request
+```
+
+---
+
+## API Endpoints
+
+### 1. Health Check
+
+**Route:** `GET /`
+
+**Description:** Verifies API is running
+
+**Response:**
 ```json
 {
   "message": "Noxy API is running"
 }
 ```
 
-### Use Case
-Simple health check to ensure the API server is operational.
+**Status Code:** 200 OK
+
+**Example cURL:**
+```bash
+curl http://localhost:8000/
+```
 
 ---
 
-## 2. Chat Message
+### 2. Chat Endpoint
 
-### Endpoint Details
+**Route:** `POST /chat`
 
-| Property | Value |
-|----------|-------|
-| **HTTP Method** | `POST` |
-| **Path** | `/chat` |
-| **Purpose** | Send a message to Noxy and receive an AI-powered response |
-| **Content-Type** | `application/json` |
-| **Authentication** | None required (server-side Azure OpenAI auth) |
+**Description:** Main conversation endpoint that processes user messages and returns AI-generated responses
 
-### Request
-
-**Schema:**
+**Request Body:**
 ```json
 {
-  "username": "string (optional)",
-  "userId": "string (optional)",
-  "message": "string (required)"
+  "username": "john.doe",
+  "userId": "user-123",
+  "message": "What documents do I need for onboarding?"
 }
 ```
-
-**Example with Username:**
-```bash
-curl -X POST http://127.0.0.1:8000/chat \
-  -H "Content-Type: application/json" \
-  -d '{
-    "username": "john_doe",
-    "message": "How do I submit a PTO request?"
-  }'
-```
-
-**Example with User ID:**
-```bash
-curl -X POST http://127.0.0.1:8000/chat \
-  -H "Content-Type: application/json" \
-  -d '{
-    "userId": "12345",
-    "message": "How do I submit a PTO request?"
-  }'
-```
-
-### Request Parameters
-
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `username` | string | Optional* | Username of the person chatting. Looked up first if userId not provided. |
-| `userId` | string | Optional* | User ID of the person chatting. Looked up first before username. |
-| `message` | string | Yes | The message to send to Noxy chatbot |
-
-*At least one of `username` or `userId` must be provided. If both are provided, `userId` takes precedence.
-
-### Response
-
-**Status Code:** `200 OK`
-
-**Schema:**
-```json
-{
-  "User": "string",
-  "Noxy": "string"
-}
-```
-
-**Example:**
-```json
-{
-  "User": "How do I submit a PTO request?",
-  "Noxy": "You can submit PTO requests through our HR portal or by contacting the HR department directly. Here's a helpful guide: http://127.0.0.1:8000/download-pdf?filename=PTO_Policy.pdf"
-}
-```
-
-### Processing Logic
-
-The `/chat` endpoint performs the following operations:
-
-1. **User Management**
-   - Looks up user by username
-   - Creates new user if not found
-   - Records username in database
-
-2. **Conversation Management**
-   - Retrieves most recent conversation for user
-   - Creates new conversation if user has none
-
-3. **Chat History**
-   - Fetches all previous messages in current conversation
-   - Uses history to provide context for AI responses
-
-4. **Knowledge Base Search**
-   - Performs vector search in ChromaDB using user's message keywords
-   - Retrieves top 3 most relevant knowledge base items
-   - Appends results to system prompt
-
-5. **PDF Matching**
-   - Searches MockData folder for PDFs matching user keywords
-   - Generates download link if PDF is found
-   - Adds download link to response context
-
-6. **AI Response Generation**
-   - Constructs system prompt with:
-     - Bot identity: "Noxy"
-     - Role: "AI chatbot designed to assist new employees with onboarding"
-     - Tone: "friendly, professional manner"
-     - Max length: "two sentences"
-     - Knowledge base context
-     - PDF download link (if available)
-   - Sends conversation to Azure OpenAI API
-   - Receives AI-generated response
-
-7. **Data Persistence**
-   - Saves user message to ChatMessages table
-   - Saves Noxy response to ChatMessages table
-   - Records message timestamp
-
-### System Prompt Template
-
-```
-UserId: {user_id}. Your name is Noxy, an AI chatbot designed to assist
-new employees with onboarding. Guide the user in a friendly, professional manner.
-Answer in maximum two sentences. Never say you lack information, never mention
-a database, and never say 'I don't know'. Always give useful guidance even if
-you don't have exact details.
-```
-
-### Database Effects
-
-| Table | Operation | Details |
-|-------|-----------|---------|
-| `Users` | INSERT or SELECT | Creates user if new, retrieves existing user |
-| `Conversations` | INSERT or SELECT | Creates conversation if user has none, retrieves latest |
-| `ChatMessages` | INSERT x2 | Saves user message and Noxy response with timestamps |
-
-### Dependencies
-
-- **Database Session** - Injected via FastAPI dependency `get_db()`
-- **Azure OpenAI API** - Configured via `config.py` environment variables
-- **ChromaDB Vector Store** - Loaded on application startup
-- **Knowledge Base JSON** - Loaded on application startup
-- **MockData PDFs** - Must exist in `./MockData` folder
-
-### Error Handling
-
-Currently returns 200 OK for successful requests. Errors would be caught by FastAPI's exception handlers.
-
----
-
-## 3. Get Conversation History
-
-### Endpoint Details
-
-| Property | Value |
-|----------|-------|
-| **HTTP Method** | `GET` |
-| **Path** | `/history/{username}` |
-| **Purpose** | Retrieve full chat history for a user's current conversation |
-| **Authentication** | None required |
-
-### Request
-
-**Path Parameters:**
-
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `username` | string | Yes | Username to retrieve history for |
-
-**Example:**
-```bash
-curl http://127.0.0.1:8000/history/john_doe
-```
-
-### Response - User Found
-
-**Status Code:** `200 OK`
-
-**Schema:**
-```json
-{
-  "username": "string",
-  "history": [
-    {
-      "sender": "string (User or Noxy)",
-      "message": "string"
-    }
-  ]
-}
-```
-
-**Example:**
-```json
-{
-  "username": "john_doe",
-  "history": [
-    {
-      "sender": "User",
-      "message": "How do I submit a PTO request?"
-    },
-    {
-      "sender": "Noxy",
-      "message": "You can submit PTO requests through our HR portal or by contacting HR directly."
-    },
-    {
-      "sender": "User",
-      "message": "What is the approval timeline?"
-    },
-    {
-      "sender": "Noxy",
-      "message": "Typically requests are approved within 2-3 business days. Contact HR if you need expedited approval."
-    }
-  ]
-}
-```
-
-### Response - User Not Found
-
-**Status Code:** `200 OK`
 
 **Response:**
+```json
+{
+  "User": "What documents do I need for onboarding?",
+  "Noxy": "For onboarding, you'll need a valid government ID, proof of address, and your TIN number."
+}
+```
+
+**Status Codes:**
+- `200 OK` - Successful response
+- `422 Unprocessable Entity` - Invalid request body
+
+**Error Response:**
 ```json
 {
   "error": "User not found"
 }
 ```
 
-### Response - User Found But No Conversation
+#### Process Flow
 
-**Status Code:** `200 OK`
+1. **User Lookup**
+   - Searches by `userId` first (if provided)
+   - Falls back to `username` search
+   - Returns error if user not found
+
+2. **Conversation Management**
+   - Retrieves most recent conversation for user
+   - Creates new conversation if none exists
+   - Links conversation to user via `UserId`
+
+3. **Chat History Retrieval**
+   - Fetches all messages from current conversation
+   - Builds conversation history array
+   - Formats as role-content pairs (user/assistant)
+
+4. **Message Storage**
+   - Saves user's message to database
+   - Marks sender as "User"
+   - Links to current conversation
+
+5. **Task Progress Fetch**
+   - Retrieves user's onboarding task status
+   - Passes to AI agent for context-aware responses
+
+6. **AI Response Generation**
+   - Calls `ask_noxy()` with message, user_id, and task_progress
+   - Agent processes query and generates response
+
+7. **Bot Message Storage**
+   - Saves Noxy's response to database
+   - Marks sender as "Noxy"
+   - Links to current conversation
+
+8. **Response Return**
+   - Returns both user message and bot response
+
+**Example cURL:**
+```bash
+curl -X POST http://localhost:8000/chat \
+  -H "Content-Type: application/json" \
+  -d '{
+    "userId": "user-123",
+    "message": "What are the office hours?"
+  }'
+```
+
+---
+
+### 3. Get Chat History
+
+**Route:** `GET /history/{username}`
+
+**Description:** Retrieves complete conversation history for a user
+
+**Path Parameters:**
+- `username` (required): User's username
 
 **Response:**
 ```json
 {
+  "username": "john.doe",
+  "history": [
+    {
+      "sender": "User",
+      "message": "Hello"
+    },
+    {
+      "sender": "Noxy",
+      "message": "Hi! How can I help you with your onboarding today?"
+    },
+    {
+      "sender": "User",
+      "message": "What documents do I need?"
+    },
+    {
+      "sender": "Noxy",
+      "message": "You'll need a valid government ID, proof of address, and your TIN number."
+    }
+  ]
+}
+```
+
+**Empty History Response:**
+```json
+{
+  "username": "john.doe",
   "history": []
 }
 ```
 
-### Processing Logic
+**Error Response:**
+```json
+{
+  "error": "User not found"
+}
+```
 
-1. **User Lookup**
-   - Searches Users table for matching username
-   - Returns error if user not found
+**Status Codes:**
+- `200 OK` - Success (even if history is empty)
+- `422 Unprocessable Entity` - Invalid username format
 
-2. **Conversation Retrieval**
-   - Gets the most recent conversation for the user
-   - Returns empty history if user has no conversations
-
-3. **Message Retrieval**
-   - Fetches all ChatMessages in the conversation
-   - Preserves chronological order
-   - Includes message sender and content
-
-### Dependencies
-
-- **Database Session** - Injected via FastAPI dependency `get_db()`
+**Example cURL:**
+```bash
+curl http://localhost:8000/history/john.doe
+```
 
 ---
 
-## 4. Upload Document
+### 4. Get User Task Progress
 
-### Endpoint Details
+**Route:** `GET /user-task-progress/{user_id}`
 
-| Property | Value |
-|----------|-------|
-| **HTTP Method** | `POST` |
-| **Path** | `/upload-document` |
-| **Purpose** | Upload and inject a JSON, PDF, or Markdown document into the vector database |
-| **Content-Type** | `application/json` |
-| **Authentication** | None required |
+**Description:** Retrieves onboarding task progress for a specific user
 
-### Request
-
-**Schema:**
-```json
-{
-  "url": "string (required)"
-}
-```
-
-**Example:**
-```bash
-curl -X POST http://127.0.0.1:8000/upload-document \
-  -H "Content-Type: application/json" \
-  -d '{
-    "url": "https://example.blob.core.windows.net/container/faq.json"
-  }'
-```
-
-### Request Parameters
-
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `url` | string | Yes | Public URL to a JSON, PDF, or Markdown document. Supports Azure Blob Storage URLs or any public file URL. |
-
-### Response - Success
-
-**Status Code:** `200 OK`
-
-**Schema:**
-```json
-{
-  "success": true,
-  "documents_added": integer,
-  "file_type": "string (json|pdf|md)",
-  "message": "string"
-}
-```
-
-**Example:**
-```json
-{
-  "success": true,
-  "documents_added": 12,
-  "file_type": "json",
-  "message": "Successfully injected 12 chunks from JSON file"
-}
-```
-
-### Response - Validation Error
-
-**Status Code:** `200 OK`
+**Path Parameters:**
+- `user_id` (required): User's unique identifier
 
 **Response:**
+```json
+[
+  {
+    "taskId": 1,
+    "taskTitle": "Submit ID Documents",
+    "taskDescription": "Upload a valid government-issued ID (passport, driver's license, or national ID)",
+    "status": "Pending",
+    "updatedAt": "2025-11-26T10:30:00"
+  },
+  {
+    "taskId": 2,
+    "taskTitle": "Complete Tax Forms",
+    "taskDescription": "Fill out and submit BIR Form 2316 and W-4",
+    "status": "In Progress",
+    "updatedAt": "2025-11-26T11:15:00"
+  },
+  {
+    "taskId": 3,
+    "taskTitle": "Company Orientation",
+    "taskDescription": "Attend the new hire orientation session",
+    "status": "Completed",
+    "updatedAt": "2025-11-25T14:20:00"
+  }
+]
+```
+
+**Empty Response:**
+```json
+[]
+```
+
+**Task Status Values:**
+- `Pending` - Not yet started
+- `In Progress` - Currently being worked on
+- `Completed` - Finished
+
+**Example cURL:**
+```bash
+curl http://localhost:8000/user-task-progress/user-123
+```
+
+---
+
+### 5. Upload Document
+
+**Route:** `POST /upload-document`
+
+**Description:** Uploads a document to the vector database for semantic search. Accepts public URLs pointing to JSON, PDF, or Markdown files.
+
+**Request Body:**
+```json
+{
+  "url": "https://example.blob.core.windows.net/container/hr-policies.pdf"
+}
+```
+
+**Supported File Types:**
+
+| Extension | Description | Processing Method |
+|-----------|-------------|-------------------|
+| `.json` | Structured Q&A format | Parsed as JSON |
+| `.pdf` | PDF documents | Text extracted via PyMuPDF |
+| `.md` | Markdown files | Split by headers with bullet expansion |
+
+**Success Response:**
+```json
+{
+  "success": true,
+  "documents_added": 24,
+  "file_type": "pdf",
+  "message": "Successfully injected 24 chunks from PDF file"
+}
+```
+
+**Error Responses:**
+
+Invalid URL:
 ```json
 {
   "success": false,
@@ -388,127 +420,82 @@ curl -X POST http://127.0.0.1:8000/upload-document \
 }
 ```
 
-### Response - Download/Processing Error
-
-**Status Code:** `200 OK`
-
-**Response:**
+Download Error:
 ```json
 {
   "success": false,
   "documents_added": 0,
   "file_type": null,
-  "message": "Unexpected error: {error details}"
+  "message": "Failed to download file from URL"
 }
 ```
 
-### Supported File Types
-
-| Type | Extension | Description |
-|------|-----------|-------------|
-| JSON | `.json` | Structured Q&A format with predefined schema |
-| PDF | `.pdf` | PDF documents (text extracted via PyMuPDF) |
-| Markdown | `.md` | Markdown documentation (split by headers with bullet point expansion) |
-
-### Processing Logic
-
-1. **URL Validation**
-   - Validates that URL is a non-empty string
-   - Accepts Azure Blob Storage URLs and any public HTTP/HTTPS URLs
-
-2. **File Download**
-   - Downloads file from provided URL
-   - Extracts file type from URL extension
-
-3. **Document Parsing**
-   - For JSON: Loads structured Q&A data
-   - For PDF: Extracts text using PyMuPDF (fitz)
-   - For Markdown: Parses headers and bullet points
-
-4. **Chunking**
-   - Splits documents into chunks for semantic search
-   - Chunks are sized appropriately for embedding
-
-5. **Vector Embedding**
-   - Generates embeddings using ChromaDB's embedding function
-   - Stores chunks in ChromaDB with document URL as metadata
-
-6. **Database Storage**
-   - Stores document URL and chunk metadata
-   - Enables later deletion/update by original URL
-
-### Dependencies
-
-- **ChromaDB Vector Store** - Stores and manages document chunks
-- **File Download** - HTTP/HTTPS URL access required
-- **PyMuPDF (fitz)** - For PDF text extraction
-- **Embedding Model** - sentence-transformers/all-MiniLM-L6-v2
-
----
-
-## 5. Delete Document
-
-### Endpoint Details
-
-| Property | Value |
-|----------|-------|
-| **HTTP Method** | `POST` |
-| **Path** | `/delete-document` |
-| **Purpose** | Delete a document from the vector database by its original URL |
-| **Content-Type** | `application/json` |
-| **Authentication** | None required |
-
-### Request
-
-**Schema:**
+Processing Error:
 ```json
 {
-  "url": "string (required)"
+  "success": false,
+  "documents_added": 0,
+  "file_type": null,
+  "message": "Error processing PDF: Invalid file format"
 }
 ```
 
-**Example:**
+**Status Codes:**
+- `200 OK` - Request processed (check `success` field)
+
+**Process Flow:**
+1. Validates URL format and type
+2. Downloads file from provided URL
+3. Processes file based on extension
+4. Chunks content for vector storage
+5. Injects chunks into ChromaDB
+6. Returns statistics
+
+**Example cURL:**
 ```bash
-curl -X POST http://127.0.0.1:8000/delete-document \
+curl -X POST http://localhost:8000/upload-document \
   -H "Content-Type: application/json" \
   -d '{
-    "url": "https://example.blob.core.windows.net/container/faq.json"
+    "url": "https://storage.blob.core.windows.net/docs/handbook.pdf"
   }'
 ```
 
-### Request Parameters
+---
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `url` | string | Yes | The original URL of the document to delete (must match URL used during upload) |
+### 6. Delete Document
 
-### Response - Success
+**Route:** `POST /delete-document`
 
-**Status Code:** `200 OK`
+**Description:** Removes all chunks of a document from the vector database using its original upload URL
 
-**Schema:**
+**Request Body:**
 ```json
 {
-  "success": true,
-  "documents_deleted": integer,
-  "message": "string"
+  "url": "https://example.blob.core.windows.net/container/old-policy.json"
 }
 ```
 
-**Example:**
+**Success Response:**
 ```json
 {
   "success": true,
-  "documents_deleted": 12,
-  "message": "Successfully deleted 12 chunks from vector database"
+  "documents_deleted": 18,
+  "message": "Successfully deleted 18 chunks from vector database"
 }
 ```
 
-### Response - Validation Error
+**Error Responses:**
 
-**Status Code:** `200 OK`
+Document Not Found:
+```json
+{
+  "success": false,
+  "documents_deleted": 0,
+  "message": "No documents found with the specified URL"
+}
+```
 
-**Response:**
+Invalid URL:
 ```json
 {
   "success": false,
@@ -517,125 +504,75 @@ curl -X POST http://127.0.0.1:8000/delete-document \
 }
 ```
 
-### Response - Document Not Found
+**Status Codes:**
+- `200 OK` - Request processed (check `success` field)
 
-**Status Code:** `200 OK`
+**Important Notes:**
+- URL must exactly match the original upload URL
+- Deletion is permanent and cannot be undone
+- All chunks associated with the URL are removed
 
-**Response:**
-```json
-{
-  "success": false,
-  "documents_deleted": 0,
-  "message": "Document at old_url not found: {error details}"
-}
-```
-
-### Response - Unexpected Error
-
-**Status Code:** `200 OK`
-
-**Response:**
-```json
-{
-  "success": false,
-  "documents_deleted": 0,
-  "message": "Unexpected error: {error details}"
-}
-```
-
-### Processing Logic
-
-1. **URL Validation**
-   - Validates that URL is a non-empty string
-
-2. **Document Lookup**
-   - Searches ChromaDB for all chunks matching the provided URL
-   - Uses document URL stored in chunk metadata
-
-3. **Deletion**
-   - Removes all matching chunks from vector database
-   - Returns count of deleted chunks
-
-4. **Return Results**
-   - Reports success/failure and number of chunks deleted
-
-### Dependencies
-
-- **ChromaDB Vector Store** - Queries and deletes document chunks
-- **Document URL Metadata** - Uses metadata to locate documents
-
----
-
-## 6. Update Document
-
-### Endpoint Details
-
-| Property | Value |
-|----------|-------|
-| **HTTP Method** | `POST` |
-| **Path** | `/update-document` |
-| **Purpose** | Update a document in the vector database by replacing old version with new one |
-| **Content-Type** | `application/json` |
-| **Authentication** | None required |
-
-### Request
-
-**Schema:**
-```json
-{
-  "old_url": "string (required)",
-  "new_url": "string (required)"
-}
-```
-
-**Example:**
+**Example cURL:**
 ```bash
-curl -X POST http://127.0.0.1:8000/update-document \
+curl -X POST http://localhost:8000/delete-document \
   -H "Content-Type: application/json" \
   -d '{
-    "old_url": "https://example.blob.core.windows.net/container/old.json",
-    "new_url": "https://example.blob.core.windows.net/container/new.json"
+    "url": "https://storage.blob.core.windows.net/docs/outdated.pdf"
   }'
 ```
 
-### Request Parameters
+---
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `old_url` | string | Yes | The original URL of the document to be replaced |
-| `new_url` | string | Yes | The URL of the new document to inject |
+### 7. Update Document
 
-### Response - Success
+**Route:** `POST /update-document`
 
-**Status Code:** `200 OK`
+**Description:** Replaces an existing document with a new version in a single atomic operation
 
-**Schema:**
+**Request Body:**
 ```json
 {
-  "success": true,
-  "documents_deleted": integer,
-  "documents_added": integer,
-  "file_type": "string (json|pdf|md)",
-  "message": "string"
+  "old_url": "https://example.blob.core.windows.net/container/policy-v1.pdf",
+  "new_url": "https://example.blob.core.windows.net/container/policy-v2.pdf"
 }
 ```
 
-**Example:**
+**Success Response:**
 ```json
 {
   "success": true,
-  "documents_deleted": 12,
-  "documents_added": 15,
-  "file_type": "json",
-  "message": "Successfully updated document: deleted 12 chunks, added 15 chunks"
+  "documents_deleted": 15,
+  "documents_added": 18,
+  "file_type": "pdf",
+  "message": "Successfully updated document: deleted 15 chunks, added 18 chunks"
 }
 ```
 
-### Response - Validation Error
+**Error Responses:**
 
-**Status Code:** `200 OK`
+Old Document Not Found:
+```json
+{
+  "success": false,
+  "documents_deleted": 0,
+  "documents_added": 0,
+  "file_type": null,
+  "message": "Document at old_url not found: No documents with specified URL"
+}
+```
 
-**Response:**
+Partial Success (Deletion OK, Injection Failed):
+```json
+{
+  "success": false,
+  "documents_deleted": 15,
+  "documents_added": 0,
+  "file_type": null,
+  "message": "Deletion succeeded (15 chunks removed) but injection failed: File download error"
+}
+```
+
+Invalid URLs:
 ```json
 {
   "success": false,
@@ -646,328 +583,249 @@ curl -X POST http://127.0.0.1:8000/update-document \
 }
 ```
 
-### Response - Old Document Not Found
+**Status Codes:**
+- `200 OK` - Request processed (check `success` field)
 
-**Status Code:** `200 OK`
-
-**Response:**
-```json
-{
-  "success": false,
-  "documents_deleted": 0,
-  "documents_added": 0,
-  "file_type": null,
-  "message": "Document at old_url not found: {error details}"
-}
-```
-
-### Response - Partial Failure (Deletion Succeeded, Injection Failed)
-
-**Status Code:** `200 OK`
-
-**Response:**
-```json
-{
-  "success": false,
-  "documents_deleted": 12,
-  "documents_added": 0,
-  "file_type": null,
-  "message": "Deletion succeeded (12 chunks removed) but injection failed: File download error"
-}
-```
-
-### Response - Unexpected Error
-
-**Status Code:** `200 OK`
-
-**Response:**
-```json
-{
-  "success": false,
-  "documents_deleted": 0,
-  "documents_added": 0,
-  "file_type": null,
-  "message": "Unexpected error during update: {error details}"
-}
-```
-
-### Processing Logic
-
-This endpoint performs a two-phase atomic operation:
+**Process Flow:**
 
 **Phase 1: Deletion**
-1. Validates both URLs are non-empty strings
-2. Searches ChromaDB for chunks matching old_url
-3. Deletes all matching chunks
-4. If not found, returns error without attempting injection
+1. Validates `old_url` format
+2. Searches vector database for matching documents
+3. Deletes all chunks with matching URL
+4. Returns error if URL not found
 
 **Phase 2: Injection**
-1. Downloads file from new_url
-2. Parses and chunks the new document
-3. Generates embeddings
-4. Stores chunks in ChromaDB with new_url as metadata
+1. Validates `new_url` format
+2. Downloads file from `new_url`
+3. Processes and chunks new content
+4. Injects into vector database
+5. Returns combined statistics
 
-**Error Handling:**
-- If deletion fails: Operation aborted, returns error
-- If injection fails after successful deletion: Returns partial success with deletion count and error message
-- This allows clients to know exactly what happened and potentially retry the injection
+**Important Notes:**
+- If deletion fails, injection is not attempted
+- If deletion succeeds but injection fails, returns partial success
+- Original document is removed even if new injection fails
+- Supports cross-format updates (e.g., JSON to PDF)
 
-### Supported File Types for New Document
-
-| Type | Extension | Description |
-|------|-----------|-------------|
-| JSON | `.json` | Structured Q&A format with predefined schema |
-| PDF | `.pdf` | PDF documents (text extracted via PyMuPDF) |
-| Markdown | `.md` | Markdown documentation (split by headers with bullet point expansion) |
-
-### Dependencies
-
-- **ChromaDB Vector Store** - Deletes old chunks and stores new chunks
-- **File Download** - HTTP/HTTPS URL access required for new_url
-- **PyMuPDF (fitz)** - For PDF text extraction
-- **Embedding Model** - sentence-transformers/all-MiniLM-L6-v2
-
----
-
-## Database Schema
-
-### Users Table
-```sql
-CREATE TABLE Users (
-  UserId INTEGER PRIMARY KEY AUTO_INCREMENT,
-  Username VARCHAR(100) NULLABLE,
-  CreatedAt DATETIME DEFAULT GETUTCDATE()
-)
-```
-
-### Conversations Table
-```sql
-CREATE TABLE Conversations (
-  ConvoId INTEGER PRIMARY KEY AUTO_INCREMENT,
-  UserId INTEGER FOREIGN KEY REFERENCES Users(UserId),
-  StartedAt DATETIME DEFAULT GETUTCDATE()
-)
-```
-
-### ChatMessages Table
-```sql
-CREATE TABLE ChatMessages (
-  MessageId INTEGER PRIMARY KEY AUTO_INCREMENT,
-  ConvoId INTEGER FOREIGN KEY REFERENCES Conversations(ConvoId),
-  Sender VARCHAR(50),
-  Message TEXT,
-  SentAt DATETIME DEFAULT GETUTCDATE()
-)
+**Example cURL:**
+```bash
+curl -X POST http://localhost:8000/update-document \
+  -H "Content-Type: application/json" \
+  -d '{
+    "old_url": "https://storage.blob.core.windows.net/docs/handbook-2024.pdf",
+    "new_url": "https://storage.blob.core.windows.net/docs/handbook-2025.pdf"
+  }'
 ```
 
 ---
 
-## Configuration
+## Helper Functions
 
-### Environment Variables Required
+### get_user_task_progress()
 
+```python
+def get_user_task_progress(user_id: str, db: Session):
+    progress = (
+        db.query(UserOnboardingTaskProgress)
+        .join(OnboardingTask)
+        .filter(UserOnboardingTaskProgress.UserId == user_id)
+        .all()
+    )
+    
+    return [
+        {
+            "taskId": p.TaskId,
+            "taskTitle": p.Task.Title,
+            "taskDescription": p.Task.Description,
+            "status": p.Status,
+            "updatedAt": p.UpdatedAt
+        }
+        for p in progress
+    ]
 ```
-AZURE_OPENAI_API_KEY=<your-api-key>
-AZURE_OPENAI_ENDPOINT=<your-endpoint>
-AZURE_OPENAI_DEPLOYMENT_NAME=<your-deployment-name>
-SQL_SERVER=<sql-server-address>
-SQL_DB=<database-name>
-SQL_USER=<sql-user>
-SQL_PASS=<sql-password>
-```
 
-### Configuration File
-Location: `Services/config.py`
+**Purpose:** Fetches and formats user's onboarding task progress
 
-**Azure OpenAI Settings:**
-- API Version: `2024-02-15-preview`
-- Client Type: `AzureOpenAI`
+**Parameters:**
+- `user_id`: User's unique identifier
+- `db`: Database session
 
-**Database Settings:**
-- Connection String: `mssql+pyodbc://sa:Strong_Password123!@localhost:1433/NoxyChatbotDB`
-- Driver: ODBC Driver 17 for SQL Server
+**Returns:** List of dictionaries containing task progress information
+
+**Used By:**
+- `/chat` endpoint - provides context to AI agent
+- `/user-task-progress/{user_id}` endpoint - direct access
 
 ---
 
-## Vector Database (ChromaDB)
+## Database Models Used
 
-### Purpose
-Semantic search for knowledge base items using natural language queries
+### ApplicationUser
+- Stores user account information
+- Primary Key: `Id`
+- Fields: `UserName`, timestamps
 
-### Embedding Model
-- Provider: HuggingFace
-- Model: `sentence-transformers/all-MiniLM-L6-v2`
-- Storage: `./ChromaDB/` directory
+### Conversation
+- Represents chat sessions
+- Foreign Key: `UserId` (references ApplicationUser)
+- Fields: `ConvoId`, `StartedAt`
 
-### Search Functionality
-- Function: `search_vectors(query)` in `Services/vector_store.py`
-- Returns: Top 3 most relevant knowledge base items
-- Used in: `/chat` endpoint for context enrichment
+### ChatMessage
+- Individual messages in conversations
+- Foreign Key: `ConvoId` (references Conversation)
+- Fields: `MessageId`, `Sender`, `Message`, timestamp
 
-### Knowledge Base Source
-- File: `KnowledgeBase.json`
-- Format: JSON with categorized information
-- Loaded: On application startup
-- Updated: Requires application restart
+### OnboardingTask
+- Predefined onboarding tasks
+- Primary Key: `TaskId`
+- Fields: `Title`, `Description`
+
+### UserOnboardingTaskProgress
+- Tracks user progress on tasks
+- Foreign Keys: `UserId`, `TaskId`
+- Fields: `Status`, `UpdatedAt`
 
 ---
 
-## Security & Authentication Notes
+## Environment Variables
 
-### Current Implementation
-1. **No explicit API authentication** - All endpoints are publicly accessible
-2. **Azure OpenAI credentials** - Stored in environment variables, never exposed to client
-3. **SQL Server credentials** - Stored in environment variables, never exposed to client
-4. **PDF downloads** - No permission checks, any user can download any PDF
-5. **Chat history** - Retrieved by username only, no password required
+Required environment variables (configured in separate files):
 
-### Recommendations for Production
-1. Implement API key authentication for endpoints
-2. Add user authentication/authorization
-3. Implement rate limiting
-4. Add CORS configuration
-5. Use HTTPS instead of HTTP
-6. Implement audit logging
-7. Add request validation for file paths
-8. Consider implementing role-based access control (RBAC)
+```bash
+# Database connection
+SQL_SERVER=localhost,1433
+SQL_DB=NOXDb
+SQL_USER=sa
+SQL_PASS=Chang123!
+
+# Azure Storage Blob Credentials
+AZURE_BLOB_BASE_URL="https://noxstorageacct01.blob.core.windows.net/onboarding-materials"
+AZURE_BLOB_LIST_URL="http://localhost:5164/api/onboarding/materials/blobs"
+AZURE_STORAGE_ACCOUNT_NAME=noxstorageacct01
+
+# Azure OpenAI (used by noxy_agent.py)
+AZURE_OPENAI_API_KEY=E2dCUfo86bsJRVeqmhIfVPQDO4S7tTIXlojE1AaP3YE99BvR2inQJQQJ99BKACYeBjFXJ3w3AAABACOGBJyY
+AZURE_OPENAI_ENDPOINT=https://azoai-fgtrain3.openai.azure.com/
+AZURE_OPENAI_DEPLOYMENT_NAME=gpt-5-mini_FG3
+
+AZURE_EMBEDDING_API_KEY=E2dCUfo86bsJRVeqmhIfVPQDO4S7tTIXlojE1AaP3YE99BvR2inQJQQJ99BKACYeBjFXJ3w3AAABACOGBJyY
+AZURE_EMBEDDING_ENDPOINT=https://azoai-fgtrain3.openai.azure.com/openai/deployments/text-embedding-ada-002-FG03/embeddings?api-version=2023-05-15
+AZURE_EMBEDDING_API_VERSION=2024-02-01
+AZURE_EMBEDDING_DEPLOYMENT=text-embedding-ada-002-FG03
+```
+
+---
+
+## Running the Application
+
+### Development Mode
+
+```bash
+uvicorn main:app --reload
+```
+
+**Options:**
+- `uvicorn main:app --reload` - Auto-restart on code changes
+- `uvicorn main:app --reload --host 0.0.0.0` - Accept connections from any IP
+- `uvicorn main:app --reload --port 8000` - Listen on port 8000
+
+### Production Mode
+
+```bash
+uvicorn main:app --host 0.0.0.0 --port 8000 --workers 4
+```
+
+**Options:**
+- `--workers 4` - Run 4 worker processes
 
 ---
 
 ## Error Handling
 
-| Error Scenario | Current Behavior | HTTP Status |
-|---|---|---|
-| User not found (history) | Returns error object | 200 |
-| File not found (download) | Returns error object | 200 |
-| No conversation history | Returns empty array | 200 |
-| Invalid request body | Would be caught by Pydantic | 422 |
-
-**Note:** All endpoints currently return status 200. Error handling could be improved with appropriate HTTP status codes (404, 400, 500).
-
----
-
-## Related Services
-
-### chatbot_logic.py
-- Location: `Services/chatbot_logic.py`
-- Main Function: `chat_with_azure(user_input, conversation)`
-- Purpose: Orchestrates vector search, PDF matching, and Azure OpenAI API calls
-
-### vector_store.py
-- Location: `Services/vector_store.py`
-- Main Functions:
-  - `setup_vector_db(json_path)` - Initialize ChromaDB
-  - `search_vectors(query)` - Perform semantic search
-
-### kb_loader.py
-- Location: `Services/kb_loader.py`
-- Main Function: `load_knowledge_base(path)`
-- Purpose: Load and flatten KnowledgeBase.json into queryable format
-
-### config.py
-- Location: `Services/config.py`
-- Purpose: Environment variable management and Azure OpenAI client setup
-
-### chatbot_db.py
-- Location: `Data/chatbot_db.py`
-- Purpose: SQLAlchemy database connection and session management
-
----
-
-## Project Structure
-
-```
-Noxy/
-├── Services/
-│   ├── main.py                 # API endpoints (ALL ROUTES)
-│   ├── chatbot_logic.py        # Azure OpenAI integration
-│   ├── vector_store.py         # ChromaDB search
-│   ├── kb_loader.py            # Knowledge base loading
-│   ├── config.py               # Configuration
-│   └── __init__.py
-├── Models/
-│   └── dataModels.py           # SQLAlchemy ORM models
-├── Data/
-│   └── chatbot_db.py           # Database connection
-├── Documentation/
-│   └── API_ENDPOINTS.md        # This file
-├── ChromaDB/                   # Vector database storage
-├── MockData/                   # PDF files for download
-├── KnowledgeBase.json          # Knowledge base source
-├── requirements.txt            # Python dependencies
-├── .env                        # Configuration (not in repo)
-└── README.md                   # Project overview
+### User Not Found
+```json
+{
+  "error": "User not found"
+}
 ```
 
+Occurs when provided username or userId doesn't exist in database.
+
+### Validation Errors
+FastAPI automatically returns 422 status with detailed validation errors:
+```json
+{
+  "detail": [
+    {
+      "loc": ["body", "message"],
+      "msg": "field required",
+      "type": "value_error.missing"
+    }
+  ]
+}
+```
+
+### Vector Database Errors
+Handled within endpoint with descriptive messages:
+- File download failures
+- Unsupported file formats
+- Processing errors
+- Database connection issues
+
 ---
 
-## Quick Start Examples
+## Best Practices
 
-### 1. Check API Health
+1. **Always provide userId** - More reliable than username for user lookup
+2. **Use update-document** - Preferred over delete + upload for document updates
+3. **Validate URLs** - Ensure URLs are accessible before uploading
+4. **Monitor vector DB size** - Large databases may impact search performance
+5. **Handle partial failures** - Check individual operation success in update responses
+6. **Implement retry logic** - For transient failures in document operations
+7. **Clean up old documents** - Regularly delete outdated content
+
+---
+
+## API Testing
+
+### Using cURL
+
 ```bash
-curl http://127.0.0.1:8000/
-```
+# Health check
+curl http://localhost:8000/
 
-### 2. Send Chat Message
-```bash
-curl -X POST http://127.0.0.1:8000/chat \
+# Chat
+curl -X POST http://localhost:8000/chat \
   -H "Content-Type: application/json" \
-  -d '{
-    "username": "jane_smith",
+  -d '{"userId": "user-123", "message": "Hello"}'
+
+# History
+curl http://localhost:8000/history/john.doe
+
+# Task progress
+curl http://localhost:8000/user-task-progress/user-123
+
+# Upload document
+curl -X POST http://localhost:8000/upload-document \
+  -H "Content-Type: application/json" \
+  -d '{"url": "https://example.com/doc.pdf"}'
+```
+
+### Using Python Requests
+
+```python
+import requests
+
+BASE_URL = "http://localhost:8000"
+
+# Chat
+response = requests.post(f"{BASE_URL}/chat", json={
+    "userId": "user-123",
     "message": "What are the office hours?"
-  }'
+})
+print(response.json())
+
+# Get history
+response = requests.get(f"{BASE_URL}/history/john.doe")
+print(response.json())
 ```
-
-### 3. Get Chat History
-```bash
-curl http://127.0.0.1:8000/history/jane_smith
-```
-
-### 4. Upload a Document
-```bash
-curl -X POST http://127.0.0.1:8000/upload-document \
-  -H "Content-Type: application/json" \
-  -d '{
-    "url": "https://example.blob.core.windows.net/container/faq.json"
-  }'
-```
-
-### 5. Delete a Document
-```bash
-curl -X POST http://127.0.0.1:8000/delete-document \
-  -H "Content-Type: application/json" \
-  -d '{
-    "url": "https://example.blob.core.windows.net/container/faq.json"
-  }'
-```
-
-### 6. Update a Document
-```bash
-curl -X POST http://127.0.0.1:8000/update-document \
-  -H "Content-Type: application/json" \
-  -d '{
-    "old_url": "https://example.blob.core.windows.net/container/old.json",
-    "new_url": "https://example.blob.core.windows.net/container/new.json"
-  }'
-```
-
----
-
-## Additional Resources
-
-- **Swagger Interactive Documentation:** `http://localhost:8000/docs`
-- **ReDoc Static Documentation:** `http://localhost:8000/redoc`
-- **FastAPI Official Docs:** https://fastapi.tiangolo.com/
-- **Azure OpenAI Documentation:** https://learn.microsoft.com/en-us/azure/ai-services/openai/
-- **ChromaDB Documentation:** https://docs.trychroma.com/
-
----
-
-**Last Updated:** 2025-11-14
-**Documentation Version:** 2.0
-**Changes:**
-- Added `/upload-document` endpoint documentation (POST)
-- Added `/delete-document` endpoint documentation (POST)
-- Added `/update-document` endpoint documentation (POST)
-- Updated Table of Contents with new endpoints
-- Added curl examples for all new endpoints in Quick Start Examples section
