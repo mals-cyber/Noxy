@@ -1,13 +1,12 @@
 from langchain_openai import AzureChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.runnables import RunnableParallel, RunnablePassthrough
-from langchain_core.messages import HumanMessage, AIMessage, ToolMessage
+from langchain_core.messages import HumanMessage, ToolMessage
 from openai import BadRequestError
-from vector.search import search_vectors
 from Services.config import AZURE_API_KEY, AZURE_ENDPOINT, AZURE_DEPLOYMENT_NAME
 from tools.progresstask_tool import pending_tasks_tool
-from tools.status_taskprogress import PENDING_TASK_PHRASES, fetch_task_status_groups
+from tools.status_taskprogress import fetch_task_status_groups
 from tools.pdf_tool import pdf_file_tool
+from vector.search import search_vectors
 from tools.general_tool import general_filter_tool
 from tools.hr_tool import hr_lookup
 
